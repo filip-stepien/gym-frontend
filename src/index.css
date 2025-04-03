@@ -1,8 +1,22 @@
 /* make antd first layer so it can be overriden by tailwind classes */
 @layer antd, theme, base, components, utilities;
-@import 'tailwindcss';
 
-/* add custom classes */
+/* omit preflight with base styles so it doesn't break antd */
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* override dark variant so `dark:*` utility is applied 
+whenever `dark` class is present earlier in the HTML tree*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* explicitly disable body margin, because default preflight is not used */
+@layer base {
+    body {
+        margin: 0;
+    }
+}
+
+/* custom colors */
 @theme {
     /* antd colors */
     --color-font-primary: rgba(0, 0, 0, 0.85);
@@ -17,4 +31,16 @@
     --color-neutral-4: #f0f0f0;
     --color-neutral-5: #d9d9d9;
     --color-neutral-6: #bfbfbf;
+
+    /* actual theme colors */
+    --color-card: #ffffff;
+}
+
+/* custom utility classes */
+@utility p-layout {
+    padding: 10px;
+}
+
+@utility gap-layout {
+    gap: 20px;
 }
