@@ -1,4 +1,4 @@
-import logoUrl from '../../../assets/logo/logo.png';
+import logoUrl from '/images/logo.png';
 import type { CSSProperties } from 'react';
 
 type LogoProps = {
