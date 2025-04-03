@@ -1,13 +1,14 @@
 import '@ant-design/v5-patch-for-react-19';
-import { StyleProvider } from '@ant-design/cssinjs';
+import 'material-symbols/outlined.css';
 
+import { StyleProvider } from '@ant-design/cssinjs';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { ConfigProvider, theme } from 'antd';
 
 import Debug from './common/components/Debug';
-import ChatLayout from './common/layouts/ChatLayout';
+import Layout from './common/components/Layout';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -15,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
             <StyleProvider layer>
                 <BrowserRouter>
                     <Routes>
-                        <Route element={<ChatLayout />}>
+                        <Route element={<Layout />}>
                             <Route path='/' element={<Debug />} />
                         </Route>
                     </Routes>

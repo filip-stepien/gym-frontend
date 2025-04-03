@@ -14,6 +14,7 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@tailwindcss/vite": "^4.1.2",
     "antd": "^5.24.6",
+    "material-symbols": "^0.29.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.4.1"

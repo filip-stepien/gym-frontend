@@ -44,3 +44,9 @@ whenever `dark` class is present earlier in the HTML tree*/
 @utility gap-layout {
     gap: 20px;
 }
+
+@utility shadow-card {
+    box-shadow:
+        0 4px 6px -1px rgb(0 0 0 / 0.1),
+        0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
