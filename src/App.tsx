@@ -1,14 +1,10 @@
-import { StyleProvider } from '@ant-design/cssinjs';
-import { ConfigProvider, theme } from 'antd';
+import { Router } from './Router';
+import { Provider } from './Provider';
 
-import Router from './components/Router';
-
-export default function App() {
+export function App() {
     return (
-        <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
-            <StyleProvider layer>
-                <Router />
-            </StyleProvider>
-        </ConfigProvider>
+        <Provider>
+            <Router />
+        </Provider>
     );
 }

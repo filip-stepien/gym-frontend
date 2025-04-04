@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 
-import Debug from './Debug';
-import Layout from './Layout';
+import Debug from './components/Debug';
+import Layout from './components/Layout';
 
-export default function Router() {
+export function Router() {
     return (
         <BrowserRouter>
             <Routes>
