@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 
 import { Debug } from './components/Debug';
-import { Layout } from './components/Layout';
+import { AuthenticatedLayout } from './layouts/AuthenticatedLayout';
 
 export function Router() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<Layout />}>
+                <Route element={<AuthenticatedLayout renderChat />}>
                     <Route path='dashboard' element={<Debug />} />
                 </Route>
             </Routes>
