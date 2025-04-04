@@ -1,4 +1,4 @@
-export default function Debug() {
+export function Debug() {
     return (
         <>
             <div>DEBUG</div>

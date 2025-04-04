@@ -1,13 +1,13 @@
 import { Layout as AntLayout } from 'antd';
 import { Outlet } from 'react-router';
 
-import Menu from './Menu';
+import { Menu } from './Menu';
 import { Nav } from './Nav';
-import Chat from './Chat';
+import { Chat } from './Chat';
 
 const { Header, Sider, Content } = AntLayout;
 
-export default function Layout() {
+export function Layout() {
     return (
         <AntLayout className='gap-middle p-small h-screen'>
             <Sider className='bg-card shadow-card'>

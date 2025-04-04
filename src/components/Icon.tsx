@@ -20,7 +20,7 @@ const icons: IconMap = {
     avatar: <UserOutlined />
 };
 
-export default function Icon(props: IconProps) {
+export function Icon(props: IconProps) {
     const iconName = props.icon;
 
     if (!Object.keys(icons).find(key => key === iconName)) {

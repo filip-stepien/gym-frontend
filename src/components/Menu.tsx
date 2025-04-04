@@ -1,8 +1,8 @@
 import { Menu as AntMenu, Flex } from 'antd';
-import Icon from './Icon';
-import Logo from './Logo';
-import type { MenuProps as AntMenuProps } from 'antd';
+import { Icon } from './Icon';
+import { Logo } from './Logo';
 import { useNavigate } from 'react-router';
+import type { MenuProps as AntMenuProps } from 'antd';
 
 type AccountType = 'manager' | 'client' | 'coach' | 'employee';
 type MenuProps = { accountType?: AccountType };
@@ -17,7 +17,7 @@ const menuOptions: MenuOptionsMap = {
     employee: []
 };
 
-export default function Menu(props: MenuProps) {
+export function Menu(props: MenuProps) {
     const navigate = useNavigate();
     const accountType = props.accountType;
 

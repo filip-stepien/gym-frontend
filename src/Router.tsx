@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 
-import Debug from './components/Debug';
-import Layout from './components/Layout';
+import { Debug } from './components/Debug';
+import { Layout } from './components/Layout';
 
 export function Router() {
     return (
