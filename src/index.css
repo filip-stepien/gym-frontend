@@ -45,6 +45,9 @@ whenever `dark` class is present earlier in the HTML tree*/
     --spacing-small: 8px;
     --spacing-middle: 16px;
     --spacing-large: 24px;
+
+    /* theme spacing */
+    --spacing-layout: 16px;
 }
 
 @utility shadow-card {

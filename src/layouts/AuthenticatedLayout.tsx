@@ -13,15 +13,15 @@ const { Header, Sider, Content } = Layout;
 
 export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
     return (
-        <Layout className='gap-middle p-small h-screen'>
+        <Layout className='gap-layout p-small h-screen'>
             <Sider className='bg-card shadow-card'>
                 <Menu accountType='client' />
             </Sider>
-            <Layout className='gap-middle'>
+            <Layout className='gap-layout'>
                 <Header className='flex h-auto flex-col p-0 leading-none'>
                     <Nav />
                 </Header>
-                <Content className='gap-middle flex flex-col'>
+                <Content className='gap-layout flex flex-col'>
                     <Outlet />
                 </Content>
             </Layout>

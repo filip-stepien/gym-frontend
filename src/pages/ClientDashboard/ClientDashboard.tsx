@@ -4,7 +4,8 @@ import { ProgressOverview } from './ProgressOverview';
 
 export function ClientDashboard() {
     return (
-        <Flex className="bg-layout flex-col gap-4">
+        // clean 🔥
+        <Flex className='bg-layout gap-layout flex-col'>
             <ProgressOverview />
             <Membership />
         </Flex>
