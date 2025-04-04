@@ -1,7 +1,7 @@
 import { StyleProvider } from '@ant-design/cssinjs';
 import { ConfigProvider, theme } from 'antd';
 
-import Router from './common/components/Router';
+import Router from './components/Router';
 
 export default function App() {
     return (

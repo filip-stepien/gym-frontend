@@ -3,7 +3,8 @@ import {
     FireOutlined,
     IdcardOutlined,
     ProductOutlined,
-    SettingOutlined
+    SettingOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 import { JSX } from 'react';
 
@@ -15,7 +16,8 @@ const icons: IconMap = {
     progress: <SettingOutlined />,
     sessions: <CarryOutOutlined />,
     membership: <IdcardOutlined />,
-    workout: <FireOutlined />
+    workout: <FireOutlined />,
+    avatar: <UserOutlined />
 };
 
 export default function Icon(props: IconProps) {
