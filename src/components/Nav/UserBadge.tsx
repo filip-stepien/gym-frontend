@@ -5,7 +5,7 @@ const { Title } = Typography;
 
 export function UserBadge() {
     return (
-        <Space align='center' size='middle' className='bg-card pl-middle shadow-card'>
+        <Space align='center' size='middle' className='bg-card pl-middle shadow-card select-none'>
             <Title level={5}>John Pork</Title>
             <Avatar shape='square' size='large' icon={<UserOutlined />} className='rounded-none' />
         </Space>

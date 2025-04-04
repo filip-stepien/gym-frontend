@@ -7,7 +7,7 @@ export function Nav() {
     return (
         <Flex justify='space-between' align='center' className='bg-layout'>
             <BreadCrumb />
-            <Flex gap='middle' className='cursor-pointer select-none'>
+            <Flex gap='middle'>
                 <UserBadge />
                 <LogoutButton />
             </Flex>

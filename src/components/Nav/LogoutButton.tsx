@@ -5,9 +5,11 @@ const { Title } = Typography;
 
 export function LogoutButton() {
     return (
-        <Space className='bg-card p-small px-middle shadow-card'>
+        <Space className='bg-card p-small px-middle shadow-card cursor-pointer'>
             <ArrowRightOutlined />
-            <Title level={5}>Logout</Title>
+            <Title level={5} className='select-none'>
+                Logout
+            </Title>
         </Space>
     );
 }
