@@ -12,7 +12,7 @@ type CardProps = {
  */
 export function Card(props: CardProps) {
     return (
-        <Flex vertical className={`${props.className} p-large gap-middle bg-card shadow-card`}>
+        <Flex vertical className={`${props.className} p-large gap-small bg-card shadow-card`}>
             {props.children}
         </Flex>
     );

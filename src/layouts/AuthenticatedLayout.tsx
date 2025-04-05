@@ -3,7 +3,7 @@ import { Outlet } from 'react-router';
 
 import { Menu } from '../components/Menu';
 import { Nav } from '../components/Nav';
-import { Chat } from '../components/Chat';
+import { Chat } from '../components/Chat/Chat';
 
 type AuthenticatedLayoutProps = {
     renderChat?: boolean;
@@ -26,7 +26,7 @@ export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
                 </Content>
             </Layout>
             {props.renderChat && (
-                <Sider className='bg-card shadow-card'>
+                <Sider className='bg-card shadow-card !min-w-fit'>
                     <Chat />
                 </Sider>
             )}
