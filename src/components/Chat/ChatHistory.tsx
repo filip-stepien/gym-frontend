@@ -73,7 +73,7 @@ export function ChatHistory(props: ChatHistoryProps) {
     ];
 
     return (
-        <Flex vertical className='flex-1 overflow-y-hidden'>
+        <Flex vertical className='flex-1 overflow-hidden'>
             <Tabs defaultActiveKey='1' items={tabItems} className='pb-middle' />
             <Search
                 placeholder={`Find ${props.targetUserType}...`}
