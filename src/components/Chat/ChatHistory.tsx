@@ -47,19 +47,19 @@ const chatUsers: Id<ChatUserProps>[] = [
         newMessageCount: 0
     },
     {
-        id: 'chat-user-6',
+        id: 'chat-user-7',
         fullName: 'John Pork',
         online: false,
         newMessageCount: 0
     },
     {
-        id: 'chat-user-6',
+        id: 'chat-user-8',
         fullName: 'John Pork',
         online: false,
         newMessageCount: 0
     },
     {
-        id: 'chat-user-6',
+        id: 'chat-user-9',
         fullName: 'John Pork',
         online: false,
         newMessageCount: 0
