@@ -1,0 +1,1 @@
+export { TrendStatistic } from './TrendStatistic';
