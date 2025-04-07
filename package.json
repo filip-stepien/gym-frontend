@@ -17,7 +17,8 @@
     "material-symbols": "^0.29.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.4.1"
+    "react-router": "^7.4.1",
+    "react-trend": "^1.2.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
