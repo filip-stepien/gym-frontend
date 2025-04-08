@@ -1,4 +1,4 @@
-import { Button, Flex, Progress, Statistic, Typography, Col, Row, Space } from 'antd';
+import { Button, Flex, Progress, Statistic, Col, Row, Space } from 'antd';
 import { Card } from '../../components/Card';
 import { CardTitle } from '../../components/CardTitle';
 
@@ -31,12 +31,12 @@ export function Membership() {
                             <Statistic title='Last Payment' value='01.01.2025' />
                             <Statistic title='Valid Until' value='20.02.2025' />
                         </div>
-                        <div>
+                        <Space>
                             <Button type='primary' className='bg-blue-500'>
                                 Extend
                             </Button>
                             <Button>Show Details</Button>
-                        </div>
+                        </Space>
                     </Space>
                 </Col>
             </Row>

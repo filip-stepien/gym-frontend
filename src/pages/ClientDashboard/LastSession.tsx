@@ -1,4 +1,4 @@
-import { Statistic, Timeline, Button, Tag, Typography, Flex, Row } from 'antd';
+import { Statistic, Timeline, Button, Tag, Typography, Flex, Row, Space } from 'antd';
 import { useState } from 'react';
 import { Card } from '../../components/Card';
 import { CardTitle } from '../../components/CardTitle';
@@ -54,12 +54,12 @@ export function LastSession() {
                         </Timeline.Item>
                     )}
                 </Timeline>
-                <Flex>
+                <Space>
                     <Button type='primary' className='primary'>
                         + New Session
                     </Button>
                     <Button>Show Details</Button>
-                </Flex>
+                </Space>
             </Flex>
         </Card>
     );
