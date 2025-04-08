@@ -20,11 +20,11 @@ type TrendStyleDetails = {
 
 const trendStyleDetails: TrendStyleDetails = {
     up: {
-        icon: 'trend-up',
+        icon: 'up',
         textColor: getCSSVariable('--color-success')
     },
     down: {
-        icon: 'trend-down',
+        icon: 'down',
         textColor: getCSSVariable('--color-danger')
     },
     flat: {
