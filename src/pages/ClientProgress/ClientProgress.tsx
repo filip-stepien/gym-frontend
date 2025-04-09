@@ -2,7 +2,7 @@ import { TrendStatistic } from '../../components/TrendStatistic';
 import { Card } from '../../components/Card';
 import { CardTitle } from '../../components/CardTitle';
 import { Flex, Space } from 'antd';
-import { ChartData, ProgressChart } from './ProgressChart';
+import { ChartData, Chart } from '../../components/Chart';
 
 const chartData: ChartData[] = [
     {
@@ -64,7 +64,7 @@ export function ClientProgress() {
                     />
                 </Space>
             </Flex>
-            <ProgressChart data={chartData} />
+            <Chart type='bar' data={chartData} />
         </Card>
     );
 }

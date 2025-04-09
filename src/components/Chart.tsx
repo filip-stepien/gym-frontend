@@ -1,12 +1,19 @@
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    LineElement,
+    PointElement
+} from 'chart.js';
 import { Dropdown, Flex, Space } from 'antd';
-import { Icon } from '../../components/Icon';
-import { Bar } from 'react-chartjs-2';
-import { getCSSVariable } from '../../utils/getCSSVariable';
+import { Icon } from './Icon';
+import { Bar, Line } from 'react-chartjs-2';
+import { getCSSVariable } from '../utils/getCSSVariable';
 import { useState } from 'react';
 import type { MenuProps } from 'antd';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement);
 
 export type TimePeriod = 'lastWeek' | 'lastThreeWeeks' | 'lastYear';
 
@@ -20,8 +27,10 @@ export type ChartData = {
     timeSeries: Record<TimePeriod, TimeSeriesData>;
 };
 
-type ProgressChartProps = {
+type ChartProps = {
     data: ChartData[];
+    type?: 'bar' | 'line';
+    className?: string;
 };
 
 type TimeSpanLabels = Record<TimePeriod, string>;
@@ -40,8 +49,8 @@ const chartComponentOptions = {
     }
 };
 
-export function ProgressChart(props: ProgressChartProps) {
-    const { data } = props;
+export function Chart(props: ChartProps) {
+    const { data, type, className } = props;
     const initialTimePeriod: TimePeriod = 'lastWeek';
 
     const [chartDataset, setChartDataset] = useState(data[0]);
@@ -112,8 +121,12 @@ export function ProgressChart(props: ProgressChartProps) {
                     </a>
                 </Dropdown>
             </Flex>
-            <div className='min-h-50 w-full'>
-                <Bar options={chartComponentOptions} data={chartComponentData} />
+            <div className={`min-h-50 ${className}`}>
+                {type === 'line' ? (
+                    <Bar options={chartComponentOptions} data={chartComponentData} />
+                ) : (
+                    <Line options={chartComponentOptions} data={chartComponentData} />
+                )}
             </div>
         </Space>
     );
