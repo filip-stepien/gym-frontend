@@ -1,11 +1,13 @@
+import { Space } from 'antd';
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
 import { Chart } from '@/components/Chart';
+import { TrendStatistic } from '@/components/TrendStatistic';
 import type { ChartData } from '@/components/Chart';
 
 const chartData: ChartData[] = [
     {
-        category: 'Volume',
+        category: 'Bench Press',
         timeSeries: {
             lastWeek: {
                 labels: ['1', '2', '3'],
@@ -22,7 +24,7 @@ const chartData: ChartData[] = [
         }
     },
     {
-        category: 'Reps',
+        category: 'Push Ups',
         timeSeries: {
             lastWeek: {
                 labels: ['1', '2', '3'],
@@ -44,7 +46,16 @@ export function ExerciseProgress() {
     return (
         <Card>
             <CardTitle title='Exercise Progress' icon='progress' />
-            <Chart data={chartData} />
+            <Space size='large' className='py-small'>
+                <TrendStatistic title='Heaviest Weight' value='90 kg' />
+                <TrendStatistic title='Best Set Volume' value='800 kg' />
+                <TrendStatistic title='Best Session Volume' value='2500 kg' />
+            </Space>
+            <Chart
+                type='line'
+                data={chartData}
+                categorySearch={{ enabled: true, placeholder: 'Search exercise...' }}
+            />
         </Card>
     );
 }

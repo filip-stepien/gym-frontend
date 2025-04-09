@@ -4,6 +4,7 @@ import { Outlet } from 'react-router';
 import { Menu } from '@/components/Menu';
 import { Nav } from '@/components/Nav';
 import { Chat } from '@/components/Chat/Chat';
+import { getCSSVariable } from '@/utils/getCSSVariable';
 
 type AuthenticatedLayoutProps = {
     renderChat?: boolean;
@@ -11,10 +12,15 @@ type AuthenticatedLayoutProps = {
 
 const { Header, Sider, Content } = Layout;
 
+const sidersHeight = `calc(100vh - ${getCSSVariable('--spacing-layout')})`;
+
 export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
     return (
-        <Layout className='gap-layout p-small h-screen'>
-            <Sider className='bg-card shadow-card'>
+        <Layout className='gap-layout p-small'>
+            <Sider
+                className='bg-card shadow-card top-small sticky h-screen'
+                style={{ height: sidersHeight }}
+            >
                 <Menu accountType='client' />
             </Sider>
             <Layout className='gap-layout'>
@@ -26,7 +32,10 @@ export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
                 </Content>
             </Layout>
             {props.renderChat && (
-                <Sider className='bg-card shadow-card !min-w-fit'>
+                <Sider
+                    className='bg-card shadow-card top-small sticky !min-w-fit'
+                    style={{ height: sidersHeight }}
+                >
                     <Chat />
                 </Sider>
             )}

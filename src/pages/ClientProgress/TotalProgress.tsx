@@ -47,7 +47,7 @@ export function TotalProgress() {
         <Card>
             <CardTitle title='Total Progress' icon='progress' />
             <Flex align='end' justify='space-between'>
-                <Space size='large'>
+                <Space size='large' className='py-small'>
                     <TrendStatistic
                         title='Total Sets'
                         value={428}
@@ -65,11 +65,7 @@ export function TotalProgress() {
                     />
                 </Space>
             </Flex>
-            <Chart
-                type='bar'
-                data={chartData}
-                categorySearch={{ enabled: true, placeholder: 'Search...', limit: 5 }}
-            />
+            <Chart type='bar' data={chartData} />
         </Card>
     );
 }
