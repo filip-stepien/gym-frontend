@@ -1,8 +1,8 @@
 import { Statistic, Timeline, Button, Tag, Typography, Flex, Row, Space } from 'antd';
 import { useState } from 'react';
-import { Card } from '../../components/Card';
-import { CardTitle } from '../../components/CardTitle';
-import { ChatUser } from '../../components/Chat/ChatUser';
+import { Card } from '@/components/Card';
+import { CardTitle } from '@/components/CardTitle';
+import { ChatUser } from '@/components/Chat/ChatUser';
 
 export function LastSession() {
     const { Text } = Typography;

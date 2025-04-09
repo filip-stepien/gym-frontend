@@ -1,9 +1,9 @@
 import { Layout } from 'antd';
 import { Outlet } from 'react-router';
 
-import { Menu } from '../components/Menu';
-import { Nav } from '../components/Nav';
-import { Chat } from '../components/Chat/Chat';
+import { Menu } from '@/components/Menu';
+import { Nav } from '@/components/Nav';
+import { Chat } from '@/components/Chat/Chat';
 
 type AuthenticatedLayoutProps = {
     renderChat?: boolean;

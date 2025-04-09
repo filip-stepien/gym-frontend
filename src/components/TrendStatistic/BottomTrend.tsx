@@ -1,7 +1,7 @@
 import { Space } from 'antd';
-import { Icon } from '../Icon';
+import { Icon } from '@/components/Icon';
+import { getCSSVariable } from '@/utils/getCSSVariable';
 import type { valueType } from 'antd/es/statistic/utils';
-import { getCSSVariable } from '../../utils/getCSSVariable';
 
 export type TrendDirection = 'up' | 'down' | 'flat';
 

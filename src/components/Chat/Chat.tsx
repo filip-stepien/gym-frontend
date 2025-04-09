@@ -1,5 +1,5 @@
 import { Typography, Divider } from 'antd';
-import { Card } from '../Card';
+import { Card } from '@/components/Card';
 import { ChatWindow } from './ChatWindow';
 import { ChatHistory } from './ChatHistory';
 

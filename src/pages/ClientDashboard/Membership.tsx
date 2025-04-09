@@ -1,6 +1,6 @@
 import { Button, Flex, Progress, Statistic, Col, Row, Space } from 'antd';
-import { Card } from '../../components/Card';
-import { CardTitle } from '../../components/CardTitle';
+import { Card } from '@/components/Card';
+import { CardTitle } from '@/components/CardTitle';
 
 export function Membership() {
     return (

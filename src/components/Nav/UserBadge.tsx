@@ -1,5 +1,5 @@
 import { Typography, Space } from 'antd';
-import { Avatar } from '../Avatar';
+import { Avatar } from '@/components/Avatar';
 
 const { Title } = Typography;
 

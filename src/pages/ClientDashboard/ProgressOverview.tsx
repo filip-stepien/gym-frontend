@@ -1,7 +1,7 @@
-import { Card } from '../../components/Card';
 import { Row } from 'antd';
-import { CardTitle } from '../../components/CardTitle';
-import { TrendStatistic } from '../../components/TrendStatistic';
+import { Card } from '@/components/Card';
+import { CardTitle } from '@/components/CardTitle';
+import { TrendStatistic } from '@/components/TrendStatistic';
 
 export function ProgressOverview() {
     return (

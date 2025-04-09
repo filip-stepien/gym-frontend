@@ -9,7 +9,7 @@ import {
 import { Dropdown, Flex, Space } from 'antd';
 import { Icon } from './Icon';
 import { Bar, Line } from 'react-chartjs-2';
-import { getCSSVariable } from '../utils/getCSSVariable';
+import { getCSSVariable } from '@/utils/getCSSVariable';
 import { useState } from 'react';
 import type { MenuProps } from 'antd';
 

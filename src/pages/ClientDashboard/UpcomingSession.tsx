@@ -1,7 +1,7 @@
-import { Card } from '../../components/Card';
-import { CardTitle } from '../../components/CardTitle';
+import { Card } from '@/components/Card';
+import { CardTitle } from '@/components/CardTitle';
+import { ChatUser } from '@/components/Chat/ChatUser';
 import { Flex, Button, Calendar, Pagination, Space, List } from 'antd';
-import { ChatUser } from '../../components/Chat/ChatUser';
 
 const data = [
     {

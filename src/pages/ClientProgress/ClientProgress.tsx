@@ -1,8 +1,9 @@
-import { TrendStatistic } from '../../components/TrendStatistic';
-import { Card } from '../../components/Card';
-import { CardTitle } from '../../components/CardTitle';
 import { Flex, Space } from 'antd';
-import { ChartData, Chart } from '../../components/Chart';
+import { TrendStatistic } from '@/components/TrendStatistic';
+import { Card } from '@/components/Card';
+import { CardTitle } from '@/components/CardTitle';
+import { Chart } from '@/components/Chart';
+import type { ChartData } from '@/components/Chart';
 
 const chartData: ChartData[] = [
     {
