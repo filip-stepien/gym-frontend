@@ -1,6 +1,7 @@
 import { StyleProvider } from '@ant-design/cssinjs';
 import { ConfigProvider, theme } from 'antd';
 import { JSX } from 'react';
+import { ChatProvider } from './providers/ChatProvider';
 
 type ProviderProps = {
     children: JSX.Element | JSX.Element[];
@@ -22,7 +23,9 @@ export function Provider(props: ProviderProps) {
                 }
             }}
         >
-            <StyleProvider layer>{props.children}</StyleProvider>
+            <ChatProvider>
+                <StyleProvider layer>{props.children}</StyleProvider>
+            </ChatProvider>
         </ConfigProvider>
     );
 }

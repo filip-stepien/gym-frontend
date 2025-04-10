@@ -1,28 +1,28 @@
 import { Tabs, Typography, Input, Flex, Space } from 'antd';
-import { Icon } from '../Icon';
-import { ChatMessage, ChatMessageProps } from './ChatMessage';
-import type { Id } from '../../types';
+import { Icon } from '@/components/Icon';
+import { ChatWindowContent } from './ChatWindowContent';
+import { useChat } from '@/hooks/useChat';
+import type { TabsProps } from 'antd';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
-const initialItems = [
-    { label: 'John Pork', key: '1' },
-    { label: 'Bob Beef', key: '2' }
-];
-
-const messages: Id<ChatMessageProps>[] = [
-    { id: 'msg-1', type: 'sent', content: 'elo' },
-    { id: 'msg-2', type: 'received', content: 'elo' },
-    { id: 'msg-3', type: 'sent', content: 'elo' },
-    { id: 'msg-4', type: 'received', content: 'elo' },
-    { id: 'msg-5', type: 'sent', content: 'elo' },
-    { id: 'msg-6', type: 'sent', content: 'elo' },
-    { id: 'msg-7', type: 'received', content: 'elo' },
-    { id: 'msg-8', type: 'sent', content: 'elo' }
-];
-
 export function ChatWindow() {
+    const { chat, dispatchChat } = useChat();
+
+    const tabItems = chat.openTabs.map(user => ({
+        key: user.userId,
+        label: user.fullName
+    }));
+
+    const handleTabClose: TabsProps['onEdit'] = userId => {
+        dispatchChat({ type: 'REMOVE_TAB', payload: userId as string });
+    };
+
+    const handleTabClick: TabsProps['onTabClick'] = userId => {
+        dispatchChat({ type: 'SET_CURRENT_TAB', payload: userId });
+    };
+
     return (
         <Flex vertical justify='end' className='flex-1'>
             <Title level={3} className='pb-middle'>
@@ -30,16 +30,18 @@ export function ChatWindow() {
             </Title>
             <Tabs
                 type='editable-card'
-                items={initialItems}
-                addIcon={<Icon icon='more' />}
+                items={tabItems}
+                hideAdd
                 className='!m-0'
+                activeKey={chat.currentTab?.userId}
+                onTabClick={handleTabClick}
+                onEdit={handleTabClose}
             />
-            <Flex vertical className='border-divider h-70 overflow-y-scroll border-x-1'>
-                {messages.map(msg => (
-                    <ChatMessage key={msg.id} type={msg.type} content={msg.content} />
-                ))}
-            </Flex>
-            <Flex align='stretch'>
+            <ChatWindowContent />
+            <Flex
+                align='stretch'
+                className={chat.openTabs.length == 0 ? 'pointer-events-none' : ''}
+            >
                 <TextArea
                     placeholder='Aa'
                     autoSize={{ minRows: 1, maxRows: 4 }}

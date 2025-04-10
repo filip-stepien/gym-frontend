@@ -33,7 +33,7 @@ export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
             </Layout>
             {props.renderChat && (
                 <Sider
-                    className='bg-card shadow-card top-small sticky !min-w-fit'
+                    className='bg-card shadow-card top-small sticky !min-w-90'
                     style={{ height: sidersHeight }}
                 >
                     <Chat />

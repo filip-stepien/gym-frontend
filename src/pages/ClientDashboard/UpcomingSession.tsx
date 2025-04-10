@@ -31,7 +31,7 @@ export function UpcomingSession() {
                                 <List.Item actions={[<a key='list-loadmore-edit'>details</a>]}>
                                     <List.Item.Meta
                                         avatar={
-                                            <ChatUser newMessageCount={0} fullName='John Pork' />
+                                            <ChatUser unreadMessageCount={0} fullName='John Pork' />
                                         }
                                         title={<p>{item.title}</p>}
                                         description='A complete workout that targets all muscle.'

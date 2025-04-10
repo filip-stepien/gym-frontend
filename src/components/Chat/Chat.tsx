@@ -1,7 +1,7 @@
 import { Typography, Divider } from 'antd';
 import { Card } from '@/components/Card';
 import { ChatWindow } from './ChatWindow';
-import { ChatHistory } from './ChatHistory';
+import { ChatList } from './ChatList';
 
 const { Title } = Typography;
 
@@ -16,7 +16,7 @@ export function Chat(props: ChatProps) {
     return (
         <Card className='p-middle h-full'>
             <Title level={3}>{userTypeTitle}</Title>
-            <ChatHistory targetUserType={targetUserType} userTypeTitle={userTypeTitle} />
+            <ChatList targetUserType={targetUserType} userTypeTitle={userTypeTitle} />
             <Divider className='mb-0' />
             <ChatWindow />
         </Card>

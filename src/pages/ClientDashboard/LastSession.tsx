@@ -30,7 +30,7 @@ export function LastSession() {
                     <Tag color='blue'>shoulders</Tag>
                 </Flex>
                 <Flex className='h-full'>
-                    <ChatUser newMessageCount={0} fullName='John Pork' />
+                    <ChatUser unreadMessageCount={0} fullName='John Pork' />
                 </Flex>
                 <Row className='h-full gap-3'>
                     <Statistic title='Exercises' value={6} />
