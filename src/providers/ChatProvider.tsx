@@ -1,7 +1,10 @@
 import { Icon } from '@/components/Icon';
 import { ChatContext } from '@/contexts/ChatContext';
+import { fuzzySearch } from '@/utils/fuzzySearch';
 import { useReducer } from 'react';
 import type { JSX } from 'react';
+
+export type UserListTab = 'last' | 'all';
 
 export type ChatTab = {
     userId: string;
@@ -23,7 +26,8 @@ export type ChatMessage = {
 };
 
 export type ChatState = {
-    currentTab: ChatTab | null;
+    currentChatTab: ChatTab | null;
+    currentListTab: string;
     openTabs: ChatTab[];
     users: ChatUser[];
     messages: ChatMessage[];
@@ -33,16 +37,17 @@ export type ChatState = {
 };
 
 export type ChatAction =
-    | { type: 'SET_CURRENT_TAB'; payload: string }
-    | { type: 'ADD_TAB'; payload: string }
-    | { type: 'REMOVE_TAB'; payload: string }
+    | { type: 'SET_CURRENT_CHAT_TAB'; payload: string }
+    | { type: 'SET_CURRENT_LIST_TAB'; payload: UserListTab }
+    | { type: 'ADD_CHAT_TAB'; payload: string }
+    | { type: 'REMOVE_CHAT_TAB'; payload: string }
     | { type: 'SET_USERS'; payload: ChatUser[] }
-    | { type: 'ADD_MESSAGE'; payload: ChatMessage }
+    | { type: 'SEND_MESSAGE' }
     | { type: 'SET_MESSAGE_CONTENT'; payload: string }
     | { type: 'SET_SEARCH_CONTENT'; payload: string }
     | { type: 'TOGGLE_EMOJI' };
 
-const DEBUG_MESSAGES: { userId: string; messages: ChatMessage[] }[] = [
+const INITIAL_DEBUG_MESSAGES: { userId: string; messages: ChatMessage[] }[] = [
     {
         userId: 'user-1',
         messages: [
@@ -55,6 +60,46 @@ const DEBUG_MESSAGES: { userId: string; messages: ChatMessage[] }[] = [
                 id: 'msg-2',
                 content: 'elo',
                 type: 'received'
+            },
+            {
+                id: 'msg-3',
+                content: 'elo',
+                type: 'sent'
+            },
+            {
+                id: 'msg-4',
+                content: 'elo',
+                type: 'received'
+            },
+            {
+                id: 'msg-5',
+                content: 'elo',
+                type: 'sent'
+            },
+            {
+                id: 'msg-6',
+                content: 'elo',
+                type: 'received'
+            },
+            {
+                id: 'msg-7',
+                content: 'elo',
+                type: 'sent'
+            },
+            {
+                id: 'msg-8',
+                content: 'elo',
+                type: 'received'
+            },
+            {
+                id: 'msg-9',
+                content: 'elo',
+                type: 'sent'
+            },
+            {
+                id: 'msg-10',
+                content: 'elo',
+                type: 'received'
             }
         ]
     },
@@ -62,12 +107,12 @@ const DEBUG_MESSAGES: { userId: string; messages: ChatMessage[] }[] = [
         userId: 'user-2',
         messages: [
             {
-                id: 'msg-3',
+                id: 'msg-23',
                 content: 'hello',
                 type: 'received'
             },
             {
-                id: 'msg-4',
+                id: 'msg-24',
                 content: 'hello',
                 type: 'sent'
             }
@@ -75,8 +120,8 @@ const DEBUG_MESSAGES: { userId: string; messages: ChatMessage[] }[] = [
     }
 ];
 
-function GET_DEBUG_MESSAGES(userId?: string) {
-    return DEBUG_MESSAGES.find(msg => msg.userId === userId)?.messages ?? [];
+function GET_INITIAL_DEBUG_MESSAGES(userId?: string) {
+    return INITIAL_DEBUG_MESSAGES.find(msg => msg.userId === userId)?.messages ?? [];
 }
 
 function chatReducer(state: ChatState, action: ChatAction): ChatState {
@@ -92,24 +137,33 @@ function chatReducer(state: ChatState, action: ChatAction): ChatState {
     };
 
     switch (action.type) {
-        case 'SET_CURRENT_TAB':
+        case 'SET_CURRENT_LIST_TAB':
             return {
                 ...state,
-                currentTab: getChatTab(action.payload),
-                messages: GET_DEBUG_MESSAGES(action.payload)
+                currentListTab: action.payload,
+                searchContent: '',
+                users: action.payload === 'last' ? initialState.users : [] //TODO: handle populate users
             };
 
-        case 'ADD_TAB':
-            if (chatTabExists(action.payload)) return state;
+        case 'SET_CURRENT_CHAT_TAB':
+            return {
+                ...state,
+                currentChatTab: getChatTab(action.payload),
+                messages: GET_INITIAL_DEBUG_MESSAGES(action.payload)
+            };
+
+        case 'ADD_CHAT_TAB':
             const newTab = getChatTab(action.payload);
             return {
                 ...state,
-                openTabs: [...state.openTabs, newTab],
-                currentTab: newTab,
-                messages: GET_DEBUG_MESSAGES(action.payload)
+                currentChatTab: newTab,
+                messages: GET_INITIAL_DEBUG_MESSAGES(action.payload),
+                openTabs: chatTabExists(action.payload)
+                    ? state.openTabs
+                    : [...state.openTabs, newTab]
             };
 
-        case 'REMOVE_TAB':
+        case 'REMOVE_CHAT_TAB':
             const isLastTab = state.openTabs.length === 1;
             const removedIdx = state.openTabs.findIndex(tab => tab.userId === action.payload);
             const nextTab = isLastTab ? null : (state.openTabs.at(removedIdx - 1) as ChatTab);
@@ -117,22 +171,38 @@ function chatReducer(state: ChatState, action: ChatAction): ChatState {
             return {
                 ...state,
                 openTabs: state.openTabs.filter(tab => tab.userId !== action.payload),
-                currentTab: nextTab,
-                messages: isLastTab ? [] : GET_DEBUG_MESSAGES(nextTab?.userId),
+                currentChatTab: nextTab,
+                messages: isLastTab ? [] : GET_INITIAL_DEBUG_MESSAGES(nextTab?.userId),
                 messageContent: ''
             };
 
         case 'SET_USERS':
             return { ...state, users: action.payload };
 
-        case 'ADD_MESSAGE':
-            return { ...state, messages: [...state.messages, action.payload] };
+        case 'SEND_MESSAGE':
+            if (state.messageContent.length === 0) return state;
+
+            const newMessage: ChatMessage = {
+                id: Date.now().toString(), // TODO: proper id (uuid?)
+                type: 'sent',
+                content: state.messageContent
+            };
+
+            return {
+                ...state,
+                messageContent: '',
+                messages: [...state.messages, newMessage]
+            };
 
         case 'SET_MESSAGE_CONTENT':
             return { ...state, messageContent: action.payload };
 
         case 'SET_SEARCH_CONTENT':
-            return { ...state, searchContent: action.payload };
+            const users =
+                action.payload === ''
+                    ? initialState.users
+                    : fuzzySearch(action.payload, state.users, 'fullName');
+            return { ...state, searchContent: action.payload, users: users };
 
         case 'TOGGLE_EMOJI':
             return { ...state, emojiOpened: !state.emojiOpened };
@@ -143,7 +213,8 @@ function chatReducer(state: ChatState, action: ChatAction): ChatState {
 }
 
 const initialState: ChatState = {
-    currentTab: null,
+    currentChatTab: null,
+    currentListTab: 'last',
     openTabs: [],
     users: [
         {
@@ -156,13 +227,6 @@ const initialState: ChatState = {
         {
             id: 'user-2',
             fullName: 'Bob Beef',
-            avatar: <Icon icon='avatar' />,
-            online: false,
-            unreadMessageCount: 0
-        },
-        {
-            id: 'user-3',
-            fullName: 'Tom Smith',
             avatar: <Icon icon='avatar' />,
             online: false,
             unreadMessageCount: 0

@@ -18,7 +18,7 @@ export function ChatUser(props: ChatUserProps) {
     const fontWeight = props.unreadMessageCount ? 'font-bold' : 'font-normal';
 
     const handleClick = () => {
-        dispatchChat({ type: 'ADD_TAB', payload: userId });
+        dispatchChat({ type: 'ADD_CHAT_TAB', payload: userId });
     };
 
     return (

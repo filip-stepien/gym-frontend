@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import { ChatWindowContent } from './ChatWindowContent';
 import { useChat } from '@/hooks/useChat';
 import type { TabsProps } from 'antd';
+import type { ChangeEventHandler, MouseEventHandler, KeyboardEventHandler } from 'react';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -16,11 +17,26 @@ export function ChatWindow() {
     }));
 
     const handleTabClose: TabsProps['onEdit'] = userId => {
-        dispatchChat({ type: 'REMOVE_TAB', payload: userId as string });
+        dispatchChat({ type: 'REMOVE_CHAT_TAB', payload: userId as string });
     };
 
     const handleTabClick: TabsProps['onTabClick'] = userId => {
-        dispatchChat({ type: 'SET_CURRENT_TAB', payload: userId });
+        dispatchChat({ type: 'SET_CURRENT_CHAT_TAB', payload: userId });
+    };
+
+    const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = event => {
+        dispatchChat({ type: 'SET_MESSAGE_CONTENT', payload: event.target.value });
+    };
+
+    const handleMessageSendClick: MouseEventHandler<HTMLSpanElement> = () => {
+        dispatchChat({ type: 'SEND_MESSAGE' });
+    };
+
+    const handleMessageKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = event => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            dispatchChat({ type: 'SEND_MESSAGE' });
+        }
     };
 
     return (
@@ -33,7 +49,7 @@ export function ChatWindow() {
                 items={tabItems}
                 hideAdd
                 className='!m-0'
-                activeKey={chat.currentTab?.userId}
+                activeKey={chat.currentChatTab?.userId}
                 onTabClick={handleTabClick}
                 onEdit={handleTabClose}
             />
@@ -46,6 +62,9 @@ export function ChatWindow() {
                     placeholder='Aa'
                     autoSize={{ minRows: 1, maxRows: 4 }}
                     className='bg-neutral-2'
+                    value={chat.messageContent}
+                    onChange={handleMessageChange}
+                    onKeyDown={handleMessageKeyDown}
                 />
                 <Space className='px-small border-divider border-r-1 border-b-1'>
                     <Icon
@@ -56,6 +75,7 @@ export function ChatWindow() {
                     <Icon
                         icon='send'
                         className='cursor-pointer text-lg'
+                        onClick={handleMessageSendClick}
                         style={{ color: '#1890ff' }}
                     />
                 </Space>

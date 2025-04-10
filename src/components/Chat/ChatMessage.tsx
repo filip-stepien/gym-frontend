@@ -1,14 +1,30 @@
-import { Space } from 'antd';
-
 export type ChatMessageProps = {
     type?: 'sent' | 'received';
     content: string;
 };
 
-const sentMessageClasses = 'bg-neutral-3 self-start';
-const receivedMessageClasses = 'bg-primary text-font-inverse self-end';
+const receivedMessageClasses = 'self-start bg-neutral-3';
+const sentMessageClasses = 'self-end bg-primary text-font-inverse';
 
 export function ChatMessage(props: ChatMessageProps) {
-    const messageClasses = props.type === 'sent' ? sentMessageClasses : receivedMessageClasses;
-    return <Space className={`p-small m-small w-fit ${messageClasses}`}>{props.content}</Space>;
+    const { type, content } = props;
+    const messageClasses = type === 'sent' ? sentMessageClasses : receivedMessageClasses;
+
+    const renderMessageWithNewLines = (text: string) => {
+        return text
+            .split('\n')
+            .filter(token => token.length > 0)
+            .map((line, index) => (
+                <span key={index}>
+                    {line}
+                    <br />
+                </span>
+            ));
+    };
+
+    return (
+        <div className={`p-small max-w-3/4 wrap-break-word ${messageClasses}`}>
+            {renderMessageWithNewLines(content)}
+        </div>
+    );
 }

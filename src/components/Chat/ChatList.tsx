@@ -1,7 +1,8 @@
-import { Flex, Tabs, Space, TabsProps, Input } from 'antd';
+import { Flex, Tabs, Space, Input, TabsProps } from 'antd';
 import { useChat } from '@/hooks/useChat';
 import { ChatUser } from './ChatUser';
 import type { ChangeEventHandler } from 'react';
+import type { UserListTab } from '@/providers/ChatProvider';
 
 const { Search } = Input;
 
@@ -10,11 +11,16 @@ type ChatListProps = {
     userTypeTitle?: 'Clients' | 'Coaches';
 };
 
+type TabItem = {
+    key: UserListTab;
+    label: string;
+};
+
 export function ChatList(props: ChatListProps) {
     const { targetUserType, userTypeTitle } = props;
     const { chat, dispatchChat } = useChat();
 
-    const tabItems: TabsProps['items'] = [
+    const tabItems: TabItem[] = [
         { key: 'last', label: 'Last Chats' },
         { key: 'all', label: `All ${userTypeTitle}` }
     ];
@@ -23,9 +29,18 @@ export function ChatList(props: ChatListProps) {
         dispatchChat({ type: 'SET_SEARCH_CONTENT', payload: event.target.value });
     };
 
+    const handleTabChange: TabsProps['onTabClick'] = key => {
+        dispatchChat({ type: 'SET_CURRENT_LIST_TAB', payload: key as UserListTab });
+    };
+
     return (
         <Flex vertical className='flex-1 overflow-hidden'>
-            <Tabs items={tabItems} className='pb-middle' />
+            <Tabs
+                items={tabItems}
+                className='pb-middle'
+                onTabClick={handleTabChange}
+                activeKey={chat.currentListTab}
+            />
             <Search
                 placeholder={`Find ${targetUserType}...`}
                 allowClear
