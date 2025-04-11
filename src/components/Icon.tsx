@@ -2,6 +2,7 @@ import {
     CaretDownOutlined,
     CaretUpOutlined,
     CarryOutOutlined,
+    DashboardOutlined,
     DownOutlined,
     EllipsisOutlined,
     FireOutlined,
@@ -37,7 +38,8 @@ const icons: IconMap = {
     up: <CaretUpOutlined />,
     down: <CaretDownOutlined />,
     flat: <MinusSquareOutlined />,
-    dropdown: <DownOutlined />
+    dropdown: <DownOutlined />,
+    status: <DashboardOutlined />
 };
 
 export function Icon(props: IconProps) {
