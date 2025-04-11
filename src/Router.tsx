@@ -4,6 +4,7 @@ import { AuthenticatedLayout } from './layouts/AuthenticatedLayout';
 import { ClientDashboard } from './pages/ClientDashboard';
 import { ClientProgress } from './pages/ClientProgress';
 import { ClientSession } from './pages/ClientSession';
+import { ClientMembership } from './pages/ClientMembership/ClientMembership';
 
 export function Router() {
     return (
@@ -13,6 +14,7 @@ export function Router() {
                     <Route path='dashboard' element={<ClientDashboard />} />
                     <Route path='progress' element={<ClientProgress />} />
                     <Route path='sessions' element={<ClientSession />} />
+                    <Route path='membership' element={<ClientMembership />} />
                 </Route>
             </Routes>
         </BrowserRouter>
