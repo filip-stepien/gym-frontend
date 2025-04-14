@@ -9,6 +9,7 @@ import {
     IdcardOutlined,
     MinusSquareOutlined,
     ProductOutlined,
+    ProfileOutlined,
     RightCircleFilled,
     SettingOutlined,
     SmileOutlined,
@@ -39,7 +40,8 @@ const icons: IconMap = {
     down: <CaretDownOutlined />,
     flat: <MinusSquareOutlined />,
     dropdown: <DownOutlined />,
-    status: <DashboardOutlined />
+    status: <DashboardOutlined />,
+    details: <ProfileOutlined />
 };
 
 export function Icon(props: IconProps) {
