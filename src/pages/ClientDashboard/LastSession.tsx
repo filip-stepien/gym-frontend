@@ -1,8 +1,8 @@
-import { Statistic, Timeline, Button, Tag, Typography, Flex, Row, Space } from 'antd';
+import { Statistic, Timeline, Button, Tag, Typography, Flex, Row, Space, Avatar } from 'antd';
 import { useState } from 'react';
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
-import { ChatUser } from '@/components/Chat/ChatUser';
+import { Icon } from '@/components/Icon';
 
 export function LastSession() {
     const { Text } = Typography;
@@ -13,6 +13,11 @@ export function LastSession() {
         'Bench Press',
         'Deadlift',
         'Tricep Extension'
+    ];
+    const data = [
+        {
+            name: 'John Pork'
+        }
     ];
     const MAX_VISIBLE = 2;
 
@@ -29,9 +34,14 @@ export function LastSession() {
                     <Tag color='blue'>chest</Tag>
                     <Tag color='blue'>shoulders</Tag>
                 </Flex>
-                <Flex className='h-full'>
-                    <ChatUser unreadMessageCount={0} fullName='John Pork' />
-                </Flex>
+                {data.map((item, index) => (
+                    <Flex className='h-full' key={index}>
+                        <Space align='center'>
+                            <Avatar shape='square' icon={<Icon icon='avatar' />} />
+                            <p>{item.name}</p>
+                        </Space>
+                    </Flex>
+                ))}
                 <Row className='h-full gap-3'>
                     <Statistic title='Exercises' value={6} />
                     <Statistic title='Total sets' value={25} />
