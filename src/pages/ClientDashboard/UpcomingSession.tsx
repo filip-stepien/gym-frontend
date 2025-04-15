@@ -1,14 +1,16 @@
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
-import { ChatUser } from '@/components/Chat/ChatUser';
-import { Flex, Button, Calendar, Pagination, Space, List } from 'antd';
+import { Flex, Button, Calendar, Pagination, Space, List, Avatar } from 'antd';
+import { Icon } from '@/components/Icon';
 
 const data = [
     {
+        name: 'John Pork',
         title: 'Full body workout',
         time: '13:00'
     },
     {
+        name: 'John Pork',
         title: 'Full body workout',
         time: '14:00'
     }
@@ -31,7 +33,13 @@ export function UpcomingSession() {
                                 <List.Item actions={[<a key='list-loadmore-edit'>details</a>]}>
                                     <List.Item.Meta
                                         avatar={
-                                            <ChatUser unreadMessageCount={0} fullName='John Pork' />
+                                            <Space direction='vertical' align='center'>
+                                                <Avatar
+                                                    shape='square'
+                                                    icon={<Icon icon='avatar' />}
+                                                />
+                                                <span>{item.name}</span>
+                                            </Space>
                                         }
                                         title={<p>{item.title}</p>}
                                         description='A complete workout that targets all muscle.'

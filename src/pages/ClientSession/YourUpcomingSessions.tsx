@@ -1,36 +1,28 @@
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
-import { ChatUser } from '@/components/Chat/ChatUser';
-import { Flex, Button, Pagination, Space, List, Divider } from 'antd';
+import { Icon } from '@/components/Icon';
+import { Flex, Button, Pagination, List, Avatar, Space } from 'antd';
 
 const data = [
     {
         title: 'Full body workout',
-        time: '13:00-14:00'
+        time: '13:00-14:00',
+        name: 'John Pork'
     },
     {
         title: 'Full body workout',
-        time: '14:00-15:00'
+        time: '14:00-15:00',
+        name: 'John Pork'
     },
     {
         title: 'Full body workout',
-        time: '15:00-16:00'
+        time: '15:00-16:00',
+        name: 'John Pork'
     },
     {
         title: 'Full body workout',
-        time: '14:00-15:00'
-    },
-    {
-        title: 'Full body workout',
-        time: '14:00-15:00'
-    },
-    {
-        title: 'Full body workout',
-        time: '14:00-15:00'
-    },
-    {
-        title: 'Full body workout',
-        time: '14:00-15:00'
+        time: '14:00-15:00',
+        name: 'John Pork'
     }
 ];
 
@@ -60,7 +52,13 @@ export function YourUpcomingSession() {
                                 >
                                     <List.Item.Meta
                                         avatar={
-                                            <ChatUser newMessageCount={0} fullName='John Pork' />
+                                            <Space direction='vertical' align='center'>
+                                                <Avatar
+                                                    shape='square'
+                                                    icon={<Icon icon='avatar' />}
+                                                />
+                                                <span>{item.name}</span>
+                                            </Space>
                                         }
                                         title={<p>{item.title}</p>}
                                         description='A complete workout that targets all muscle.'
