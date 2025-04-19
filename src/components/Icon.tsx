@@ -13,7 +13,9 @@ import {
     RightCircleFilled,
     SettingOutlined,
     SmileOutlined,
-    UserOutlined
+    UserOutlined,
+    CalendarOutlined,
+    ClockCircleOutlined
 } from '@ant-design/icons';
 import { cloneElement, JSX } from 'react';
 
@@ -41,7 +43,9 @@ const icons: IconMap = {
     flat: <MinusSquareOutlined />,
     dropdown: <DownOutlined />,
     status: <DashboardOutlined />,
-    details: <ProfileOutlined />
+    details: <ProfileOutlined />,
+    calendar: <CalendarOutlined />,
+    clock: <ClockCircleOutlined />
 };
 
 export function Icon(props: IconProps) {
