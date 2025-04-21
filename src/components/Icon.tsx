@@ -15,7 +15,8 @@ import {
     SmileOutlined,
     UserOutlined,
     CalendarOutlined,
-    ClockCircleOutlined
+    ClockCircleOutlined,
+    ImportOutlined
 } from '@ant-design/icons';
 import { cloneElement, JSX } from 'react';
 
@@ -45,7 +46,8 @@ const icons: IconMap = {
     status: <DashboardOutlined />,
     details: <ProfileOutlined />,
     calendar: <CalendarOutlined />,
-    clock: <ClockCircleOutlined />
+    clock: <ClockCircleOutlined />,
+    newworkout: <ImportOutlined />
 };
 
 export function Icon(props: IconProps) {

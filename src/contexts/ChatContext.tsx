@@ -9,7 +9,8 @@ type ChatContextContent = {
 
 export const ChatContext = createContext<ChatContextContent>({
     chat: {
-        currentTab: null,
+        currentListTab: '',
+        currentChatTab: null,
         openTabs: [],
         users: [],
         messages: [],
