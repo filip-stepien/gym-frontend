@@ -8,6 +8,9 @@
   dependencyDashboard: true,
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
+  "npm": {
+    "enabled": false
+  },
   customManagers: [
     {
       customType: "regex",
