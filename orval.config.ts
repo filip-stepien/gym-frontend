@@ -3,7 +3,7 @@ import { defineConfig } from 'orval';
 export default defineConfig({
     'gym-api': {
         input: './openapi.yaml',
-        output: './src/generated.ts',
+        output: './src/generated/gym-api.ts',
         hooks: {
             afterAllFilesWrite: 'prettier --write'
         }

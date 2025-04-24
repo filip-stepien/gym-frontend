@@ -3,7 +3,8 @@ run-name: Generating API SDK
 on:
   push:
     paths:
-      Taskfile.yaml
+      - Taskfile.yaml
+      - orval.config.ts
 
 jobs:
   generate:
