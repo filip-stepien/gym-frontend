@@ -24,7 +24,6 @@ jobs:
         run: task api-sdk
 
       - uses: stefanzweifel/git-auto-commit-action@v5
-        if: contains(github.event.commits[0].modified, 'src/generated/')
         with:
           commit_message: 'chore: generate client API SDK'
           file_pattern: |
