@@ -8,5 +8,4 @@ export default defineConfig({
             afterAllFilesWrite: 'prettier --write'
         }
     }
-    // FIXME remove this trash line
 });

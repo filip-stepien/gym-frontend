@@ -10,6 +10,9 @@ tasks:
   api-sdk:
     desc: generate client API SDK
     cmds:
+      - npm list orval || npm i
       - curl -sL {{.API_SPEC_URL}} -o openapi.yaml
-      - npx orval
+      - npx -y orval
     silent: true
+    preconditions:
+      - npm -v
