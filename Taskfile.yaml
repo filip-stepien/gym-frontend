@@ -1,0 +1,15 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  # renovate: datasource=github-releases depName=rafal11ck/gym-api
+  API_SPEC_URL: https://github.com/rafal11ck/gym-api/releases/download/v1.0.0/openapi.yaml
+
+tasks:
+  api-sdk:
+    desc: generate client API SDK
+    cmds:
+      - curl -sL {{.API_SPEC_URL}} -o openapi.yaml
+      - npx orval
+    silent: true
