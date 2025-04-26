@@ -17,6 +17,17 @@ export interface TargetMuscleDto {
     name?: string;
 }
 
+export interface MembershipTypeRequest {
+    type?: string;
+    price?: number;
+}
+
+export interface MembershipTypeDto {
+    uuid?: string;
+    type?: string;
+    price?: number;
+}
+
 export interface CreateExerciseRequest {
     name?: string;
     targetMuscles?: string[];
@@ -28,13 +39,13 @@ export interface ExerciseDto {
     targetMuscles?: TargetMuscleDto[];
 }
 
-export interface CreateCardRequest {
-    countryUuid?: string;
-    cardNumber?: string;
-    cvv?: string;
-    dateOfBirth?: string;
-    nameOnCard?: string;
-    postalCode?: string;
+export interface CardRequest {
+    countryUuid: string;
+    cardNumber: string;
+    cvv: string;
+    dateOfBirth: string;
+    nameOnCard: string;
+    postalCode: string;
 }
 
 export interface CardDto {
@@ -50,15 +61,6 @@ export interface CardDto {
 export interface Country {
     uuid?: string;
     countryName: string;
-}
-
-export interface UpdateCardRequest {
-    countryUuid?: string;
-    cardNumber?: string;
-    cvv?: string;
-    dateOfBirth?: string;
-    nameOnCard?: string;
-    postalCode?: string;
 }
 
 export interface CountryDto {
@@ -79,6 +81,19 @@ export const createTargetMuscle = <TData = AxiosResponse<TargetMuscleDto>>(
     return axios.default.post(`/target-muscles`, createTargetMuscleRequest, options);
 };
 
+export const listCards = <TData = AxiosResponse<MembershipTypeDto[]>>(
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/membership-types`, options);
+};
+
+export const createMembershipType = <TData = AxiosResponse<MembershipTypeDto>>(
+    membershipTypeRequest: MembershipTypeRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(`/membership-types`, membershipTypeRequest, options);
+};
+
 export const listExercises = <TData = AxiosResponse<ExerciseDto[]>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
@@ -92,25 +107,47 @@ export const createExercise = <TData = AxiosResponse<ExerciseDto>>(
     return axios.default.post(`/exercises`, createExerciseRequest, options);
 };
 
-export const listCards = <TData = AxiosResponse<CardDto[]>>(
+export const listCards1 = <TData = AxiosResponse<CardDto[]>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
     return axios.default.get(`/cards`, options);
 };
 
 export const createCard = <TData = AxiosResponse<CardDto>>(
-    createCardRequest: CreateCardRequest,
+    cardRequest: CardRequest,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.post(`/cards`, createCardRequest, options);
+    return axios.default.post(`/cards`, cardRequest, options);
 };
 
-export const updateCard = <TData = AxiosResponse<CardDto>>(
+export const deleteMembershipType = <TData = AxiosResponse<MembershipTypeDto>>(
     id: string,
-    updateCardRequest: UpdateCardRequest,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.patch(`/cards/${id}`, updateCardRequest, options);
+    return axios.default.delete(`/membership-types/${id}`, options);
+};
+
+export const updateCard = <TData = AxiosResponse<MembershipTypeDto>>(
+    id: string,
+    membershipTypeRequest: MembershipTypeRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.patch(`/membership-types/${id}`, membershipTypeRequest, options);
+};
+
+export const getCard = <TData = AxiosResponse<CardDto>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/cards/${id}`, options);
+};
+
+export const updateCard1 = <TData = AxiosResponse<CardDto>>(
+    id: string,
+    cardRequest: CardRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.patch(`/cards/${id}`, cardRequest, options);
 };
 
 export const getCountry = <TData = AxiosResponse<CountryDto[]>>(
@@ -135,11 +172,16 @@ export const deleteExercise = <TData = AxiosResponse<void>>(
 
 export type ListTargetMusclesResult = AxiosResponse<TargetMuscleDto[]>;
 export type CreateTargetMuscleResult = AxiosResponse<TargetMuscleDto>;
+export type ListCardsResult = AxiosResponse<MembershipTypeDto[]>;
+export type CreateMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
 export type ListExercisesResult = AxiosResponse<ExerciseDto[]>;
 export type CreateExerciseResult = AxiosResponse<ExerciseDto>;
-export type ListCardsResult = AxiosResponse<CardDto[]>;
+export type ListCards1Result = AxiosResponse<CardDto[]>;
 export type CreateCardResult = AxiosResponse<CardDto>;
-export type UpdateCardResult = AxiosResponse<CardDto>;
+export type DeleteMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
+export type UpdateCardResult = AxiosResponse<MembershipTypeDto>;
+export type GetCardResult = AxiosResponse<CardDto>;
+export type UpdateCard1Result = AxiosResponse<CardDto>;
 export type GetCountryResult = AxiosResponse<CountryDto[]>;
 export type DeleteTargetMuscleResult = AxiosResponse<void>;
 export type DeleteExerciseResult = AxiosResponse<void>;
