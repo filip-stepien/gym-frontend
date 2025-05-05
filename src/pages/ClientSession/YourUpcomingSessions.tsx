@@ -7,22 +7,26 @@ const data = [
     {
         title: 'Full body workout',
         time: '13:00-14:00',
-        name: 'John Pork'
+        name: 'John Pork',
+        date: '2025-03-17'
     },
     {
         title: 'Full body workout',
         time: '14:00-15:00',
-        name: 'John Pork'
+        name: 'John Pork',
+        date: '2025-03-17'
     },
     {
         title: 'Full body workout',
         time: '15:00-16:00',
-        name: 'John Pork'
+        name: 'John Pork',
+        date: '2025-03-17'
     },
     {
         title: 'Full body workout',
         time: '14:00-15:00',
-        name: 'John Pork'
+        name: 'John Pork',
+        date: '2025-03-18'
     }
 ];
 

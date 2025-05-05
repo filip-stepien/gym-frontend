@@ -8,12 +8,14 @@ const data = [
     {
         title: '#1 Workout',
         time: '12:38',
-        exercise: 'chest'
+        exercise1: 'chest',
+        exercise2: 'shoulders'
     },
     {
         title: '#2 Workout',
         time: '15:23',
-        exercise: 'shoulders'
+        exercise1: 'chest',
+        exercise2: 'shoulders'
     }
 ];
 
@@ -21,7 +23,7 @@ export function ClientWorkoutHistory() {
     return (
         <Card>
             <CardTitle title='Workout History' icon='calendar' />
-            <Flex>
+            <Flex className='gap-large'>
                 <Flex vertical className='w-full'>
                     <Calendar fullscreen={false} />
                 </Flex>
@@ -41,8 +43,8 @@ export function ClientWorkoutHistory() {
                                         {item.time}
                                     </Space>
                                 </Tag>
-                                <Tag color='blue'>{item.exercise}</Tag>
-                                <Tag color='blue'>{item.exercise}</Tag>
+                                <Tag color='blue'>{item.exercise1}</Tag>
+                                <Tag color='blue'>{item.exercise2}</Tag>
                             </List.Item>
                         )}
                     />

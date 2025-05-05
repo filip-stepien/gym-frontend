@@ -20,7 +20,7 @@ export function UpcomingSession() {
     return (
         <Card>
             <CardTitle title='Upcoming session' icon='sessions' />
-            <Flex>
+            <Flex className='gap-small'>
                 <Flex vertical className='w-full'>
                     <Calendar fullscreen={false} />
                 </Flex>
