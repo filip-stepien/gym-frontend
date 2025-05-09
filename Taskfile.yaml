@@ -4,7 +4,7 @@ version: '3'
 
 vars:
   # renovate: datasource=github-releases depName=rafal11ck/gym-api
-  API_SPEC_URL: https://github.com/rafal11ck/gym-api/releases/download/v1.6.0/openapi.yaml
+  API_SPEC_URL: https://github.com/rafal11ck/gym-api/releases/download/v1.8.0/openapi.yaml
 
 tasks:
   api-sdk:
