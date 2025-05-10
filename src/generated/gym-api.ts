@@ -7,16 +7,12 @@
 import * as axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export interface UserRequest {
-    roleUuid: string;
-    cardUuid: string;
-    membershipUuid: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-    email: string;
-    phoneNumber: string;
-    imageUrl: string;
+export interface WorkoutSessionRequest {
+    coachUuid: string;
+    hallUuid: string;
+    date: string;
+    title: string;
+    description: string;
 }
 
 export interface Card {
@@ -34,6 +30,24 @@ export interface Country {
     countryName: string;
 }
 
+export interface Exercise {
+    uuid?: string;
+    name?: string;
+    targetMuscles?: TargetMuscle[];
+}
+
+export interface Hall {
+    uuid?: string;
+    hallType?: HallType;
+    hallName?: string;
+    hallDescription?: string;
+}
+
+export interface HallType {
+    uuid?: string;
+    name?: string;
+}
+
 export interface Membership {
     uuid?: string;
     purchaseDate?: string;
@@ -47,6 +61,69 @@ export interface MembershipType {
     price?: number;
 }
 
+export interface TargetMuscle {
+    uuid?: string;
+    name?: string;
+}
+
+export interface User {
+    uuid?: string;
+    role?: UserRole;
+    card?: Card;
+    membership?: Membership;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    email?: string;
+    phoneNumber?: string;
+    imageUrl?: string;
+}
+
+export interface UserRole {
+    uuid?: string;
+    role?: string;
+}
+
+export interface WorkoutSessionDto {
+    uuid?: string;
+    coach?: User;
+    hall?: Hall;
+    date?: string;
+    title?: string;
+    description?: string;
+    attendants?: User[];
+    exercises?: WorkoutSessionExerciseDto[];
+}
+
+export interface WorkoutSessionExerciseDto {
+    uuid?: string;
+    exercise?: Exercise;
+    reps?: number;
+    exerciseOrder?: number;
+}
+
+export interface WorkoutSessionExerciseRequest {
+    exerciseUuid: string;
+    reps: number;
+    exerciseOrder: number;
+}
+
+export interface WorkoutSessionAttendantRequest {
+    userUuid: string;
+}
+
+export interface UserRequest {
+    roleUuid: string;
+    cardUuid: string;
+    membershipUuid: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    email: string;
+    phoneNumber: string;
+    imageUrl: string;
+}
+
 export interface UserDto {
     uuid?: string;
     role?: UserRole;
@@ -58,11 +135,6 @@ export interface UserDto {
     email?: string;
     phoneNumber?: string;
     imageUrl?: string;
-}
-
-export interface UserRole {
-    uuid?: string;
-    role?: string;
 }
 
 export interface CreateTargetMuscleRequest {
@@ -117,6 +189,23 @@ export interface MembershipTypeDto {
     price?: number;
 }
 
+export interface MaintenanceTaskRequest {
+    maintainerUuid: string;
+    hallUuid: string;
+    plannedStartDate: string;
+    plannedEndDate: string;
+    description: string;
+}
+
+export interface MaintenanceTaskDto {
+    uuid?: string;
+    maintainer?: User;
+    maintenanceHall?: Hall;
+    plannedStartDate?: string;
+    plannedEndDate?: string;
+    description?: string;
+}
+
 export interface HallRequest {
     hallTypeUuid: string;
     hallName: string;
@@ -130,11 +219,6 @@ export interface HallDto {
     hallDescription?: string;
 }
 
-export interface HallType {
-    uuid?: string;
-    name?: string;
-}
-
 export interface CreateExerciseRequest {
     name?: string;
     targetMuscles?: string[];
@@ -144,6 +228,22 @@ export interface ExerciseDto {
     uuid?: string;
     name?: string;
     targetMuscles?: TargetMuscleDto[];
+}
+
+export interface ChatDto {
+    uuid?: string;
+    participants?: ChatParticipantDto[];
+}
+
+export interface ChatParticipantDto {
+    uuid?: string;
+    user?: User;
+    lastReadDateTime?: string;
+}
+
+export interface ChatParticipantCreateRequest {
+    userUuid: string;
+    lastReadDateTime?: string;
 }
 
 export interface CardRequest {
@@ -165,8 +265,12 @@ export interface CardDto {
     postalCode?: string;
 }
 
+export interface ChatParticipantPatchRequest {
+    lastReadDateTime: string;
+}
+
 export interface UserRoleDto {
-    id?: string;
+    uuid?: string;
     role?: string;
 }
 
@@ -184,6 +288,43 @@ export interface CountryDto {
     uuid?: string;
     countryName?: string;
 }
+
+export const listWorkoutSessions = <TData = AxiosResponse<WorkoutSessionDto[]>>(
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/workout-sessions`, options);
+};
+
+export const createWorkoutSession = <TData = AxiosResponse<WorkoutSessionDto>>(
+    workoutSessionRequest: WorkoutSessionRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(`/workout-sessions`, workoutSessionRequest, options);
+};
+
+export const addWorkoutSessionExercise = <TData = AxiosResponse<WorkoutSessionDto>>(
+    id: string,
+    workoutSessionExerciseRequest: WorkoutSessionExerciseRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(
+        `/workout-sessions/${id}/exercises`,
+        workoutSessionExerciseRequest,
+        options
+    );
+};
+
+export const addWorkoutSessionAttendant = <TData = AxiosResponse<WorkoutSessionDto>>(
+    id: string,
+    workoutSessionAttendantRequest: WorkoutSessionAttendantRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(
+        `/workout-sessions/${id}/attendants`,
+        workoutSessionAttendantRequest,
+        options
+    );
+};
 
 export const listUsers = <TData = AxiosResponse<UserDto[]>>(
     options?: AxiosRequestConfig
@@ -250,6 +391,19 @@ export const createMembershipType = <TData = AxiosResponse<MembershipTypeDto>>(
     return axios.default.post(`/membership-types`, membershipTypeRequest, options);
 };
 
+export const listMaintenanceTasks = <TData = AxiosResponse<MaintenanceTaskDto[]>>(
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/maintenance-tasks`, options);
+};
+
+export const createMaintenanceTask = <TData = AxiosResponse<MaintenanceTaskDto>>(
+    maintenanceTaskRequest: MaintenanceTaskRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(`/maintenance-tasks`, maintenanceTaskRequest, options);
+};
+
 export const listHalls = <TData = AxiosResponse<HallDto[]>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
@@ -276,6 +430,20 @@ export const createExercise = <TData = AxiosResponse<ExerciseDto>>(
     return axios.default.post(`/exercises`, createExerciseRequest, options);
 };
 
+export const createChat = <TData = AxiosResponse<ChatDto>>(
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(`/chats`, undefined, options);
+};
+
+export const addChatParticipant = <TData = AxiosResponse<ChatParticipantDto>>(
+    id: string,
+    chatParticipantCreateRequest: ChatParticipantCreateRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(`/chats/${id}/participants`, chatParticipantCreateRequest, options);
+};
+
 export const listCards = <TData = AxiosResponse<CardDto[]>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
@@ -287,6 +455,21 @@ export const createCard = <TData = AxiosResponse<CardDto>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
     return axios.default.post(`/cards`, cardRequest, options);
+};
+
+export const getWorkoutSession = <TData = AxiosResponse<WorkoutSessionDto>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/workout-sessions/${id}`, options);
+};
+
+export const updateCard = <TData = AxiosResponse<WorkoutSessionDto>>(
+    id: string,
+    workoutSessionRequest: WorkoutSessionRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.patch(`/workout-sessions/${id}`, workoutSessionRequest, options);
 };
 
 export const getUser = <TData = AxiosResponse<UserDto>>(
@@ -341,12 +524,34 @@ export const getMembershipType = <TData = AxiosResponse<MembershipTypeDto>>(
     return axios.default.get(`/membership-types/${id}`, options);
 };
 
-export const updateCard = <TData = AxiosResponse<MembershipTypeDto>>(
+export const updateCard1 = <TData = AxiosResponse<MembershipTypeDto>>(
     id: string,
     membershipTypeRequest: MembershipTypeRequest,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
     return axios.default.patch(`/membership-types/${id}`, membershipTypeRequest, options);
+};
+
+export const getMaintenanceTask = <TData = AxiosResponse<MaintenanceTaskDto>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/maintenance-tasks/${id}`, options);
+};
+
+export const deleteMaintenanceTask = <TData = AxiosResponse<void>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.delete(`/maintenance-tasks/${id}`, options);
+};
+
+export const updateMaintenanceTask = <TData = AxiosResponse<MaintenanceTaskDto>>(
+    id: string,
+    maintenanceTaskRequest: MaintenanceTaskRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.patch(`/maintenance-tasks/${id}`, maintenanceTaskRequest, options);
 };
 
 export const getHall = <TData = AxiosResponse<HallDto>>(
@@ -364,6 +569,19 @@ export const updateHall = <TData = AxiosResponse<HallDto>>(
     return axios.default.patch(`/halls/${id}`, hallRequest, options);
 };
 
+export const updateChatParticipant = <TData = AxiosResponse<ChatParticipantDto>>(
+    id: string,
+    userId: string,
+    chatParticipantPatchRequest: ChatParticipantPatchRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.patch(
+        `/chats/${id}/participants/${userId}`,
+        chatParticipantPatchRequest,
+        options
+    );
+};
+
 export const getCard = <TData = AxiosResponse<CardDto>>(
     id: string,
     options?: AxiosRequestConfig
@@ -371,12 +589,19 @@ export const getCard = <TData = AxiosResponse<CardDto>>(
     return axios.default.get(`/cards/${id}`, options);
 };
 
-export const updateCard1 = <TData = AxiosResponse<CardDto>>(
+export const updateCard2 = <TData = AxiosResponse<CardDto>>(
     id: string,
     cardRequest: CardRequest,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
     return axios.default.patch(`/cards/${id}`, cardRequest, options);
+};
+
+export const listChats = <TData = AxiosResponse<ChatDto[]>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users/${id}/chats`, options);
 };
 
 export const listUserRoles = <TData = AxiosResponse<UserRoleDto[]>>(
@@ -403,6 +628,29 @@ export const getCountry = <TData = AxiosResponse<CountryDto[]>>(
     return axios.default.get(`/countries`, options);
 };
 
+export const getChat = <TData = AxiosResponse<ChatDto>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/chats/${id}`, options);
+};
+
+export const deleteWorkoutSessionExercise = <TData = AxiosResponse<void>>(
+    id: string,
+    exerciseId: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.delete(`/workout-sessions/${id}/exercises/${exerciseId}`, options);
+};
+
+export const deleteWorkoutSessionAttendant = <TData = AxiosResponse<void>>(
+    id: string,
+    userId: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.delete(`/workout-sessions/${id}/attendants/${userId}`, options);
+};
+
 export const deleteTargetMuscle = <TData = AxiosResponse<void>>(
     id: string,
     options?: AxiosRequestConfig
@@ -417,6 +665,10 @@ export const deleteExercise = <TData = AxiosResponse<void>>(
     return axios.default.delete(`/exercises/${id}`, options);
 };
 
+export type ListWorkoutSessionsResult = AxiosResponse<WorkoutSessionDto[]>;
+export type CreateWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
+export type AddWorkoutSessionExerciseResult = AxiosResponse<WorkoutSessionDto>;
+export type AddWorkoutSessionAttendantResult = AxiosResponse<WorkoutSessionDto>;
 export type ListUsersResult = AxiosResponse<UserDto[]>;
 export type CreateUserResult = AxiosResponse<UserDto>;
 export type ListTargetMusclesResult = AxiosResponse<TargetMuscleDto[]>;
@@ -427,12 +679,18 @@ export type ListMembershipsResult = AxiosResponse<MembershipDto[]>;
 export type CreateMembershipResult = AxiosResponse<MembershipDto>;
 export type ListMembershipTypesResult = AxiosResponse<MembershipTypeDto[]>;
 export type CreateMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
+export type ListMaintenanceTasksResult = AxiosResponse<MaintenanceTaskDto[]>;
+export type CreateMaintenanceTaskResult = AxiosResponse<MaintenanceTaskDto>;
 export type ListHallsResult = AxiosResponse<HallDto[]>;
 export type CreateHallResult = AxiosResponse<HallDto>;
 export type ListExercisesResult = AxiosResponse<ExerciseDto[]>;
 export type CreateExerciseResult = AxiosResponse<ExerciseDto>;
+export type CreateChatResult = AxiosResponse<ChatDto>;
+export type AddChatParticipantResult = AxiosResponse<ChatParticipantDto>;
 export type ListCardsResult = AxiosResponse<CardDto[]>;
 export type CreateCardResult = AxiosResponse<CardDto>;
+export type GetWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
+export type UpdateCardResult = AxiosResponse<WorkoutSessionDto>;
 export type GetUserResult = AxiosResponse<UserDto>;
 export type UpdateUserResult = AxiosResponse<UserDto>;
 export type GetPaymentResult = AxiosResponse<PaymentDto>;
@@ -440,14 +698,22 @@ export type UpdatePaymentResult = AxiosResponse<PaymentDto>;
 export type GetMembershipResult = AxiosResponse<MembershipDto>;
 export type PatchMembershipResult = AxiosResponse<MembershipDto>;
 export type GetMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
-export type UpdateCardResult = AxiosResponse<MembershipTypeDto>;
+export type UpdateCard1Result = AxiosResponse<MembershipTypeDto>;
+export type GetMaintenanceTaskResult = AxiosResponse<MaintenanceTaskDto>;
+export type DeleteMaintenanceTaskResult = AxiosResponse<void>;
+export type UpdateMaintenanceTaskResult = AxiosResponse<MaintenanceTaskDto>;
 export type GetHallResult = AxiosResponse<HallDto>;
 export type UpdateHallResult = AxiosResponse<HallDto>;
+export type UpdateChatParticipantResult = AxiosResponse<ChatParticipantDto>;
 export type GetCardResult = AxiosResponse<CardDto>;
-export type UpdateCard1Result = AxiosResponse<CardDto>;
+export type UpdateCard2Result = AxiosResponse<CardDto>;
+export type ListChatsResult = AxiosResponse<ChatDto[]>;
 export type ListUserRolesResult = AxiosResponse<UserRoleDto[]>;
 export type ListPaymentStatusesResult = AxiosResponse<PaymentStatusDto[]>;
 export type ListHallTypesResult = AxiosResponse<HallTypeDto[]>;
 export type GetCountryResult = AxiosResponse<CountryDto[]>;
+export type GetChatResult = AxiosResponse<ChatDto>;
+export type DeleteWorkoutSessionExerciseResult = AxiosResponse<void>;
+export type DeleteWorkoutSessionAttendantResult = AxiosResponse<void>;
 export type DeleteTargetMuscleResult = AxiosResponse<void>;
 export type DeleteExerciseResult = AxiosResponse<void>;
