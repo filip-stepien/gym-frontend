@@ -1,3 +1,10 @@
+import { Flex } from 'antd';
+import { EmployeeClientsTable } from './EmployeeClientsTable';
+
 export function EmployeeClients() {
-    return <div></div>;
+    return (
+        <Flex className='gap-layout w-full'>
+            <EmployeeClientsTable />
+        </Flex>
+    );
 }
