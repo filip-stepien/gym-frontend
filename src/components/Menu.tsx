@@ -14,7 +14,7 @@ const menuOptions: MenuOptionsMap = {
     client: ['dashboard', 'progress', 'sessions', 'membership', 'workout'],
     manager: [],
     coach: [],
-    employee: []
+    employee: ['dashboard', 'clients', 'requests', 'traininghalls', 'notifications']
 };
 
 export function Menu(props: MenuProps) {
