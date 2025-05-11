@@ -36,7 +36,7 @@ const columns: TableColumnsType<DataType> = [
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: () => <a>details</a>
+        render: () => <a>Details</a>
     }
 ];
 
