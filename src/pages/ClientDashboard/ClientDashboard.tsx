@@ -8,11 +8,11 @@ export function ClientDashboard() {
     return (
         <Flex vertical className='gap-layout'>
             <Flex className='bg-layout gap-layout'>
-                <Flex vertical className='gap-layout w-full'>
-                    <ProgressOverview />
+                <Flex className='flex-1'>
                     <Membership />
                 </Flex>
-                <Flex>
+                <Flex vertical className='gap-layout w-full flex-2'>
+                    <ProgressOverview />
                     <LastSession />
                 </Flex>
             </Flex>

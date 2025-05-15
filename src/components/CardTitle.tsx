@@ -6,11 +6,12 @@ const { Title } = Typography;
 type CardTitleProps = {
     title: string;
     icon: string;
+    className?: string;
 };
 
 export function CardTitle(props: CardTitleProps) {
     return (
-        <Space>
+        <Space className={props.className}>
             <Icon icon={props.icon} />
             <Title level={4}>{props.title}</Title>
         </Space>

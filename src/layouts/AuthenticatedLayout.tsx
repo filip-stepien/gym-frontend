@@ -16,7 +16,7 @@ const sidersHeight = `calc(100vh - ${getCSSVariable('--spacing-layout')})`;
 
 export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
     return (
-        <Layout className='gap-layout p-small'>
+        <Layout className='gap-layout p-small min-w-[1200px]'>
             <Sider
                 className='bg-card shadow-card top-small sticky h-screen'
                 style={{ height: sidersHeight }}
@@ -33,7 +33,7 @@ export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
             </Layout>
             {props.renderChat && (
                 <Sider
-                    className='bg-card shadow-card top-small sticky !min-w-90'
+                    className='bg-card shadow-card top-small sticky !min-w-80'
                     style={{ height: sidersHeight }}
                 >
                     <Chat />
