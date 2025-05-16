@@ -2,31 +2,31 @@ import { Avatar } from '@/components/Avatar';
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
 import { ScheduleViewer } from '@/components/ScheduleViewer';
-import { ScheduleListElement } from '@/components/ScheduleViewer/ScheduleList';
+import { ScheduleDateListElement } from '@/components/ScheduleViewer/ScheduleViewer';
 import { Button } from 'antd';
+import dayjs from 'dayjs';
 
-const listElements: ScheduleListElement[] = [
+const listElements: ScheduleDateListElement[] = [
     {
+        date: dayjs('2025-06-16'),
         title: 'Workout 1',
         description: 'description',
         avatar: <Avatar />,
         action: <Button>Join</Button>
     },
     {
+        date: dayjs('2025-06-15'),
         title: 'Workout 1',
-        description: 'description'
+        description: 'description',
+        avatar: <Avatar />,
+        action: <Button>Join</Button>
     },
     {
+        date: dayjs('2025-06-15'),
         title: 'Workout 1',
-        description: 'description'
-    },
-    {
-        title: 'Workout 1',
-        description: 'description'
-    },
-    {
-        title: 'Workout 1',
-        description: 'description'
+        description: 'description',
+        avatar: <Avatar />,
+        action: <Button>Join</Button>
     }
 ];
 
@@ -41,11 +41,7 @@ export function UpcomingSession() {
     return (
         <Card>
             <CardTitle title='Upcoming session' icon='sessions' />
-            <ScheduleViewer
-                listElements={listElements}
-                actions={scheduleViewerActions}
-                onDateSelect={console.log}
-            />
+            <ScheduleViewer listElements={listElements} actions={scheduleViewerActions} />
         </Card>
     );
 }
