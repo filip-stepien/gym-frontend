@@ -1,24 +1,20 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: [
-      "config:recommended",
-      ":dependencyDashboard",
-      ":semanticCommits",
-  ],
+  extends: ["config:recommended", ":dependencyDashboard", ":semanticCommits"],
   dependencyDashboard: true,
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
-  "npm": {
-    "enabled": false
+  npm: {
+    enabled: false,
   },
   customManagers: [
     {
       customType: "regex",
       description: ["Process annotated dependencies"],
-      fileMatch: [
-        "(^|/).+\\.env$",
-        "(^|/).+\\.sh$",
-        "(^|/).+\\.ya?ml(?:\\.j2)?$",
+      managerFilePatterns: [
+        "/(^|/).+\\.env$/",
+        "/(^|/).+\\.sh$/",
+        "/(^|/).+\\.ya?ml(?:\\.j2)?$/",
       ],
       matchStrings: [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)",
@@ -27,7 +23,7 @@
       datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
     },
   ],
-   packageRules: [
+  packageRules: [
     {
       matchUpdateTypes: ["major"],
       semanticCommitType: "feat",
