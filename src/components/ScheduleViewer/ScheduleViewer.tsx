@@ -19,7 +19,10 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
     const onDateSelect = useCallback(
         (date: dayjs.Dayjs) => {
             const elementsInSelectedDate = listElements?.filter(
-                e => e.date.date() === date.date() && e.date.year() === date.year()
+                e =>
+                    e.date.date() === date.date() &&
+                    e.date.month() === date.month() &&
+                    e.date.year() === date.year()
             );
 
             setCurrentListElements(elementsInSelectedDate ?? []);

@@ -96,7 +96,12 @@ export function ScheduleCalendar(props: EventCalendarProps) {
         return (
             <Flex vertical className='events gap-1'>
                 {listElements
-                    ?.filter(e => e.date.date() === date.date() && e.date.year() === date.year())
+                    ?.filter(
+                        e =>
+                            e.date.date() === date.date() &&
+                            e.date.month() === date.month() &&
+                            e.date.year() === date.year()
+                    )
                     .map(e => <Tag color='geekblue'>{e.title}</Tag>)}
             </Flex>
         );
