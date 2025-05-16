@@ -9,10 +9,11 @@ export type ScheduleDateListElement = { date: Dayjs } & ScheduleListElement;
 type ScheduleViewerProps = {
     listElements?: ScheduleDateListElement[];
     actions?: JSX.Element[];
+    fullscreen?: boolean;
 };
 
 export function ScheduleViewer(props: ScheduleViewerProps) {
-    const { listElements, actions } = props;
+    const { listElements, actions, fullscreen } = props;
     const [currentListElements, setCurrentListElements] = useState<ScheduleDateListElement[]>([]);
 
     const onDateSelect = useCallback(
@@ -31,10 +32,22 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
     }, [onDateSelect]);
 
     return (
-        <Row className='gap-large'>
-            <Col className='flex-1'>
-                <ScheduleCalendar onSelect={onDateSelect} />
-            </Col>
+        <Row className={fullscreen ? '' : 'gap-large'}>
+            {fullscreen ? (
+                <ScheduleCalendar
+                    onSelect={onDateSelect}
+                    fullscreen={fullscreen}
+                    listElements={listElements}
+                />
+            ) : (
+                <Col className='flex-1'>
+                    <ScheduleCalendar
+                        onSelect={onDateSelect}
+                        fullscreen={fullscreen}
+                        listElements={listElements}
+                    />
+                </Col>
+            )}
             <Col className='gap-small flex flex-1 flex-col justify-between'>
                 <ScheduleList listElements={currentListElements} />
                 <Flex justify='flex-end' gap='small'>

@@ -1,14 +1,17 @@
 import dayjs from 'dayjs';
-import { Calendar, Col, Row, Select } from 'antd';
-import type { Dayjs } from 'dayjs';
 import dayLocaleData from 'dayjs/plugin/localeData';
-import { HeaderRender } from 'antd/es/calendar/generateCalendar';
+import { CalendarProps, HeaderRender } from 'antd/es/calendar/generateCalendar';
+import { Calendar, Col, Flex, Row, Select, Tag } from 'antd';
+import type { Dayjs } from 'dayjs';
+import type { ScheduleDateListElement } from './ScheduleViewer';
 
 dayjs.extend(dayLocaleData);
 
 type EventCalendarProps = {
     onSelect?: (date: Dayjs) => void;
     className?: string;
+    fullscreen?: boolean;
+    listElements?: ScheduleDateListElement[];
 };
 
 function getMonthOptions(value: Dayjs) {
@@ -87,11 +90,23 @@ const renderHeader: HeaderRender<Dayjs> = ({ value, onChange }) => {
 };
 
 export function ScheduleCalendar(props: EventCalendarProps) {
-    const { onSelect, className } = props;
+    const { onSelect, className, fullscreen, listElements } = props;
+
+    const cellRender: CalendarProps<Dayjs>['cellRender'] = date => {
+        return (
+            <Flex vertical className='events gap-1'>
+                {listElements
+                    ?.filter(e => e.date.date() === date.date() && e.date.year() === date.year())
+                    .map(e => <Tag color='geekblue'>{e.title}</Tag>)}
+            </Flex>
+        );
+    };
+
     return (
         <Calendar
             className={'min-w-100 ' + className}
-            fullscreen={false}
+            fullscreen={fullscreen ?? false}
+            cellRender={fullscreen ? cellRender : undefined}
             headerRender={renderHeader}
             onSelect={onSelect}
         />
