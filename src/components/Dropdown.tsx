@@ -1,22 +1,22 @@
-import { Dropdown, Space } from 'antd';
+import { Dropdown as AntDropdown, Space } from 'antd';
 import { Icon } from '@/components/Icon';
 import type { ItemType } from 'antd/es/menu/interface';
 
-type TimePeriodDropdownProps = {
+type DropdownProps = {
     menuItems: ItemType[];
     label: string;
 };
 
-export function TimePeriodDropdown(props: TimePeriodDropdownProps) {
+export function Dropdown(props: DropdownProps) {
     const { menuItems, label } = props;
     return (
-        <Dropdown className='select-none' menu={{ items: menuItems }}>
+        <AntDropdown className='select-none' menu={{ items: menuItems }}>
             <a onClick={e => e.preventDefault()}>
                 <Space>
                     <span>{label}</span>
                     <Icon icon='dropdown' />
                 </Space>
             </a>
-        </Dropdown>
+        </AntDropdown>
     );
 }

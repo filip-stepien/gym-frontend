@@ -5,7 +5,7 @@ import type { ChangeEventHandler, CSSProperties, ReactElement, ReactNode } from 
 const { useToken } = theme;
 const { Search } = Input;
 
-type CategoryDropdownProps = {
+type SearchDropdownMenu = {
     menu: ReactNode;
     searchEnabled?: boolean;
     searchPlaceholder?: string;
@@ -16,7 +16,7 @@ const menuStyle: React.CSSProperties = {
     boxShadow: 'none'
 };
 
-export function CategoryMenu(props: CategoryDropdownProps) {
+export function SearchDropdownMenu(props: SearchDropdownMenu) {
     const { menu, searchEnabled, searchPlaceholder, onSearchChange } = props;
     const { token } = useToken();
 

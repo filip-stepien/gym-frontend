@@ -10,8 +10,8 @@ import { Flex, Space } from 'antd';
 import { Bar, Line } from 'react-chartjs-2';
 import { getCSSVariable } from '@/utils/getCSSVariable';
 import { ChangeEventHandler, useState } from 'react';
-import { CategoryDropdown } from './CategoryDropdown';
-import { TimePeriodDropdown } from './TimePeriodDropdown';
+import { SearchDropdown } from './SearchDropdown';
+import { Dropdown } from './Dropdown';
 import type { MenuProps } from 'antd';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement);
@@ -136,14 +136,14 @@ export function Chart(props: ChartProps) {
     return (
         <Space direction='vertical' size='middle' className='pt-small'>
             <Flex align='end' justify='space-between'>
-                <CategoryDropdown
+                <SearchDropdown
                     category={chartDataset.category}
                     menuItems={categoryItems}
                     searchEnabled={categorySearch?.enabled}
                     searchPlaceholder={categorySearch?.placeholder}
                     onSearchChange={handleSearch}
                 />
-                <TimePeriodDropdown
+                <Dropdown
                     menuItems={getTimePeriodItems(timeSpanLabels, handleTimePeriodClick)}
                     label={timePeriodLabel}
                 />

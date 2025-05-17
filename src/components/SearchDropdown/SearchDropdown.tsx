@@ -1,26 +1,29 @@
 import { Dropdown } from 'antd';
 import { Icon } from '../Icon';
-import { CategoryMenu } from './CategoryMenu';
-import type { ChangeEventHandler } from 'react';
+import { SearchDropdownMenu } from './SearchDropdownMenu';
+import { type ChangeEventHandler } from 'react';
 import type { ItemType } from 'antd/es/menu/interface';
 
-type CategoryDropdownProps = {
+type SearchDropdownProps = {
     category: string;
     menuItems: ItemType[];
+    className?: string;
     searchEnabled?: boolean;
     searchPlaceholder?: string;
     onSearchChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
-export function CategoryDropdown(props: CategoryDropdownProps) {
-    const { category, menuItems, searchEnabled, searchPlaceholder, onSearchChange } = props;
+export function SearchDropdown(props: SearchDropdownProps) {
+    const { category, className, menuItems, searchEnabled, searchPlaceholder, onSearchChange } =
+        props;
+
     return (
         <Dropdown.Button
             icon={<Icon icon='down' />}
             menu={{ items: menuItems }}
-            className='w-fit'
+            className={className}
             dropdownRender={menu => (
-                <CategoryMenu
+                <SearchDropdownMenu
                     menu={menu}
                     searchEnabled={searchEnabled}
                     searchPlaceholder={searchPlaceholder}
