@@ -12,6 +12,7 @@ import { EmployeeClients } from './pages/EmployeeClients';
 import { EmployeeRequests } from './pages/EmployeeRequests';
 import { EmployeeTrainingHalls } from './pages/EmployeeTrainingHalls';
 import { EmployeeNotifications } from './pages/EmployeeNotifications';
+import { ClientWorkoutDetails } from './pages/ClientWorkoutDetails';
 
 export function Router() {
     return (
@@ -23,6 +24,7 @@ export function Router() {
                     <Route path='sessions' element={<ClientSession />} />
                     <Route path='membership' element={<ClientMembership />} />
                     <Route path='workout' element={<ClientWorkout />} />
+                    <Route path='workout/:id' element={<ClientWorkoutDetails />} />
                 </Route>
 
                 <Route path='/employee' element={<EmployeeLayout renderChat />}>
