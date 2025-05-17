@@ -19,7 +19,8 @@ import {
     ImportOutlined,
     QuestionCircleOutlined,
     DatabaseOutlined,
-    MessageOutlined
+    MessageOutlined,
+    ArrowLeftOutlined
 } from '@ant-design/icons';
 import { cloneElement, JSX } from 'react';
 
@@ -54,7 +55,8 @@ const icons: IconMap = {
     clients: <UserOutlined />,
     requests: <QuestionCircleOutlined />,
     traininghalls: <DatabaseOutlined />,
-    notifications: <MessageOutlined />
+    notifications: <MessageOutlined />,
+    back: <ArrowLeftOutlined />
 };
 
 export function Icon(props: IconProps) {
