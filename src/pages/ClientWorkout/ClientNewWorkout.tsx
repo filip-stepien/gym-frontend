@@ -17,6 +17,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
 import { Icon } from '@/components/Icon';
 import dayjs from 'dayjs';
+import { SearchDropdown } from '@/components/SearchDropdown';
 
 const { Title } = Typography;
 
@@ -27,6 +28,17 @@ interface ExerciseRow {
     reps: number;
 }
 
+const menuItems = [
+    {
+        key: 'Bench press',
+        label: 'Bench press'
+    },
+    {
+        key: 'Push up',
+        label: 'Push up'
+    }
+];
+
 export function ClientNewWorkout() {
     const [titleError, setTitleError] = useState(false);
     const [dateError, setDateError] = useState(false);
@@ -35,20 +47,7 @@ export function ClientNewWorkout() {
     const [date, setDate] = useState(dayjs());
     const [time, setTime] = useState(dayjs());
     const [title, setTitle] = useState('New workout');
-    const [dataSource, setDataSource] = useState<ExerciseRow[]>([
-        {
-            key: '1',
-            exercise: 'Bench press',
-            weight: 100,
-            reps: 3
-        },
-        {
-            key: '2',
-            exercise: 'Leg extensions',
-            weight: 80,
-            reps: 8
-        }
-    ]);
+    const [dataSource, setDataSource] = useState<ExerciseRow[]>([]);
 
     const handleChange = (value: string, key: string, column: keyof ExerciseRow) => {
         setDataSource(prev =>
@@ -91,10 +90,11 @@ export function ClientNewWorkout() {
         {
             title: '*Exercise',
             dataIndex: 'exercise',
-            render: (text, record) => (
-                <Input
-                    value={text}
-                    onChange={e => handleChange(e.target.value, record.key, 'exercise')}
+            render: (_, record) => (
+                <SearchDropdown
+                    placeholder='Select exercise'
+                    menuItems={menuItems}
+                    onSelect={item => handleChange(item.label, record.key, 'exercise')}
                 />
             )
         },

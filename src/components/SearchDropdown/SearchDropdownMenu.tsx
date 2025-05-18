@@ -9,6 +9,7 @@ type SearchDropdownMenu = {
     menu: ReactNode;
     searchEnabled?: boolean;
     searchPlaceholder?: string;
+    searchValue?: string;
     onSearchChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
@@ -17,7 +18,7 @@ const menuStyle: React.CSSProperties = {
 };
 
 export function SearchDropdownMenu(props: SearchDropdownMenu) {
-    const { menu, searchEnabled, searchPlaceholder, onSearchChange } = props;
+    const { menu, searchEnabled, searchPlaceholder, searchValue, onSearchChange } = props;
     const { token } = useToken();
 
     const menuElement = cloneElement(menu as ReactElement<{ style: CSSProperties }>, {
@@ -34,7 +35,11 @@ export function SearchDropdownMenu(props: SearchDropdownMenu) {
         <div style={dropdownContentStyle}>
             {searchEnabled && (
                 <Space className='p-small'>
-                    <Search onChange={onSearchChange} placeholder={searchPlaceholder} />
+                    <Search
+                        value={searchValue}
+                        onChange={onSearchChange}
+                        placeholder={searchPlaceholder}
+                    />
                 </Space>
             )}
             {menuElement}

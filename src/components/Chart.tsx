@@ -6,13 +6,12 @@ import {
     LineElement,
     PointElement
 } from 'chart.js';
-import { Flex, Space } from 'antd';
+import { Empty, Flex, Space } from 'antd';
 import { Bar, Line } from 'react-chartjs-2';
 import { getCSSVariable } from '@/utils/getCSSVariable';
-import { ChangeEventHandler, useState } from 'react';
+import { useState } from 'react';
 import { SearchDropdown } from './SearchDropdown';
 import { Dropdown } from './Dropdown';
-import type { MenuProps } from 'antd';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement);
 
@@ -36,34 +35,13 @@ export type CategorySearchOptions = {
 
 type ChartProps = {
     data: ChartData[];
+    dropdownType?: 'menu' | 'search';
     type?: 'bar' | 'line';
     className?: string;
     categorySearch?: CategorySearchOptions;
 };
 
 type TimeSpanLabels = Record<TimePeriod, string>;
-
-function getCategoryItems(data: ChartData[], onClick: MenuProps['onClick'], limit?: number) {
-    return data
-        .map(({ category }) => ({
-            label: category,
-            key: category,
-            onClick
-        }))
-        .slice(0, limit);
-}
-
-function getTimePeriodItems(timeSpanLabels: TimeSpanLabels, onClick: MenuProps['onClick']) {
-    return Object.entries(timeSpanLabels).map(([timespan, title]) => ({
-        label: title,
-        key: timespan,
-        onClick: onClick
-    }));
-}
-
-function categorySearchComparator(category: string, prompt: string) {
-    return category.toLowerCase().startsWith(prompt.toLowerCase());
-}
 
 const timeSpanLabels: TimeSpanLabels = {
     lastWeek: 'Last week',
@@ -80,81 +58,75 @@ const chartComponentOptions = {
 };
 
 export function Chart(props: ChartProps) {
-    const { data, type, className, categorySearch } = props;
+    const { data, type, className, dropdownType } = props;
 
-    // this handler is used in the state initialization so all handlers are declared on the top
-    const handleCategoryClick: MenuProps['onClick'] = option => {
-        // categories are created based on provided datasets, thus find cannot return undefined
-        const dataset = data.find(e => e.category == option.key) as ChartData;
-        const timeSeries = dataset.timeSeries[initialTimePeriod];
-
-        setChartDataset(dataset);
-        setTimePeriodLabel(timeSpanLabels[initialTimePeriod]);
-        setTimeSeriesData(timeSeries);
-    };
-
-    const handleTimePeriodClick: MenuProps['onClick'] = option => {
-        // key type of timeSpanLabels is TimePeriod, but Object.entries() returns key as a string
-        const timePeriod = option.key as TimePeriod;
-        const timeSeries = chartDataset.timeSeries[timePeriod];
-
-        setTimePeriodLabel(timeSpanLabels[timePeriod]);
-        setTimeSeriesData(timeSeries);
-    };
-
-    const handleSearch: ChangeEventHandler<HTMLInputElement> = event => {
-        const text = event.target.value;
-        const searchResult = data.filter(({ category }) =>
-            categorySearchComparator(category, text)
-        );
-
-        const items = getCategoryItems(searchResult, handleCategoryClick, categorySearch?.limit);
-        setCategoryItems(items);
-    };
-
-    // actual state declarations
     const initialTimePeriod: TimePeriod = 'lastWeek';
-    const initialCategoryItems = getCategoryItems(data, handleCategoryClick, categorySearch?.limit);
+    const [chartDataset, setChartDataset] = useState<ChartData | null>(data[0]);
+    const [timePeriod, setTimePeriod] = useState<TimePeriod>(initialTimePeriod);
 
-    const [categoryItems, setCategoryItems] = useState(initialCategoryItems);
-    const [chartDataset, setChartDataset] = useState(data[0]);
-    const [timePeriodLabel, setTimePeriodLabel] = useState(timeSpanLabels[initialTimePeriod]);
-    const [timeSeriesData, setTimeSeriesData] = useState(
-        chartDataset.timeSeries[initialTimePeriod]
-    );
+    const dataExists = data[0]?.category.length > 0;
+    const menuItems = data.map(e => ({ key: e.category, label: e.category }));
+    const timeSeriesItems = Object.entries(timeSpanLabels).map(([key, value]) => ({
+        key,
+        label: value
+    }));
 
     const chartComponentData = {
-        labels: timeSeriesData.labels,
+        labels: chartDataset?.timeSeries[timePeriod].labels,
         datasets: [
             {
-                data: timeSeriesData.values,
+                data: chartDataset?.timeSeries[timePeriod].values,
                 backgroundColor: getCSSVariable('--color-primary')
             }
         ]
     };
 
+    const handleMenuItemSelect = (item: { key: string; label: string }) => {
+        const dataset = data.find(e => e.category === item.key) ?? null;
+        setChartDataset(dataset);
+    };
+
+    const handleTimePeriodSelect = (item: { key: string; label: string }) => {
+        setTimePeriod(item.key as TimePeriod);
+    };
+
+    const menu =
+        dropdownType === 'search' ? (
+            <SearchDropdown
+                placeholder={data[0]?.category ?? 'Select exercise'}
+                menuItems={menuItems}
+                onSelect={handleMenuItemSelect}
+            />
+        ) : (
+            <Dropdown
+                placeholder={data[0]?.category ?? 'Select exercise'}
+                menuItems={menuItems}
+                onSelect={handleMenuItemSelect}
+            />
+        );
+
+    const chart =
+        type === 'line' ? (
+            <Line options={chartComponentOptions} data={chartComponentData} />
+        ) : (
+            <Bar options={chartComponentOptions} data={chartComponentData} />
+        );
+
     return (
         <Space direction='vertical' size='middle' className='pt-small'>
             <Flex align='end' justify='space-between'>
-                <SearchDropdown
-                    category={chartDataset.category}
-                    menuItems={categoryItems}
-                    searchEnabled={categorySearch?.enabled}
-                    searchPlaceholder={categorySearch?.placeholder}
-                    onSearchChange={handleSearch}
-                />
-                <Dropdown
-                    menuItems={getTimePeriodItems(timeSpanLabels, handleTimePeriodClick)}
-                    label={timePeriodLabel}
-                />
-            </Flex>
-            <div className={`min-h-50 ${className}`}>
-                {type === 'line' ? (
-                    <Line options={chartComponentOptions} data={chartComponentData} />
-                ) : (
-                    <Bar options={chartComponentOptions} data={chartComponentData} />
+                {dataExists && (
+                    <>
+                        {menu}
+                        <Dropdown
+                            menuItems={timeSeriesItems}
+                            placeholder={timeSpanLabels[initialTimePeriod]}
+                            onSelect={handleTimePeriodSelect}
+                        />
+                    </>
                 )}
-            </div>
+            </Flex>
+            <div className={`min-h-50 ${className}`}>{dataExists ? chart : <Empty />}</div>
         </Space>
     );
 }
