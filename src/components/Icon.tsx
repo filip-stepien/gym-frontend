@@ -21,7 +21,10 @@ import {
     DatabaseOutlined,
     MessageOutlined,
     ArrowLeftOutlined,
-    CloseOutlined
+    CloseOutlined,
+    UserAddOutlined,
+    UploadOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
 import { cloneElement, JSX } from 'react';
 
@@ -58,7 +61,10 @@ const icons: IconMap = {
     'training-halls': <DatabaseOutlined />,
     notifications: <MessageOutlined />,
     back: <ArrowLeftOutlined />,
-    close: <CloseOutlined />
+    close: <CloseOutlined />,
+    addavatar: <UserAddOutlined />,
+    upload: <UploadOutlined />,
+    tool: <ToolOutlined />
 };
 
 export function Icon(props: IconProps) {

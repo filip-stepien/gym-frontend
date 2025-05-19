@@ -1,3 +1,12 @@
+import { Flex } from 'antd';
+import { EmployeeDashboardMembershipCreation } from './EmployeeDashboardMembershipCreation';
+import { EmployeeDashboardTasks } from './EmployeeDashboardTasks';
+
 export function EmployeeDashboard() {
-    return <div></div>;
+    return (
+        <Flex vertical className='gap-layout'>
+            <EmployeeDashboardMembershipCreation />
+            <EmployeeDashboardTasks />
+        </Flex>
+    );
 }
