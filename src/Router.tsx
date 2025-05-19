@@ -9,7 +9,6 @@ import { ClientWorkout } from './pages/ClientWorkout';
 import { EmployeeLayout } from './layouts/EmployeeLayout';
 import { EmployeeDashboard } from './pages/EmployeeDashboard';
 import { EmployeeClients } from './pages/EmployeeClients';
-import { EmployeeRequests } from './pages/EmployeeRequests';
 import { EmployeeTrainingHalls } from './pages/EmployeeTrainingHalls';
 import { EmployeeNotifications } from './pages/EmployeeNotifications';
 import { ClientWorkoutDetails } from './pages/ClientWorkoutDetails';
@@ -30,8 +29,7 @@ export function Router() {
                 <Route path='/employee' element={<EmployeeLayout renderChat />}>
                     <Route path='dashboard' element={<EmployeeDashboard />} />
                     <Route path='clients' element={<EmployeeClients />} />
-                    <Route path='requests' element={<EmployeeRequests />} />
-                    <Route path='traininghalls' element={<EmployeeTrainingHalls />} />
+                    <Route path='training-halls' element={<EmployeeTrainingHalls />} />
                     <Route path='notifications' element={<EmployeeNotifications />} />
                 </Route>
             </Routes>

@@ -89,7 +89,7 @@ export function EmployeeTrainingHallsTable() {
     return (
         <Card className='w-full'>
             <Flex justify='space-between'>
-                <CardTitle title='Training Halls' icon='traininghalls' />
+                <CardTitle title='Training Halls' icon='training-halls' />
                 <Space>
                     <Button>Clear filters</Button>
                 </Space>

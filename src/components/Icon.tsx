@@ -55,7 +55,7 @@ const icons: IconMap = {
     newworkout: <ImportOutlined />,
     clients: <UserOutlined />,
     requests: <QuestionCircleOutlined />,
-    traininghalls: <DatabaseOutlined />,
+    'training-halls': <DatabaseOutlined />,
     notifications: <MessageOutlined />,
     back: <ArrowLeftOutlined />,
     close: <CloseOutlined />

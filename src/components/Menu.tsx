@@ -14,8 +14,15 @@ const menuOptions: MenuOptionsMap = {
     client: ['dashboard', 'progress', 'sessions', 'membership', 'workout'],
     manager: [],
     coach: [],
-    employee: ['dashboard', 'clients', 'requests', 'traininghalls', 'notifications']
+    employee: ['dashboard', 'clients', 'training-halls', 'notifications']
 };
+
+function formatMenuLabel(menuOption: string) {
+    return menuOption
+        .split('-')
+        .map(e => e.charAt(0).toUpperCase() + e.slice(1))
+        .join(' ');
+}
 
 export function Menu(props: MenuProps) {
     const navigate = useNavigate();
@@ -27,7 +34,7 @@ export function Menu(props: MenuProps) {
     // create menu items based on available options
     const menuItems: MenuItem[] = options.map(item => ({
         key: item, // use the option as a menu item key
-        label: item.charAt(0).toUpperCase() + item.slice(1), // capitalize the option display name
+        label: formatMenuLabel(item), // capitalize the option display name
         icon: <Icon icon={item} /> // assign icon with source equal to option
     }));
 

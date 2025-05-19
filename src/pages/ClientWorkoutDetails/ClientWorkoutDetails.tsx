@@ -59,7 +59,7 @@ export function ClientWorkoutDetails() {
                     </Col>
                     <Col className='gap-large flex flex-1 flex-col'>
                         <Flex gap='small' className='justify-start'>
-                            <Icon icon='traininghalls' />
+                            <Icon icon='training-halls' />
                             <Title level={5}>Session plan</Title>
                         </Flex>
                         <Timeline items={WORKOUT_DETAILS.exercises.map(e => ({ children: e }))} />
