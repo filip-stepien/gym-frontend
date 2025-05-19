@@ -1,5 +1,5 @@
 import { CardTitle } from '@/components/CardTitle';
-import { Button, Card, Space, Flex, Table, TableColumnsType, Tag, Badge } from 'antd';
+import { Card, Flex, Table, TableColumnsType, Tag, Badge } from 'antd';
 
 interface DataType {
     key: React.Key;
@@ -14,21 +14,21 @@ const columns: TableColumnsType<DataType> = [
         dataIndex: 'id',
         key: 'id',
         fixed: 'left',
-        sorter: true
+        sorter: (a, b) => a.id - b.id
     },
     {
         title: 'Hall type',
         dataIndex: 'halltype',
         key: 'halltype',
         fixed: 'left',
-        sorter: true,
+        sorter: (a, b) => a.halltype.localeCompare(b.halltype),
         render: (halltype: string) => <Tag>{halltype}</Tag>
     },
     {
         title: 'Status',
         dataIndex: 'status',
         key: 'status',
-        sorter: true,
+        sorter: (a, b) => a.status.localeCompare(b.status),
         render: (status: string) => {
             let badgeStatus: 'success' | 'warning' | 'error' | 'default';
 
@@ -90,9 +90,6 @@ export function EmployeeTrainingHallsTable() {
         <Card className='w-full'>
             <Flex justify='space-between'>
                 <CardTitle title='Training Halls' icon='training-halls' />
-                <Space>
-                    <Button>Clear filters</Button>
-                </Space>
             </Flex>
             <Table<DataType>
                 pagination={false}
