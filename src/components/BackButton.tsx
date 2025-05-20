@@ -9,8 +9,12 @@ export function BackButton() {
     };
 
     return (
-        <div className='bg-card shadow-card grid h-[40px] w-[80px] cursor-pointer place-items-center'>
-            <Icon onClick={onButtonClick} icon='back' />
+        <div
+            onClick={onButtonClick}
+            className='bg-card shadow-card relative grid h-[40px] w-[80px] cursor-pointer place-items-center'
+        >
+            <Icon icon='back' />
+            <div className='bg-card absolute bottom-[-5px] h-[10px] w-full'></div>
         </div>
     );
 }
