@@ -7,7 +7,10 @@ import dayjs from 'dayjs';
 const exercises = ['Bench Press', 'Push up', 'Lateral raise', 'Pull up', 'Squat', 'Deadlift'];
 const tags = ['chest', 'legs'];
 const timestamp = dayjs();
-const actions = [<Button type='primary'>+ New session</Button>, <Button>Show Details</Button>];
+const actions = [
+    <Button type='primary'>+ New session</Button>,
+    <Button href='/coach/workout/xd'>Show Details</Button>
+];
 
 export function CoachLastSessions() {
     return (
