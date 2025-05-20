@@ -11,7 +11,8 @@ import {
     Timeline,
     TableColumnsType,
     Table,
-    Empty
+    Empty,
+    Button
 } from 'antd';
 import { Icon } from '@/components/Icon';
 import { Dayjs } from 'dayjs';
@@ -56,7 +57,11 @@ const columns: TableColumnsType<DataType> = [
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: () => <a>Details</a>
+        render: () => (
+            <Button type='link' href='/coach/client/xd'>
+                Details
+            </Button>
+        )
     }
 ];
 

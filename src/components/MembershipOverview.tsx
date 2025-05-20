@@ -15,7 +15,7 @@ type MembershipOverviewProps = {
 export function MembershipOverview(props: MembershipOverviewProps) {
     const { imageSrc, firstName, lastName, dateOfBirth, email } = props;
     return (
-        <Card className='flex-1'>
+        <Card>
             <Flex className='gap-large' align='center'>
                 <Image width={130} height={130} src={imageSrc} objectFit='cover' />
                 <Space direction='vertical'>

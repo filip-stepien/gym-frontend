@@ -20,7 +20,7 @@ const scheduleListElements: ScheduleDateListElement[] = [
     }
 ];
 
-const scheduleActions = [<Button>Show Full Calendar</Button>];
+const scheduleActions = [<Button href='/coach/sessions'>Show Full Calendar</Button>];
 
 export function CoachUpcomingSessions() {
     return (

@@ -1,6 +1,6 @@
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
-import { Table, TableColumnsType } from 'antd';
+import { Button, Table, TableColumnsType } from 'antd';
 
 interface DataType {
     key: React.Key;
@@ -37,7 +37,11 @@ const columns: TableColumnsType<DataType> = [
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: () => <a>Details</a>
+        render: () => (
+            <Button type='link' href='/coach/client/xd'>
+                Details
+            </Button>
+        )
     }
 ];
 

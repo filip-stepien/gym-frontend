@@ -15,6 +15,7 @@ import { CoachDashboard } from './pages/CoachDashboard';
 import { CoachClients } from './pages/CoachClients';
 import { CoachSessions } from './pages/CoachSessions';
 import { CoachWorkoutDetails } from './pages/CoachWorkoutDetails';
+import { CoachClientDetails } from './pages/CoachClientDetails';
 
 export function Router() {
     return (
@@ -50,6 +51,7 @@ export function Router() {
                     <Route path='clients' element={<CoachClients />} />
                     <Route path='sessions' element={<CoachSessions />} />
                     <Route path='workout/:id' element={<CoachWorkoutDetails />} />
+                    <Route path='client/:id' element={<CoachClientDetails />} />
                 </Route>
             </Routes>
         </BrowserRouter>

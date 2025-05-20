@@ -14,6 +14,7 @@ type LastSessionProps = {
     totalSets?: number;
     totalVolume?: number;
     actions?: JSX.Element[];
+    detailsHref?: string;
 };
 
 const { Title } = Typography;
@@ -24,12 +25,13 @@ export function LastSession(props: LastSessionProps) {
     const {
         tags = [],
         exercises = [],
+        actions = [],
         totalExercises,
         totalSets,
         totalVolume,
         timestamp,
         coach,
-        actions = []
+        detailsHref
     } = props;
 
     const leftTimeLineColumnItems: TimeLineItemProps[] = exercises
@@ -49,7 +51,7 @@ export function LastSession(props: LastSessionProps) {
 
     if (displayMoreExercisesLabel) {
         rightTimeLineColumnItmes.push({
-            children: <Link to={'/elo'}>+{exercisesLeft} More</Link>
+            children: <Link to={detailsHref ?? '/'}>+{exercisesLeft} More</Link>
         });
     }
 

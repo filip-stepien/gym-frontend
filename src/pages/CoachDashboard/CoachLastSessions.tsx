@@ -15,12 +15,13 @@ const actions = [
 export function CoachLastSessions() {
     return (
         <Card>
-            <CardTitle title='Last Sessions' icon='sessions' />
+            <CardTitle title='Last Session' icon='sessions' />
             <LastSession
                 exercises={exercises}
                 tags={tags}
                 timestamp={timestamp}
                 actions={actions}
+                detailsHref='/coach/workout/xd'
             />
         </Card>
     );
