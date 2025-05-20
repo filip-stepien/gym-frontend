@@ -1,5 +1,5 @@
 import { Page } from '@/components/Page';
-import { MembershipOverview } from './MembershipOverwiev';
+import { MembershipOverview } from '@/components/MembershipOverview';
 import { Flex } from 'antd';
 import { MembershipStatus } from './MembershipStatus';
 import { MembershipDetails } from './MembershipDetails';
