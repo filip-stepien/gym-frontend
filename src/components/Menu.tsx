@@ -4,7 +4,7 @@ import { Logo } from './Logo';
 import { useNavigate } from 'react-router';
 import type { MenuProps as AntMenuProps } from 'antd';
 
-type AccountType = 'manager' | 'client' | 'coach' | 'employee';
+export type AccountType = 'manager' | 'client' | 'coach' | 'employee';
 type MenuProps = { accountType?: AccountType };
 type MenuOptionsMap = { [key in AccountType]: string[] };
 type MenuItem = Required<AntMenuProps>['items'][number];
@@ -13,7 +13,7 @@ type MenuItem = Required<AntMenuProps>['items'][number];
 const menuOptions: MenuOptionsMap = {
     client: ['dashboard', 'progress', 'sessions', 'membership', 'workout'],
     manager: [],
-    coach: [],
+    coach: ['dashboard', 'clients', 'sessions'],
     employee: ['dashboard', 'clients', 'training-halls', 'notifications']
 };
 
