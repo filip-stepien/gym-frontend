@@ -15,23 +15,27 @@ const columns: TableColumnsType<DataType> = [
         title: 'Membership ID',
         dataIndex: 'id',
         key: 'id',
-        fixed: 'left'
+        fixed: 'left',
+        sorter: (a, b) => a.id - b.id
     },
     {
         title: 'First name',
         dataIndex: 'firstName',
         key: 'firstName',
-        fixed: 'left'
+        fixed: 'left',
+        sorter: (a, b) => a.firstName.localeCompare(b.firstName)
     },
     {
         title: 'Last name',
         dataIndex: 'lastName',
-        key: 'lastName'
+        key: 'lastName',
+        sorter: (a, b) => a.lastName.localeCompare(b.lastName)
     },
     {
         title: 'Email',
         dataIndex: 'email',
-        key: 'email'
+        key: 'email',
+        sorter: (a, b) => a.email.localeCompare(b.email)
     },
     {
         key: 'operation',
