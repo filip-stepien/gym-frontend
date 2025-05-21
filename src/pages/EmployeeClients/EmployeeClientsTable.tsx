@@ -80,7 +80,11 @@ export function EmployeeClientsTable() {
                 <Flex justify='space-between'>
                     <CardTitle title='Clients' icon='clients' />
 
-                    <Button type='primary' className='primary'>
+                    <Button
+                        type='primary'
+                        className='primary'
+                        href='/employee/clients/clientcreation'
+                    >
                         + New
                     </Button>
                 </Flex>
