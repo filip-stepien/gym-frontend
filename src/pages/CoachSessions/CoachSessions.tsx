@@ -20,7 +20,11 @@ const scheduleListElements: ScheduleDateListElement[] = [
     }
 ];
 
-const scheduleActions = [<Button type='primary'>+ New Session</Button>];
+const scheduleActions = [
+    <Button type='primary' href='/coach/new-session'>
+        + New Session
+    </Button>
+];
 
 export function CoachSessions() {
     return (

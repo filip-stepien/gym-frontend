@@ -8,7 +8,9 @@ const exercises = ['Bench Press', 'Push up', 'Lateral raise', 'Pull up', 'Squat'
 const tags = ['chest', 'legs'];
 const timestamp = dayjs();
 const actions = [
-    <Button type='primary'>+ New session</Button>,
+    <Button type='primary' href='/coach/new-session'>
+        + New session
+    </Button>,
     <Button href='/coach/workout/xd'>Show Details</Button>
 ];
 

@@ -17,6 +17,7 @@ import { CoachSessions } from './pages/CoachSessions';
 import { CoachWorkoutDetails } from './pages/CoachWorkoutDetails';
 import { CoachClientDetails } from './pages/CoachClientDetails';
 import { EmployeeClientsCreation } from './pages/EmployeeClientCreation';
+import { CoachNewSession } from './pages/CoachNewSession';
 
 export function Router() {
     return (
@@ -54,6 +55,7 @@ export function Router() {
                     <Route path='sessions' element={<CoachSessions />} />
                     <Route path='workout/:id' element={<CoachWorkoutDetails />} />
                     <Route path='client/:id' element={<CoachClientDetails />} />
+                    <Route path='new-session' element={<CoachNewSession />} />
                 </Route>
             </Routes>
         </BrowserRouter>
