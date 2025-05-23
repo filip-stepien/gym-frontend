@@ -1,13 +1,15 @@
 import { Layout } from 'antd';
 import { Outlet } from 'react-router';
 
-import { type AccountType, Menu } from '@/components/Menu';
+import { Menu } from '@/components/Menu';
 import { Nav } from '@/components/Nav';
 import { Chat } from '@/components/Chat/Chat';
 import { getCSSVariable } from '@/utils/getCSSVariable';
+import { UserRole } from '@/roles';
+import { DebugContextSelect } from '@/components/DebugContextSelect';
 
 type AuthenticatedLayoutProps = {
-    accountType: AccountType;
+    role: UserRole;
     renderChat?: boolean;
 };
 
@@ -16,14 +18,15 @@ const { Header, Sider, Content } = Layout;
 const sidersHeight = `calc(100vh - ${getCSSVariable('--spacing-layout')})`;
 
 export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
-    const { accountType, renderChat } = props;
+    const { role, renderChat } = props;
     return (
         <Layout className='gap-layout p-small min-w-[1200px]'>
+            <DebugContextSelect />
             <Sider
                 className='bg-card shadow-card top-small sticky h-screen'
                 style={{ height: sidersHeight }}
             >
-                <Menu accountType={accountType} />
+                <Menu role={role} />
             </Sider>
             <Layout className='gap-layout'>
                 <Header className='flex h-auto flex-col p-0 leading-none'>

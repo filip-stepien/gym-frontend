@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
+import rolesConfig from './roles';
 
 import { AuthenticatedLayout } from './layouts/AuthenticatedLayout';
 import { ClientDashboard } from './pages/ClientDashboard';
@@ -25,8 +26,8 @@ export function Router() {
         <BrowserRouter>
             <Routes>
                 <Route
-                    path='/client'
-                    element={<AuthenticatedLayout renderChat accountType='client' />}
+                    path={rolesConfig['client'].routePrefix}
+                    element={<AuthenticatedLayout renderChat role='client' />}
                 >
                     <Route path='dashboard' element={<ClientDashboard />} />
                     <Route path='progress' element={<ClientProgress />} />
@@ -37,8 +38,8 @@ export function Router() {
                 </Route>
 
                 <Route
-                    path='/employee'
-                    element={<AuthenticatedLayout renderChat accountType='employee' />}
+                    path={rolesConfig['employee'].routePrefix}
+                    element={<AuthenticatedLayout renderChat role='employee' />}
                 >
                     <Route path='dashboard' element={<EmployeeDashboard />} />
                     <Route path='clients' element={<EmployeeClients />} />
@@ -49,8 +50,8 @@ export function Router() {
                 </Route>
 
                 <Route
-                    path='/coach'
-                    element={<AuthenticatedLayout renderChat accountType='coach' />}
+                    path={rolesConfig['coach'].routePrefix}
+                    element={<AuthenticatedLayout renderChat role='coach' />}
                 >
                     <Route path='dashboard' element={<CoachDashboard />} />
                     <Route path='clients' element={<CoachClients />} />

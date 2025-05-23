@@ -2,20 +2,11 @@ import { Menu as AntMenu, Flex } from 'antd';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
 import { useNavigate } from 'react-router';
+import roleConfigMap, { UserRole } from '@/roles';
 import type { MenuProps as AntMenuProps } from 'antd';
 
-export type AccountType = 'manager' | 'client' | 'coach' | 'employee';
-type MenuProps = { accountType?: AccountType };
-type MenuOptionsMap = { [key in AccountType]: string[] };
+type MenuProps = { role?: UserRole };
 type MenuItem = Required<AntMenuProps>['items'][number];
-
-// available menu options for each account type
-const menuOptions: MenuOptionsMap = {
-    client: ['dashboard', 'progress', 'sessions', 'membership', 'workout'],
-    manager: [],
-    coach: ['dashboard', 'clients', 'sessions'],
-    employee: ['dashboard', 'clients', 'training-halls', 'notifications']
-};
 
 function formatMenuLabel(menuOption: string) {
     return menuOption
@@ -24,12 +15,11 @@ function formatMenuLabel(menuOption: string) {
         .join(' ');
 }
 
-export function Menu(props: MenuProps) {
+export function Menu({ role }: MenuProps) {
     const navigate = useNavigate();
-    const accountType = props.accountType;
 
     // if account type is not set, assign an empty array to not create any menu items
-    const options = accountType ? menuOptions[accountType] : [];
+    const options = role ? roleConfigMap[role].menuOptions : [];
 
     // create menu items based on available options
     const menuItems: MenuItem[] = options.map(item => ({
