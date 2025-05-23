@@ -21,11 +21,11 @@ export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
     const { role, renderChat } = props;
     return (
         <Layout className='gap-layout p-small min-w-[1200px]'>
-            <DebugContextSelect />
             <Sider
                 className='bg-card shadow-card top-small sticky h-screen'
                 style={{ height: sidersHeight }}
             >
+                <DebugContextSelect />
                 <Menu role={role} />
             </Sider>
             <Layout className='gap-layout'>
