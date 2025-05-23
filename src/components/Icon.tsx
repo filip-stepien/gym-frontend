@@ -24,7 +24,9 @@ import {
     CloseOutlined,
     UserAddOutlined,
     UploadOutlined,
-    ToolOutlined
+    ToolOutlined,
+    InfoCircleOutlined,
+    CreditCardOutlined
 } from '@ant-design/icons';
 import { cloneElement, JSX } from 'react';
 
@@ -64,7 +66,9 @@ const icons: IconMap = {
     close: <CloseOutlined />,
     addavatar: <UserAddOutlined />,
     upload: <UploadOutlined />,
-    tool: <ToolOutlined />
+    tool: <ToolOutlined />,
+    info: <InfoCircleOutlined />,
+    creditcard: <CreditCardOutlined />
 };
 
 export function Icon(props: IconProps) {

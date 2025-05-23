@@ -18,6 +18,7 @@ import { CoachWorkoutDetails } from './pages/CoachWorkoutDetails';
 import { CoachClientDetails } from './pages/CoachClientDetails';
 import { EmployeeClientsCreation } from './pages/EmployeeClientCreation';
 import { CoachNewSession } from './pages/CoachNewSession';
+import { EmployeeClientsDetails } from './pages/EmployeeClientsDetails';
 
 export function Router() {
     return (
@@ -44,6 +45,7 @@ export function Router() {
                     <Route path='training-halls' element={<EmployeeTrainingHalls />} />
                     <Route path='notifications' element={<EmployeeNotifications />} />
                     <Route path='clients/:id' element={<EmployeeClientsCreation />} />
+                    <Route path='client-details' element={<EmployeeClientsDetails />} />
                 </Route>
 
                 <Route
