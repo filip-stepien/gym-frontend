@@ -19,8 +19,9 @@ import { CoachWorkoutDetails } from '../pages/CoachWorkoutDetails';
 import { CoachClientDetails } from '../pages/CoachClientDetails';
 import { EmployeeClientsCreation } from '../pages/EmployeeClientCreation';
 import { CoachNewSession } from '../pages/CoachNewSession';
-import { AuthGuard } from './AuthGuard';
 import { EmployeeClientsDetails } from '@/pages/EmployeeClientsDetails';
+import { EmployeeHallsDetails } from '@/pages/EmployeeHallsDetails';
+import { AuthGuard } from './AuthGuard';
 
 export function Router() {
     return (
@@ -49,6 +50,7 @@ export function Router() {
                         <Route path='notifications' element={<EmployeeNotifications />} />
                         <Route path='clients/:id' element={<EmployeeClientsCreation />} />
                         <Route path='client-details' element={<EmployeeClientsDetails />} />
+                        <Route path='training-halls/:id' element={<EmployeeHallsDetails />} />
                     </Route>
 
                     <Route
