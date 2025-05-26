@@ -22,6 +22,8 @@ import { CoachNewSession } from '../pages/CoachNewSession';
 import { EmployeeClientsDetails } from '@/pages/EmployeeClientsDetails';
 import { EmployeeHallsDetails } from '@/pages/EmployeeHallsDetails';
 import { AuthGuard } from './AuthGuard';
+import { ManagerEmployees } from '@/pages/ManagerEmployees';
+import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
 
 export function Router() {
     return (
@@ -70,6 +72,8 @@ export function Router() {
                         element={<AuthenticatedLayout renderChat role='manager' />}
                     >
                         <Route path='dashboard' element={<div></div>} />
+                        <Route path='employees' element={<ManagerEmployees />} />
+                        <Route path='new-employee' element={<ManagerNewEmployee />} />
                     </Route>
                 </Routes>
             </AuthGuard>

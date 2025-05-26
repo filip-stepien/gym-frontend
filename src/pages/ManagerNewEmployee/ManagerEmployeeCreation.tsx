@@ -1,22 +1,20 @@
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
-import { Button, DatePicker, Form, Input, Select, Row, Col, Flex, Space } from 'antd';
+import { Button, DatePicker, Form, Input, Row, Col, Flex, Space, Select } from 'antd';
 import { Dayjs } from 'dayjs';
 
 const { Option } = Select;
 
-interface MembershipValues {
+interface EmployeeValues {
     firstName?: string;
     lastName?: string;
     email?: string;
     dob?: Dayjs;
-    cardNumber?: string;
-    expiry?: string;
-    cvv?: string;
-    cardName?: string;
-    country?: string;
-    zip?: string;
-    avatar?: any;
+    phone?: string;
+    city?: string;
+    street?: string;
+    houseNumber?: number;
+    position?: string;
 }
 
 const fields = [
@@ -24,11 +22,10 @@ const fields = [
     { name: 'lastName', label: 'Last Name', placeholder: 'Pork', span: 12 },
     { name: 'email', label: 'Email', placeholder: 'example@example.com', span: 12 },
     { name: 'dob', label: 'Date Of Birth', type: 'date', span: 12 },
-    { name: 'cardNumber', label: 'Card Number', placeholder: '4242 4242 4242 4242', span: 12 },
-    { name: 'expiry', label: ' ', placeholder: 'MM / YY', span: 6 },
-    { name: 'cvv', label: ' ', placeholder: 'CVV', span: 6 },
-    { name: 'cardName', label: 'Name on Card', placeholder: 'John Pork', span: 12 },
-    { name: 'zip', label: 'ZIP Code', placeholder: 'ZIP Code', span: 12 }
+    { name: 'city', label: 'City', placeholder: 'New York', span: 12 },
+    { name: 'street', label: 'Street', placeholder: 'Happy street', span: 12 },
+    { name: 'houseNumber', label: 'House/Apartment Number', placeholder: '2', span: 12 },
+    { name: 'phone', label: 'Phone Number', placeholder: '123 123 123', span: 12 }
 ];
 
 const renderField = ({ name, label, placeholder, type, span }: any) => (
@@ -43,27 +40,26 @@ const renderField = ({ name, label, placeholder, type, span }: any) => (
     </Col>
 );
 
-export function EmployeeDashboardMembershipCreation() {
+export function ManagaerEmployeeCreation() {
     const [form] = Form.useForm();
 
-    const onFinish = (values: MembershipValues) => {
+    const onFinish = (values: EmployeeValues) => {
         console.log('Form values:', values);
     };
 
     return (
         <Card className='gap-layout'>
-            <CardTitle title='Membership Creation' icon='addavatar' />
+            <CardTitle title='Employee Creation' icon='addavatar' />
             <Form form={form} layout='vertical' onFinish={onFinish}>
                 <Row gutter={16}>
                     <Col span={18}>
                         <Row gutter={16}>
                             {fields.map(renderField)}
                             <Col span={12}>
-                                <Form.Item name='country' label='Country Or Region'>
-                                    <Select defaultValue='United States'>
-                                        <Option value='United States'>United States</Option>
-                                        <Option value='Poland'>Poland</Option>
-                                        <Option value='Germany'>Germany</Option>
+                                <Form.Item name='position' label='Position'>
+                                    <Select defaultValue='Employee'>
+                                        <Option value='Coach'>Coach</Option>
+                                        <Option value='Employee'>Employee</Option>
                                     </Select>
                                 </Form.Item>
                             </Col>
