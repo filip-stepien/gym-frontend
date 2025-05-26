@@ -15,7 +15,7 @@ export default {
         defaultRoute: '/dashboard'
     },
     employee: {
-        menuOptions: ['dashboard', 'clients', 'training-halls', 'notifications'],
+        menuOptions: ['dashboard', 'clients', 'training-halls'],
         routePrefix: '/employee',
         defaultRoute: '/dashboard'
     },
@@ -25,7 +25,7 @@ export default {
         defaultRoute: '/dashboard'
     },
     manager: {
-        menuOptions: [],
+        menuOptions: ['dashboard', 'clients', 'training-halls', 'employees'],
         routePrefix: '/manager',
         defaultRoute: '/dashboard'
     }

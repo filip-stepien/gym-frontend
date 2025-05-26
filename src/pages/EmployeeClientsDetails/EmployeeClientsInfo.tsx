@@ -6,8 +6,6 @@ export function EmployeeClientsInfo() {
         <Card>
             <CardTitle title='Personal Information' icon='info' />
             <Flex className='gap-middle' align='start' wrap='wrap'>
-                <Image width={120} height={120} src='https://picsum.photos/200/300' alt='Profile' />
-
                 <Form layout='vertical' className='min-w-[300px] flex-1'>
                     <Flex wrap gap={16}>
                         <Form.Item label='First Name' name='firstName' className='flex-1'>

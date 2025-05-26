@@ -56,23 +56,6 @@ export function EmployeeDashboardMembershipCreation() {
             <CardTitle title='Membership Creation' icon='addavatar' />
             <Form form={form} layout='vertical' onFinish={onFinish}>
                 <Row gutter={16}>
-                    <Col span={6}>
-                        <Form.Item name='avatar'>
-                            <Upload
-                                listType='picture-card'
-                                showUploadList={false}
-                                beforeUpload={() => false}
-                            >
-                                <Flex>
-                                    <div>
-                                        <Icon icon='upload' />
-                                        <div>Upload</div>
-                                    </div>
-                                </Flex>
-                            </Upload>
-                        </Form.Item>
-                    </Col>
-
                     <Col span={18}>
                         <Row gutter={16}>
                             {fields.map(renderField)}
