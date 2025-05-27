@@ -68,12 +68,13 @@ export interface TargetMuscle {
 
 export interface User {
     uuid?: string;
-    role?: UserRole;
+    roles?: UserRole[];
     card?: Card;
     membership?: Membership;
     firstName: string;
     lastName: string;
-    dateOfBirth: string;
+    dateOfBirth?: string;
+    username?: string;
     email?: string;
     phoneNumber?: string;
     imageUrl?: string;
@@ -81,7 +82,7 @@ export interface User {
 
 export interface UserRole {
     uuid?: string;
-    role?: string;
+    roleName?: string;
 }
 
 export interface WorkoutSessionDto {
@@ -110,31 +111,6 @@ export interface WorkoutSessionExerciseRequest {
 
 export interface WorkoutSessionAttendantRequest {
     userUuid: string;
-}
-
-export interface UserRequest {
-    roleUuid: string;
-    cardUuid: string;
-    membershipUuid: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-    email: string;
-    phoneNumber: string;
-    imageUrl: string;
-}
-
-export interface UserDto {
-    uuid?: string;
-    role?: UserRole;
-    card?: Card;
-    membership?: Membership;
-    firstName?: string;
-    lastName?: string;
-    dateOfBirth?: string;
-    email?: string;
-    phoneNumber?: string;
-    imageUrl?: string;
 }
 
 export interface CreateTargetMuscleRequest {
@@ -269,6 +245,20 @@ export interface ChatParticipantPatchRequest {
     lastReadDateTime: string;
 }
 
+export interface UserDto {
+    uuid?: string;
+    roles?: string[];
+    card?: Card;
+    membership?: Membership;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: string;
+    email?: string;
+    username?: string;
+    phoneNumber?: string;
+    imageUrl?: string;
+}
+
 export interface UserRoleDto {
     uuid?: string;
     role?: string;
@@ -324,19 +314,6 @@ export const addWorkoutSessionAttendant = <TData = AxiosResponse<WorkoutSessionD
         workoutSessionAttendantRequest,
         options
     );
-};
-
-export const listUsers = <TData = AxiosResponse<UserDto[]>>(
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.get(`/users`, options);
-};
-
-export const createUser = <TData = AxiosResponse<UserDto>>(
-    userRequest: UserRequest,
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.post(`/users`, userRequest, options);
 };
 
 export const listTargetMuscles = <TData = AxiosResponse<TargetMuscleDto[]>>(
@@ -472,21 +449,6 @@ export const updateCard = <TData = AxiosResponse<WorkoutSessionDto>>(
     return axios.default.patch(`/workout-sessions/${id}`, workoutSessionRequest, options);
 };
 
-export const getUser = <TData = AxiosResponse<UserDto>>(
-    id: string,
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.get(`/users/${id}`, options);
-};
-
-export const updateUser = <TData = AxiosResponse<UserDto>>(
-    id: string,
-    userRequest: UserRequest,
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.patch(`/users/${id}`, userRequest, options);
-};
-
 export const getPayment = <TData = AxiosResponse<PaymentDto>>(
     id: string,
     options?: AxiosRequestConfig
@@ -597,6 +559,19 @@ export const updateCard2 = <TData = AxiosResponse<CardDto>>(
     return axios.default.patch(`/cards/${id}`, cardRequest, options);
 };
 
+export const listUsers = <TData = AxiosResponse<UserDto[]>>(
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users`, options);
+};
+
+export const getUser = <TData = AxiosResponse<UserDto>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users/${id}`, options);
+};
+
 export const listChats = <TData = AxiosResponse<ChatDto[]>>(
     id: string,
     options?: AxiosRequestConfig
@@ -669,8 +644,6 @@ export type ListWorkoutSessionsResult = AxiosResponse<WorkoutSessionDto[]>;
 export type CreateWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
 export type AddWorkoutSessionExerciseResult = AxiosResponse<WorkoutSessionDto>;
 export type AddWorkoutSessionAttendantResult = AxiosResponse<WorkoutSessionDto>;
-export type ListUsersResult = AxiosResponse<UserDto[]>;
-export type CreateUserResult = AxiosResponse<UserDto>;
 export type ListTargetMusclesResult = AxiosResponse<TargetMuscleDto[]>;
 export type CreateTargetMuscleResult = AxiosResponse<TargetMuscleDto>;
 export type ListPaymentsResult = AxiosResponse<PaymentDto[]>;
@@ -691,8 +664,6 @@ export type ListCardsResult = AxiosResponse<CardDto[]>;
 export type CreateCardResult = AxiosResponse<CardDto>;
 export type GetWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
 export type UpdateCardResult = AxiosResponse<WorkoutSessionDto>;
-export type GetUserResult = AxiosResponse<UserDto>;
-export type UpdateUserResult = AxiosResponse<UserDto>;
 export type GetPaymentResult = AxiosResponse<PaymentDto>;
 export type UpdatePaymentResult = AxiosResponse<PaymentDto>;
 export type GetMembershipResult = AxiosResponse<MembershipDto>;
@@ -707,6 +678,8 @@ export type UpdateHallResult = AxiosResponse<HallDto>;
 export type UpdateChatParticipantResult = AxiosResponse<ChatParticipantDto>;
 export type GetCardResult = AxiosResponse<CardDto>;
 export type UpdateCard2Result = AxiosResponse<CardDto>;
+export type ListUsersResult = AxiosResponse<UserDto[]>;
+export type GetUserResult = AxiosResponse<UserDto>;
 export type ListChatsResult = AxiosResponse<ChatDto[]>;
 export type ListUserRolesResult = AxiosResponse<UserRoleDto[]>;
 export type ListPaymentStatusesResult = AxiosResponse<PaymentStatusDto[]>;
