@@ -24,6 +24,7 @@ import { EmployeeHallsDetails } from '@/pages/EmployeeHallsDetails';
 import { AuthGuard } from './AuthGuard';
 import { ManagerEmployees } from '@/pages/ManagerEmployees';
 import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
+import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
 
 export function Router() {
     return (
@@ -74,6 +75,7 @@ export function Router() {
                         <Route path='dashboard' element={<div></div>} />
                         <Route path='employees' element={<ManagerEmployees />} />
                         <Route path='new-employee' element={<ManagerNewEmployee />} />
+                        <Route path='employees/:id' element={<ManagerEmployeeDetails />} />
                     </Route>
                 </Routes>
             </AuthGuard>

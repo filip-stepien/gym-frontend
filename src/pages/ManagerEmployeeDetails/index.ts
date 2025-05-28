@@ -1,0 +1,1 @@
+export { ManagerEmployeeDetails } from './ManagerEmployeeDetails';
