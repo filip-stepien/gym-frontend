@@ -1,13 +1,13 @@
 import { BackButton } from '@/components/BackButton';
 import { Flex } from 'antd';
-import { ManagaerEmployeeCreation } from './ManagerEmployeeCreation';
+import { ManagerEmployeeCreation } from './ManagerEmployeeCreation';
 
 export function ManagerNewEmployee() {
     return (
         <Flex>
             <div>
                 <BackButton />
-                <ManagaerEmployeeCreation />
+                <ManagerEmployeeCreation />
             </div>
         </Flex>
     );

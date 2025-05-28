@@ -40,7 +40,7 @@ const renderField = ({ name, label, placeholder, type, span }: any) => (
     </Col>
 );
 
-export function ManagaerEmployeeCreation() {
+export function ManagerEmployeeCreation() {
     const [form] = Form.useForm();
 
     const onFinish = (values: EmployeeValues) => {

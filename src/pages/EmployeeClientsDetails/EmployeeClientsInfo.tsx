@@ -1,5 +1,5 @@
 import { CardTitle } from '@/components/CardTitle';
-import { Card, Flex, Form, Input, DatePicker, Select, Button, Image } from 'antd';
+import { Card, Flex, Form, Input, DatePicker, Select, Button } from 'antd';
 
 export function EmployeeClientsInfo() {
     return (

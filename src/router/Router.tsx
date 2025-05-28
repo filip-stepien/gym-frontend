@@ -25,6 +25,8 @@ import { AuthGuard } from './AuthGuard';
 import { ManagerEmployees } from '@/pages/ManagerEmployees';
 import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
 import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
+import { ManagerDashboard } from '@/pages/ManagerDashboard/ManagerDashboard';
+import { ManagerClients } from '@/pages/ManagerClients';
 
 export function Router() {
     return (
@@ -72,7 +74,9 @@ export function Router() {
                         path={rolesConfig['manager'].routePrefix}
                         element={<AuthenticatedLayout renderChat role='manager' />}
                     >
-                        <Route path='dashboard' element={<div></div>} />
+                        <Route path='dashboard' element={<ManagerDashboard />} />
+                        <Route path='clients' element={<ManagerClients />} />
+                        <Route path='clients/:id' element={<EmployeeClientsCreation />} />
                         <Route path='employees' element={<ManagerEmployees />} />
                         <Route path='new-employee' element={<ManagerNewEmployee />} />
                         <Route path='employees/:id' element={<ManagerEmployeeDetails />} />
