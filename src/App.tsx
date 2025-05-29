@@ -1,4 +1,4 @@
-import { Router } from './Router';
+import { Router } from './router';
 import { Provider } from './Provider';
 
 export function App() {
