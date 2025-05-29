@@ -6,7 +6,9 @@ const { Title } = Typography;
 
 export function LogoutButton() {
     const onClick = () => {
-        keycloak.logout({ redirectUri: window.location.origin + '/logout' });
+        if (import.meta.env.VITE_AUTH_ENABLED === 'true') {
+            keycloak.logout();
+        }
     };
 
     return (

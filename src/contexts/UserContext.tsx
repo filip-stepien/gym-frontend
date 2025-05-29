@@ -1,5 +1,5 @@
 import { UserRole } from '@/roles';
-import { createContext, Dispatch, SetStateAction } from 'react';
+import { createContext } from 'react';
 
 export type UserDetails = {
     firstName: string;
@@ -9,11 +9,11 @@ export type UserDetails = {
 
 export type UserContextContent = {
     user?: UserDetails;
-    setUserDetails: Dispatch<SetStateAction<UserDetails>>;
+    updateUser: (updates: Partial<UserDetails>) => void;
 };
 
 export const UserContext = createContext<UserContextContent>({
-    setUserDetails: () => {
+    updateUser: () => {
         throw new Error('Not implemented.');
     }
 });

@@ -8,7 +8,7 @@ export type UserRoleConfig = {
 
 export type UserRoleConfigMap = Record<UserRole, UserRoleConfig>;
 
-export default {
+export const rolesConfig: UserRoleConfigMap = {
     client: {
         menuOptions: ['dashboard', 'progress', 'sessions', 'membership', 'workout'],
         routePrefix: '/client',
@@ -29,4 +29,11 @@ export default {
         routePrefix: '/manager',
         defaultRoute: '/dashboard'
     }
-} satisfies UserRoleConfigMap;
+};
+
+export const rolesPriority: Record<UserRole, number> = {
+    manager: 4,
+    coach: 3,
+    employee: 2,
+    client: 1
+};

@@ -1,38 +1,42 @@
 import { UserContext, UserDetails } from '@/contexts/UserContext';
-import { Dispatch, SetStateAction, useState, type JSX } from 'react';
-
-const DEBUG_DEFAULT_USER_DETAILS: UserDetails = {
-    firstName: 'John',
-    lastName: 'Pork',
-    role: 'client'
-};
-
-const USER_DETAILS_STORAGE_KEY = 'userDetails';
-
-function readDetails(): UserDetails | null {
-    const stored = localStorage.getItem(USER_DETAILS_STORAGE_KEY);
-    return stored ? JSON.parse(stored) : null;
-}
-
-function saveDetails(details: UserDetails) {
-    localStorage.setItem(USER_DETAILS_STORAGE_KEY, JSON.stringify(details));
-}
+import { useEffect, useState, type JSX } from 'react';
+import { rolesPriority, UserRole } from '@/roles';
+import keycloak from '@/keycloak';
 
 export function UserProvider({ children }: { children: JSX.Element }) {
-    const [userDetails, setUserDetails] = useState<UserDetails>(
-        readDetails() ?? DEBUG_DEFAULT_USER_DETAILS
-    );
+    const [userDetails, setUserDetails] = useState<UserDetails>();
 
-    const handleDetailsSet: Dispatch<SetStateAction<UserDetails>> = details => {
-        setUserDetails(prev => {
-            const newDetails = typeof details === 'function' ? details(prev) : details;
-            saveDetails(newDetails);
-            return newDetails;
-        });
+    const updateUser = (updates: Partial<UserDetails>) => {
+        setUserDetails(prev => (prev ? { ...prev, ...updates } : prev));
     };
 
+    useEffect(() => {
+        async function initUser() {
+            const initialized = await keycloak.init({ onLoad: 'login-required' });
+            if (!initialized) return;
+
+            const userProfile = await keycloak.loadUserProfile();
+            const userRoles = keycloak.tokenParsed?.['roles'] as UserRole[];
+            const significantRole = userRoles
+                .sort((a: UserRole, b: UserRole) => rolesPriority[b] - rolesPriority[a])
+                .at(0);
+
+            const userDetails: UserDetails = {
+                firstName: userProfile.firstName as string,
+                lastName: userProfile.lastName as string,
+                role: significantRole ?? 'client'
+            };
+
+            setUserDetails(userDetails);
+        }
+
+        if (import.meta.env.VITE_AUTH_ENABLED === 'true') {
+            initUser();
+        }
+    }, []);
+
     return (
-        <UserContext.Provider value={{ user: userDetails, setUserDetails: handleDetailsSet }}>
+        <UserContext.Provider value={{ user: userDetails, updateUser }}>
             {children}
         </UserContext.Provider>
     );

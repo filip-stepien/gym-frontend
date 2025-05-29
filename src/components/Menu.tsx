@@ -2,7 +2,7 @@ import { Menu as AntMenu, Flex } from 'antd';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
 import { useNavigate } from 'react-router';
-import roleConfigMap, { UserRole } from '@/roles';
+import { UserRole, rolesConfig } from '@/roles';
 import type { MenuProps as AntMenuProps } from 'antd';
 
 type MenuProps = { role?: UserRole };
@@ -19,7 +19,7 @@ export function Menu({ role }: MenuProps) {
     const navigate = useNavigate();
 
     // if account type is not set, assign an empty array to not create any menu items
-    const options = role ? roleConfigMap[role].menuOptions : [];
+    const options = role ? rolesConfig[role].menuOptions : [];
 
     // create menu items based on available options
     const menuItems: MenuItem[] = options.map(item => ({

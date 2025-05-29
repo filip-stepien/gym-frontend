@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-import rolesConfig from '../roles';
+import { rolesConfig } from '../roles';
 
 import { AuthenticatedLayout } from '../layouts/AuthenticatedLayout';
 import { ClientDashboard } from '../pages/ClientDashboard';
@@ -27,14 +27,11 @@ import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
 import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
 import { ManagerDashboard } from '@/pages/ManagerDashboard/ManagerDashboard';
 import { ManagerClients } from '@/pages/ManagerClients';
-import { Logout } from '@/pages/Logout';
-
 export function Router() {
     return (
         <BrowserRouter>
             <AuthGuard>
                 <Routes>
-                    <Route path='logout' element={<Logout />} />
                     <Route
                         path={rolesConfig['client'].routePrefix}
                         element={<AuthenticatedLayout renderChat role='client' />}

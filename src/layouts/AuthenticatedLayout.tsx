@@ -6,7 +6,6 @@ import { Nav } from '@/components/Nav';
 import { Chat } from '@/components/Chat/Chat';
 import { getCSSVariable } from '@/utils/getCSSVariable';
 import { UserRole } from '@/roles';
-import { DebugContextSelect } from '@/components/DebugContextSelect';
 
 type AuthenticatedLayoutProps = {
     role: UserRole;
@@ -25,7 +24,6 @@ export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
                 className='bg-card shadow-card top-small sticky h-screen'
                 style={{ height: sidersHeight }}
             >
-                <DebugContextSelect />
                 <Menu role={role} />
             </Sider>
             <Layout className='gap-layout'>

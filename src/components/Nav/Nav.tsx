@@ -2,7 +2,7 @@ import { Flex } from 'antd';
 import { BreadCrumb } from './BreadCrumb';
 import { UserBadge } from './UserBadge';
 import { LogoutButton } from './LogoutButton';
-import ApiTestButton from '../ApiTestButton';
+// import ApiTestButton from '../ApiTestButton';
 
 export function Nav() {
     return (
@@ -10,7 +10,7 @@ export function Nav() {
             <BreadCrumb />
             <Flex gap='middle'>
                 <UserBadge />
-                <ApiTestButton />
+                {/* <ApiTestButton /> */}
                 <LogoutButton />
             </Flex>
         </Flex>
