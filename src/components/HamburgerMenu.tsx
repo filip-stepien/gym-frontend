@@ -3,6 +3,7 @@ import { Icon } from './Icon';
 import { useEffect, useState } from 'react';
 import { Menu } from './Menu';
 import { UserRole } from '@/roles';
+import { useTailwindBreakpoints } from '@/hooks/useTailwindBreakpoints';
 
 type HamburgerMenuProps = {
     className?: string;
@@ -11,20 +12,13 @@ type HamburgerMenuProps = {
 
 export function HamburgerMenu({ className, role }: HamburgerMenuProps) {
     const [opened, setOpened] = useState(false);
-    const [width, setWidth] = useState(window.innerWidth);
+    const { md } = useTailwindBreakpoints();
 
     useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    useEffect(() => {
-        const middleBreakPoint = 768;
-        if (width > middleBreakPoint) {
+        if (md) {
             setOpened(false);
         }
-    }, [width]);
+    }, [md]);
 
     const openDrawer = () => {
         setOpened(true);
