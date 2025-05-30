@@ -5,7 +5,13 @@ import { useNavigate } from 'react-router';
 import { UserRole, rolesConfig } from '@/roles';
 import type { MenuProps as AntMenuProps } from 'antd';
 
-type MenuProps = { role?: UserRole };
+type MenuProps = {
+    role?: UserRole;
+    showLogo?: boolean;
+    className?: string;
+    onOptionClick?: AntMenuProps['onClick'];
+};
+
 type MenuItem = Required<AntMenuProps>['items'][number];
 
 function formatMenuLabel(menuOption: string) {
@@ -15,7 +21,8 @@ function formatMenuLabel(menuOption: string) {
         .join(' ');
 }
 
-export function Menu({ role }: MenuProps) {
+export function Menu(props: MenuProps) {
+    const { role, showLogo = true, className, onOptionClick = () => {} } = props;
     const navigate = useNavigate();
 
     // if account type is not set, assign an empty array to not create any menu items
@@ -31,11 +38,12 @@ export function Menu({ role }: MenuProps) {
     // use the option as a subpage name to navigate to after clicking
     const onMenuItemClick: AntMenuProps['onClick'] = e => {
         navigate(e.key);
+        onOptionClick(e);
     };
 
     return (
-        <Flex vertical>
-            <Logo className='m-auto w-5/8 pt-8 pb-8' />
+        <Flex vertical className={className}>
+            {showLogo && <Logo className='m-auto w-5/8 pt-8 pb-8' />}
             <AntMenu
                 defaultSelectedKeys={['dashboard']}
                 mode='vertical'

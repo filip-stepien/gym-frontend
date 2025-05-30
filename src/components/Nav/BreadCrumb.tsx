@@ -1,10 +1,14 @@
 import { Breadcrumb as AntBreadCrumb } from 'antd';
 import { useLocation } from 'react-router';
 
+type BreadCrumbProps = {
+    className?: string;
+};
+
 // breadcrumb element rendered at the beggining of the current path
 const firstBreadCrumbItem = { title: 'Home' };
 
-export function BreadCrumb() {
+export function BreadCrumb({ className }: BreadCrumbProps) {
     const location = useLocation();
 
     const breadCrumbItems = location.pathname
@@ -13,5 +17,7 @@ export function BreadCrumb() {
         .map(pathname => pathname.charAt(0).toUpperCase() + pathname.slice(1)) // capitalize pathnames
         .map(pathname => ({ title: pathname })); // convert to breadcrumb items
 
-    return <AntBreadCrumb items={[firstBreadCrumbItem, ...breadCrumbItems]} />;
+    return (
+        <AntBreadCrumb className={className} items={[firstBreadCrumbItem, ...breadCrumbItems]} />
+    );
 }

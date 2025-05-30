@@ -1,4 +1,4 @@
-import { Layout } from 'antd';
+import { Flex, Layout } from 'antd';
 import { Outlet } from 'react-router';
 
 import { Menu } from '@/components/Menu';
@@ -6,6 +6,7 @@ import { Nav } from '@/components/Nav';
 import { Chat } from '@/components/Chat/Chat';
 import { getCSSVariable } from '@/utils/getCSSVariable';
 import { UserRole } from '@/roles';
+import { HamburgerMenu } from '@/components/HamburgerMenu';
 
 type AuthenticatedLayoutProps = {
     role: UserRole;
@@ -19,16 +20,19 @@ const sidersHeight = `calc(100vh - ${getCSSVariable('--spacing-layout')})`;
 export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
     const { role, renderChat } = props;
     return (
-        <Layout className='gap-layout p-small min-w-[1200px]'>
+        <Layout className='gap-layout p-small min-w-[300px]'>
             <Sider
-                className='bg-card shadow-card top-small sticky h-screen'
+                className='bg-card shadow-card top-small sticky hidden h-screen md:block'
                 style={{ height: sidersHeight }}
             >
                 <Menu role={role} />
             </Sider>
-            <Layout className='gap-layout'>
-                <Header className='flex h-auto flex-col p-0 leading-none'>
-                    <Nav />
+            <Layout className='gap-small md:gap-layout'>
+                <Header className='bg-layout flex h-auto flex-col p-0 leading-none'>
+                    <Flex justify='space-between'>
+                        <HamburgerMenu role={role} className='mr-middle flex md:hidden' />
+                        <Nav className='flex-1' />
+                    </Flex>
                 </Header>
                 <Content className='gap-layout flex flex-col'>
                     <Outlet />

@@ -34,7 +34,7 @@ export function Router() {
                 <Routes>
                     <Route
                         path={rolesConfig['client'].routePrefix}
-                        element={<AuthenticatedLayout renderChat role='client' />}
+                        element={<AuthenticatedLayout renderChat={false} role='client' />}
                     >
                         <Route path='dashboard' element={<ClientDashboard />} />
                         <Route path='progress' element={<ClientProgress />} />
@@ -46,7 +46,7 @@ export function Router() {
 
                     <Route
                         path={rolesConfig['employee'].routePrefix}
-                        element={<AuthenticatedLayout renderChat role='employee' />}
+                        element={<AuthenticatedLayout renderChat={false} role='employee' />}
                     >
                         <Route path='dashboard' element={<EmployeeDashboard />} />
                         <Route path='clients' element={<EmployeeClients />} />
@@ -59,7 +59,7 @@ export function Router() {
 
                     <Route
                         path={rolesConfig['coach'].routePrefix}
-                        element={<AuthenticatedLayout renderChat role='coach' />}
+                        element={<AuthenticatedLayout renderChat={false} role='coach' />}
                     >
                         <Route path='dashboard' element={<CoachDashboard />} />
                         <Route path='clients' element={<CoachClients />} />
@@ -71,7 +71,7 @@ export function Router() {
 
                     <Route
                         path={rolesConfig['manager'].routePrefix}
-                        element={<AuthenticatedLayout renderChat role='manager' />}
+                        element={<AuthenticatedLayout renderChat={false} role='manager' />}
                     >
                         <Route path='dashboard' element={<ManagerDashboard />} />
                         <Route path='clients' element={<ManagerClients />} />

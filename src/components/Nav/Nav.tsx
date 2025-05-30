@@ -4,12 +4,16 @@ import { UserBadge } from './UserBadge';
 import { LogoutButton } from './LogoutButton';
 // import ApiTestButton from '../ApiTestButton';
 
-export function Nav() {
+type NavProps = {
+    className?: string;
+};
+
+export function Nav({ className }: NavProps) {
     return (
-        <Flex justify='space-between' align='center' className='bg-layout'>
-            <BreadCrumb />
+        <Flex align='center' className={`bg-layout justify-end sm:justify-between ${className}`}>
+            <BreadCrumb className='hidden sm:block' />
             <Flex gap='middle'>
-                <UserBadge />
+                <UserBadge className='hidden sm:flex' />
                 {/* <ApiTestButton /> */}
                 <LogoutButton />
             </Flex>
