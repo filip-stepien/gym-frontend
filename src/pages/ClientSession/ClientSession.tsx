@@ -8,21 +8,21 @@ import dayjs from 'dayjs';
 
 const listElements: ScheduleDateListElement[] = [
     {
-        date: dayjs('2025-05-16'),
+        date: dayjs(),
         title: 'Workout 1',
         description: 'description',
         avatar: <Avatar />,
         action: <Button>Join</Button>
     },
     {
-        date: dayjs('2025-05-15'),
+        date: dayjs(),
         title: 'Workout 1',
         description: 'description',
         avatar: <Avatar />,
         action: <Button>Join</Button>
     },
     {
-        date: dayjs('2025-05-15'),
+        date: dayjs(),
         title: 'Workout 1',
         description: 'description',
         avatar: <Avatar />,

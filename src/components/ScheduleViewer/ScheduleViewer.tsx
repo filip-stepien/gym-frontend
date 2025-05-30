@@ -3,6 +3,7 @@ import { ScheduleCalendar } from './ScheduleCalendar';
 import { ScheduleList, type ScheduleListElement } from './ScheduleList';
 import dayjs, { type Dayjs } from 'dayjs';
 import { JSX, useCallback, useEffect, useState } from 'react';
+import { useTailwindBreakpoints } from '@/hooks/useTailwindBreakpoints';
 
 export type ScheduleDateListElement = { date: Dayjs } & ScheduleListElement;
 
@@ -15,6 +16,16 @@ type ScheduleViewerProps = {
 export function ScheduleViewer(props: ScheduleViewerProps) {
     const { listElements, actions, fullscreen } = props;
     const [currentListElements, setCurrentListElements] = useState<ScheduleDateListElement[]>([]);
+    const [calendarFullscreen, setCalendarFullscreen] = useState(fullscreen);
+    const { md } = useTailwindBreakpoints();
+
+    useEffect(() => {
+        if (fullscreen && md) {
+            setCalendarFullscreen(true);
+        } else if (fullscreen && !md) {
+            setCalendarFullscreen(false);
+        }
+    }, [fullscreen, md]);
 
     const onDateSelect = useCallback(
         (date: dayjs.Dayjs) => {
@@ -35,22 +46,17 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
     }, [onDateSelect]);
 
     return (
-        <div className='gap-small lg:gap-large flex flex-col lg:flex-row'>
-            {fullscreen ? (
-                <ScheduleCalendar
-                    onSelect={onDateSelect}
-                    fullscreen={fullscreen}
-                    listElements={listElements}
-                />
-            ) : (
-                <Col className='flex-1'>
-                    <ScheduleCalendar
-                        onSelect={onDateSelect}
-                        fullscreen={fullscreen}
-                        listElements={listElements}
-                    />
-                </Col>
-            )}
+        <div
+            className={
+                calendarFullscreen ? 'flex flex-col' : 'md:gap-large flex flex-col lg:flex-row'
+            }
+        >
+            <ScheduleCalendar
+                onSelect={onDateSelect}
+                fullscreen={calendarFullscreen}
+                listElements={listElements}
+                className='flex-1'
+            />
             <Col className='gap-small flex flex-1 flex-col justify-between'>
                 <ScheduleList listElements={currentListElements} />
                 <Flex justify='flex-end' gap='small'>

@@ -22,15 +22,15 @@ export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
     return (
         <Layout className='gap-layout p-small min-w-[300px]'>
             <Sider
-                className='bg-card shadow-card top-small sticky hidden h-screen md:block'
+                className='bg-card shadow-card top-small sticky hidden h-screen lg:block'
                 style={{ height: sidersHeight }}
             >
                 <Menu role={role} />
             </Sider>
-            <Layout className='gap-small md:gap-layout'>
+            <Layout className='gap-small lg:gap-layout'>
                 <Header className='bg-layout flex h-auto flex-col p-0 leading-none'>
                     <Flex justify='space-between'>
-                        <HamburgerMenu role={role} className='mr-middle flex md:hidden' />
+                        <HamburgerMenu role={role} className='mr-middle flex lg:hidden' />
                         <Nav className='flex-1' />
                     </Flex>
                 </Header>

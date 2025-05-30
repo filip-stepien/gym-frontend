@@ -8,7 +8,7 @@ type PageProps = {
 
 export function Page(props: PageProps) {
     return (
-        <Flex vertical className={`${props.className} gap-layout`}>
+        <Flex vertical className={`${props.className} gap-small lg:gap-layout`}>
             {props.children}
         </Flex>
     );

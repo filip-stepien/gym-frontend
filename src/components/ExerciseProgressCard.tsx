@@ -1,4 +1,3 @@
-import { Space } from 'antd';
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
 import { Chart } from '@/components/Chart';
