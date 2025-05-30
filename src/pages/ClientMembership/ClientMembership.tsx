@@ -1,6 +1,5 @@
 import { Page } from '@/components/Page';
 import { MembershipOverview } from '@/components/MembershipOverview';
-import { Flex } from 'antd';
 import { MembershipStatus } from './MembershipStatus';
 import { MembershipDetails } from './MembershipDetails';
 import dayjs from 'dayjs';
@@ -8,13 +7,12 @@ import dayjs from 'dayjs';
 export function ClientMembership() {
     return (
         <Page>
-            <Flex className='gap-layout'>
+            <div className='gap-small lg:gap-layout flex flex-col md:flex-row'>
                 <MembershipOverview
                     firstName='John'
                     lastName='Pork'
                     dateOfBirth='21.02.2002'
                     email='email@email.com'
-                    imageSrc='https://picsum.photos/200/300'
                 />
                 <MembershipStatus
                     nextPaymentValue='3 days left'
@@ -22,7 +20,7 @@ export function ClientMembership() {
                     validityValue='12 days left'
                     validityPercent={60}
                 />
-            </Flex>
+            </div>
             <MembershipDetails
                 active
                 type='Standard'

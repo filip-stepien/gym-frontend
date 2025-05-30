@@ -93,8 +93,6 @@ export function MembershipDetails(props: MembershipDetailsProps) {
                     <Button danger onClick={handleMembershipCancelButtonClick}>
                         Cancel Membership
                     </Button>
-                    <Button>Edit Details</Button>
-                    <Button type='primary'>Renew</Button>
                 </Space>
             </Card>
         </>
