@@ -1,4 +1,4 @@
-import { Flex, Space } from 'antd';
+import { Flex } from 'antd';
 import { TrendStatistic } from '@/components/TrendStatistic';
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
@@ -14,7 +14,7 @@ export function TotalProgressCard({ chartData = [] }: TotalProgressCardProps) {
         <Card>
             <CardTitle title='Total Progress' icon='progress' />
             <Flex align='end' justify='space-between'>
-                <Space size='large' className='py-small'>
+                <div className='py-small gap-middle sm:gap-large flex flex-wrap'>
                     <TrendStatistic
                         title='Total Sets'
                         value={428}
@@ -30,7 +30,7 @@ export function TotalProgressCard({ chartData = [] }: TotalProgressCardProps) {
                         value='30,250 kg'
                         trend={{ title: 'since last week', value: '0%', direction: 'flat' }}
                     />
-                </Space>
+                </div>
             </Flex>
             <Chart type='bar' data={chartData} />
         </Card>

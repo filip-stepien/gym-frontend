@@ -13,11 +13,11 @@ export function ExerciseProgressCard({ chartData = [] }: ExerciseProgressCardPro
     return (
         <Card>
             <CardTitle title='Exercise Progress' icon='progress' />
-            <Space size='large' className='py-small'>
+            <div className='py-small gap-middle sm:gap-large flex flex-wrap'>
                 <TrendStatistic title='Heaviest Weight' value='90 kg' />
                 <TrendStatistic title='Best Set Volume' value='800 kg' />
                 <TrendStatistic title='Best Session Volume' value='2500 kg' />
-            </Space>
+            </div>
             <Chart
                 type='line'
                 data={chartData}
