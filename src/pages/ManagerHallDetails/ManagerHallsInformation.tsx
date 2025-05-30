@@ -8,7 +8,7 @@ interface HallInformationProps {
     description: string;
 }
 
-export function EmployeeHallsInformation(props: HallInformationProps) {
+export function ManagerHallsInformation(props: HallInformationProps) {
     const { id, halltype, status, description } = props;
 
     let badgeStatus: 'success' | 'warning' | 'error' | 'default';

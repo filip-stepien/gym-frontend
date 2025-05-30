@@ -28,6 +28,8 @@ import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
 import { ManagerDashboard } from '@/pages/ManagerDashboard/ManagerDashboard';
 import { ManagerClients } from '@/pages/ManagerClients';
 import { ManagerClientDetails } from '@/pages/ManagerClientDetails';
+import { ManagerTrainingHalls } from '@/pages/ManagerTrainingHalls';
+import { ManagerHallDetails } from '@/pages/ManagerHallDetails';
 export function Router() {
     return (
         <BrowserRouter>
@@ -81,6 +83,8 @@ export function Router() {
                         <Route path='new-employee' element={<ManagerNewEmployee />} />
                         <Route path='employees/:id' element={<ManagerEmployeeDetails />} />
                         <Route path='client-details' element={<ManagerClientDetails />} />
+                        <Route path='training-halls' element={<ManagerTrainingHalls />} />
+                        <Route path='training-halls/:id' element={<ManagerHallDetails />} />
                     </Route>
                 </Routes>
             </AuthGuard>

@@ -1,0 +1,1 @@
+export { ManagerHallDetails } from './ManagerHallDetails';
