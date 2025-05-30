@@ -7,7 +7,7 @@ export function Membership() {
         <Card className='h-full flex-1'>
             <CardTitle title='Membership' icon='membership' />
             <Flex vertical justify='center' align='center' className='h-full'>
-                <Row justify='center' className='p-large'>
+                <Row justify='center' className='p-small md:p-large'>
                     <Progress
                         type='circle'
                         percent={75}

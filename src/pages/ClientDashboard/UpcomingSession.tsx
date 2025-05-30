@@ -8,21 +8,22 @@ import dayjs from 'dayjs';
 
 const listElements: ScheduleDateListElement[] = [
     {
-        date: dayjs('2025-05-16'),
+        date: dayjs(),
+        title: 'Workout 1',
+        description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis natus esse corporis illum delectus quidem soluta in officia accusamus facere.',
+        avatar: <Avatar />,
+        action: <Button>Join</Button>
+    },
+    {
+        date: dayjs(),
         title: 'Workout 1',
         description: 'description',
         avatar: <Avatar />,
         action: <Button>Join</Button>
     },
     {
-        date: dayjs('2025-05-15'),
-        title: 'Workout 1',
-        description: 'description',
-        avatar: <Avatar />,
-        action: <Button>Join</Button>
-    },
-    {
-        date: dayjs('2025-05-15'),
+        date: dayjs(),
         title: 'Workout 1',
         description: 'description',
         avatar: <Avatar />,
@@ -32,9 +33,9 @@ const listElements: ScheduleDateListElement[] = [
 
 const scheduleViewerActions = [
     <Button type='primary' className='primary'>
-        + Join Session
+        Join Session
     </Button>,
-    <Button>Show Full Callendar</Button>
+    <Button>Show Callendar</Button>
 ];
 
 export function UpcomingSession() {

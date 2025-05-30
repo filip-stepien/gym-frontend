@@ -28,6 +28,9 @@ export function LastSession() {
                 exercises={exercises}
                 coach={coach}
                 actions={actions}
+                totalSets={30}
+                totalExercises={10}
+                totalVolume={1000}
             />
         </Card>
     );

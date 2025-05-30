@@ -109,7 +109,7 @@ export function ScheduleCalendar(props: EventCalendarProps) {
 
     return (
         <Calendar
-            className={'min-w-100 ' + className}
+            className={'min-w-[200px] ' + className}
             fullscreen={fullscreen ?? false}
             cellRender={fullscreen ? cellRender : undefined}
             headerRender={renderHeader}

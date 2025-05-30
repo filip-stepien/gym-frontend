@@ -77,14 +77,14 @@ export function LastSession(props: LastSessionProps) {
                                     <Title level={5}>{coach}</Title>
                                 </Space>
                             )}
-                            <Space size='large' className='py-middle'>
+                            <div className='py-middle gap-small sm:gap-large flex items-start'>
                                 <Statistic title='Exercises' value={totalExercises ?? '-'} />
                                 <Statistic title='Total sets' value={totalSets ?? '-'} />
                                 <Statistic
                                     title='Volume'
                                     value={totalVolume ? totalVolume + ' kg' : '-'}
                                 />
-                            </Space>
+                            </div>
                         </Flex>
                     </Col>
                     <Col>

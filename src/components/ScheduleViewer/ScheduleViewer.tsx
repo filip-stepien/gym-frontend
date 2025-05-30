@@ -1,4 +1,4 @@
-import { Row, Col, Flex } from 'antd';
+import { Col, Flex } from 'antd';
 import { ScheduleCalendar } from './ScheduleCalendar';
 import { ScheduleList, type ScheduleListElement } from './ScheduleList';
 import dayjs, { type Dayjs } from 'dayjs';
@@ -35,7 +35,7 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
     }, [onDateSelect]);
 
     return (
-        <Row className={fullscreen ? '' : 'gap-large'}>
+        <div className='gap-small lg:gap-large flex flex-col lg:flex-row'>
             {fullscreen ? (
                 <ScheduleCalendar
                     onSelect={onDateSelect}
@@ -57,6 +57,6 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
                     {actions?.map((action, i) => <div key={i}>{action}</div>)}
                 </Flex>
             </Col>
-        </Row>
+        </div>
     );
 }
