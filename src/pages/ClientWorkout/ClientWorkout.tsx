@@ -4,7 +4,7 @@ import { ClientNewWorkout } from './ClientNewWorkout';
 
 export function ClientWorkout() {
     return (
-        <Flex vertical className='gap-layout'>
+        <Flex vertical className='gap-small lg:gap-layout'>
             <ClientWorkoutHistory />
             <ClientNewWorkout />
         </Flex>

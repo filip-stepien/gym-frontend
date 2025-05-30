@@ -63,7 +63,8 @@ export function ExerciseTable({ onSave, saveButtonLabel }: ExerciseTableProps) {
             title: '#',
             dataIndex: 'key',
             key: 'key',
-            render: (_, __, index) => index + 1
+            render: (_, __, index) => index + 1,
+            fixed: 'left'
         },
         {
             title: '*Exercise',
@@ -84,6 +85,7 @@ export function ExerciseTable({ onSave, saveButtonLabel }: ExerciseTableProps) {
                     value={text}
                     min={0}
                     onChange={value => handleChange(value, record.key, 'weight')}
+                    className='w-[65px]'
                 />
             )
         },
@@ -95,6 +97,7 @@ export function ExerciseTable({ onSave, saveButtonLabel }: ExerciseTableProps) {
                     value={text}
                     min={0}
                     onChange={value => handleChange(value, record.key, 'reps')}
+                    className='w-[65px]'
                 />
             )
         },
@@ -118,6 +121,7 @@ export function ExerciseTable({ onSave, saveButtonLabel }: ExerciseTableProps) {
                 columns={columns}
                 pagination={false}
                 bordered
+                scroll={{ x: 'max-content' }}
             />
             <Flex gap='small'>
                 <Button

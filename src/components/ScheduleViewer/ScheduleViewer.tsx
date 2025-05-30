@@ -48,7 +48,7 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
     return (
         <div
             className={
-                calendarFullscreen ? 'flex flex-col' : 'md:gap-large flex flex-col lg:flex-row'
+                calendarFullscreen ? 'flex flex-col' : 'lg:gap-large flex flex-col lg:flex-row'
             }
         >
             <ScheduleCalendar
