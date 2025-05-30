@@ -30,6 +30,7 @@ import { ManagerClients } from '@/pages/ManagerClients';
 import { ManagerClientDetails } from '@/pages/ManagerClientDetails';
 import { ManagerTrainingHalls } from '@/pages/ManagerTrainingHalls';
 import { ManagerHallDetails } from '@/pages/ManagerHallDetails';
+import { ManagerNewHall } from '@/pages/ManagerNewHall';
 export function Router() {
     return (
         <BrowserRouter>
@@ -85,6 +86,7 @@ export function Router() {
                         <Route path='client-details' element={<ManagerClientDetails />} />
                         <Route path='training-halls' element={<ManagerTrainingHalls />} />
                         <Route path='training-halls/:id' element={<ManagerHallDetails />} />
+                        <Route path='new-hall' element={<ManagerNewHall />} />
                     </Route>
                 </Routes>
             </AuthGuard>

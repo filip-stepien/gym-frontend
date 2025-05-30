@@ -1,0 +1,1 @@
+export { ManagerNewHall } from './ManagerNewHall';
