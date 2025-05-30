@@ -27,6 +27,7 @@ import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
 import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
 import { ManagerDashboard } from '@/pages/ManagerDashboard/ManagerDashboard';
 import { ManagerClients } from '@/pages/ManagerClients';
+import { ManagerClientDetails } from '@/pages/ManagerClientDetails';
 export function Router() {
     return (
         <BrowserRouter>
@@ -79,6 +80,7 @@ export function Router() {
                         <Route path='employees' element={<ManagerEmployees />} />
                         <Route path='new-employee' element={<ManagerNewEmployee />} />
                         <Route path='employees/:id' element={<ManagerEmployeeDetails />} />
+                        <Route path='client-details' element={<ManagerClientDetails />} />
                     </Route>
                 </Routes>
             </AuthGuard>
