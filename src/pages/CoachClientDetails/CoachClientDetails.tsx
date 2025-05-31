@@ -45,11 +45,10 @@ const chartData: ChartData[] = [
 
 export function CoachClientDetails() {
     return (
-        <Flex vertical className='gap-layout'>
+        <Flex vertical className='gap-small lg:gap-layout'>
             <div>
                 <BackButton />
                 <MembershipOverview
-                    imageSrc='https://picsum.photos/200/300'
                     firstName='John'
                     lastName='Pork'
                     dateOfBirth='21.37.2137'

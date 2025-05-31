@@ -17,7 +17,7 @@ export function MembershipOverview(props: MembershipOverviewProps) {
             <Flex className='gap-large' align='center'>
                 <Space direction='vertical'>
                     <CardTitle title='Membership' icon='membership' />
-                    <Flex className='gap-large'>
+                    <Flex className='gap-middle flex-wrap'>
                         <Flex vertical className='gap-middle flex min-w-20 flex-col'>
                             <SmallStatistic title='First Name' value={firstName} />
                             <SmallStatistic title='Last Name' value={lastName} />

@@ -90,7 +90,7 @@ export function WorkoutDetailsCard(props: WorkoutDetailsCardProps) {
             <BackButton />
             <Card>
                 <CardTitle icon='workout' title={title ?? 'Workout Title'} />
-                <Flex className='pb-large pt-small'>
+                <Flex className='pb-small lg:pb-large pt-small'>
                     {timestamp && (
                         <Tag color='blue'>
                             <Space>
@@ -103,21 +103,23 @@ export function WorkoutDetailsCard(props: WorkoutDetailsCardProps) {
                         <Tag color='blue-inverse'>{muscle}</Tag>
                     ))}
                 </Flex>
-                <Row className='gap-20'>
-                    <Col className='gap-small flex flex-1 flex-col'>
+                <Row className='gap-small flex-wrap md:gap-20'>
+                    <Col className='mb-small flex flex-col md:flex-1'>
                         {coach && (
                             <>
                                 <Flex gap='small'>
                                     <Icon icon='avatar' />
                                     <Title level={5}>Leading coach</Title>
                                 </Flex>
-                                <Flex vertical align='center' gap='small' className='p-middle'>
-                                    <Avatar />
-                                    <Text>{coach}</Text>
+                                <Flex vertical className='p-middle'>
+                                    <Flex vertical justify='center' align='center' gap='small'>
+                                        <Avatar />
+                                        <Text>{coach}</Text>
+                                    </Flex>
                                 </Flex>
                             </>
                         )}
-                        <Flex gap='small' className='justify-start'>
+                        <Flex gap='small' className='mb-small justify-start'>
                             <Icon icon='details' />
                             <Title level={5}>Description</Title>
                         </Flex>
@@ -131,7 +133,10 @@ export function WorkoutDetailsCard(props: WorkoutDetailsCardProps) {
                             <Title level={5}>Session plan</Title>
                         </Flex>
                         {exercises.length > 0 ? (
-                            <Timeline items={exercises.map(e => ({ children: e }))} />
+                            <Timeline
+                                items={exercises.map(e => ({ children: e }))}
+                                className='mb-[-45px]'
+                            />
                         ) : (
                             <Empty />
                         )}
@@ -139,7 +144,7 @@ export function WorkoutDetailsCard(props: WorkoutDetailsCardProps) {
                 </Row>
                 {clients && clients.length > 0 ? (
                     <>
-                        <Flex gap='small' className='pt-small justify-start'>
+                        <Flex gap='small' className='pt-small mb-small justify-start'>
                             <Icon icon='avatar' />
                             <Title level={5}>Trainees</Title>
                         </Flex>

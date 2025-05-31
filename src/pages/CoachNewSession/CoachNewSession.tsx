@@ -11,6 +11,7 @@ import {
     Modal,
     Row,
     Select,
+    Space,
     TimePicker,
     Typography
 } from 'antd';
@@ -127,10 +128,10 @@ export function CoachNewSession() {
                             </Flex>
                         </Col>
                     </Row>
-                    <Row className='flex flex-col'>
+                    <Flex vertical>
                         <Title level={5}>Exercises</Title>
                         <ExerciseTable saveButtonLabel='Create' onSave={handleCreate} />
-                    </Row>
+                    </Flex>
                 </Card>
             </Flex>
         </>
