@@ -1,7 +1,8 @@
-import { Card, Flex, Space } from 'antd';
+import { Card, Flex } from 'antd';
 import { CardTitle } from '@/components/CardTitle';
-import { Table, Button, Typography } from 'antd';
+import { Table, Typography } from 'antd';
 import { Icon } from '@/components/Icon';
+import { ColumnsType } from 'antd/es/table';
 
 const { Text, Link } = Typography;
 
@@ -22,11 +23,12 @@ const data = [
 ];
 
 export function EmployeeDashboardTasks() {
-    const columns = [
+    const columns: ColumnsType = [
         {
             title: 'Hall Number',
             dataIndex: 'hall',
-            key: 'hall'
+            key: 'hall',
+            fixed: 'left'
         },
         {
             title: 'Description',
@@ -62,12 +64,13 @@ export function EmployeeDashboardTasks() {
     return (
         <Card className='w-full'>
             <CardTitle title='Current Maintenance Tasks' icon='tool' />
-            <Flex vertical className='gap-layout'>
-                <Table columns={columns} dataSource={data} pagination={false} />
-                <Space className='justify-end'>
-                    <Button type='primary'>+ Begin Maintenance</Button>
-                    <Button>Show All</Button>
-                </Space>
+            <Flex vertical className='gap-layout pt-middle'>
+                <Table
+                    scroll={{ x: 'max-content' }}
+                    columns={columns}
+                    dataSource={data}
+                    pagination={false}
+                />
             </Flex>
         </Card>
     );

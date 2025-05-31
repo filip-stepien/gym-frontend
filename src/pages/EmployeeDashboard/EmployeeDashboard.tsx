@@ -4,7 +4,7 @@ import { EmployeeDashboardTasks } from './EmployeeDashboardTasks';
 
 export function EmployeeDashboard() {
     return (
-        <Flex vertical className='gap-layout'>
+        <Flex vertical className='gap-small lg:gap-layout'>
             <EmployeeDashboardMembershipCreation />
             <EmployeeDashboardTasks />
         </Flex>

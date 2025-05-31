@@ -1,5 +1,5 @@
 import { CardTitle } from '@/components/CardTitle';
-import { Card, Flex, Table, TableColumnsType, Tag, Badge } from 'antd';
+import { Card, Table, TableColumnsType, Tag, Badge } from 'antd';
 
 interface DataType {
     key: React.Key;
@@ -88,14 +88,13 @@ const dataSource: DataType[] = [
 export function EmployeeTrainingHallsTable() {
     return (
         <Card className='w-full'>
-            <Flex justify='space-between'>
-                <CardTitle title='Training Halls' icon='training-halls' />
-            </Flex>
+            <CardTitle title='Training Halls' icon='training-halls' />
             <Table<DataType>
                 pagination={false}
                 columns={columns}
                 dataSource={dataSource}
                 scroll={{ x: 'max-content' }}
+                className='pt-middle'
             />
         </Card>
     );
