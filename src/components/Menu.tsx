@@ -1,7 +1,7 @@
 import { Menu as AntMenu, Flex } from 'antd';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { UserRole, rolesConfig } from '@/roles';
 import type { MenuProps as AntMenuProps } from 'antd';
 
@@ -24,6 +24,7 @@ function formatMenuLabel(menuOption: string) {
 export function Menu(props: MenuProps) {
     const { role, showLogo = true, className, onOptionClick = () => {} } = props;
     const navigate = useNavigate();
+    const location = useLocation();
 
     // if account type is not set, assign an empty array to not create any menu items
     const options = role ? rolesConfig[role].menuOptions : [];
@@ -45,7 +46,7 @@ export function Menu(props: MenuProps) {
         <Flex vertical className={className}>
             {showLogo && <Logo className='m-auto w-5/8 pt-8 pb-8' />}
             <AntMenu
-                defaultSelectedKeys={['dashboard']}
+                defaultSelectedKeys={[location.pathname.split('/').at(-1) ?? '']}
                 mode='vertical'
                 items={menuItems}
                 className='h-full'
