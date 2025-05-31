@@ -14,7 +14,7 @@ export function BackButton() {
     return (
         <div
             onClick={onButtonClick}
-            className='bg-card shadow-card md:shadow-card bg-bue mb-small relative grid h-[40px] w-full cursor-pointer place-items-center md:mb-0 md:w-[80px] md:border-0'
+            className='bg-card shadow-card md:shadow-card bg-bue mb-small relative z-10 grid h-[40px] w-full cursor-pointer place-items-center md:mb-0 md:w-[80px] md:border-0'
         >
             <Flex align='center' gap='small'>
                 <Icon icon='back' />

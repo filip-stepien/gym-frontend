@@ -108,7 +108,6 @@ export function EmployeeDashboardMembershipCreation() {
 
                 <Flex className='justify-end'>
                     <Space>
-                        <Button htmlType='reset'>Clear</Button>
                         <Button type='primary' htmlType='submit'>
                             Create
                         </Button>

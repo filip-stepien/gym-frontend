@@ -52,10 +52,7 @@ export function EmployeeDashboardTasks() {
             key: 'actions',
             render: () => (
                 <Flex className='flex gap-4'>
-                    <Link>Details</Link>
-                    <Text type='danger' className='cursor-pointer'>
-                        Cancel
-                    </Text>
+                    <Link href='/employee/training-halls/xd'>Details</Link>
                 </Flex>
             )
         }
