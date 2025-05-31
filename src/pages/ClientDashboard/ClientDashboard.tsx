@@ -11,7 +11,7 @@ export function ClientDashboard() {
                 <Flex className='flex-1'>
                     <Membership />
                 </Flex>
-                <Flex vertical className='gap-small lg:gap-layout pt-small w-full flex-2 lg:pt-0'>
+                <Flex vertical className='gap-small lg:gap-layout pt-small w-full flex-2 md:pt-0'>
                     <ProgressOverview />
                     <LastSession />
                 </Flex>

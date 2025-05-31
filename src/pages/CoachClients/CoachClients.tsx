@@ -4,7 +4,6 @@ import { Button, Table, TableColumnsType } from 'antd';
 
 interface DataType {
     key: React.Key;
-    id: number;
     firstName: string;
     lastName: string;
     email: string;
@@ -12,17 +11,9 @@ interface DataType {
 
 const columns: TableColumnsType<DataType> = [
     {
-        title: 'Membership ID',
-        dataIndex: 'id',
-        key: 'id',
-        fixed: 'left',
-        sorter: (a, b) => a.id - b.id
-    },
-    {
         title: 'First name',
         dataIndex: 'firstName',
         key: 'firstName',
-        fixed: 'left',
         sorter: (a, b) => a.firstName.localeCompare(b.firstName)
     },
     {
@@ -39,8 +30,7 @@ const columns: TableColumnsType<DataType> = [
     },
     {
         key: 'operation',
-        fixed: 'right',
-        width: 100,
+        width: 50,
         render: () => (
             <Button type='link' href='/coach/client/xd'>
                 Details
@@ -50,14 +40,14 @@ const columns: TableColumnsType<DataType> = [
 ];
 
 const dataSource: DataType[] = [
-    { key: '1', id: 123, firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
-    { key: '2', id: 123, firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
-    { key: '3', id: 123, firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
-    { key: '5', id: 123, firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
-    { key: '6', id: 123, firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
-    { key: '7', id: 123, firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
-    { key: '8', id: 123, firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
-    { key: '9', id: 123, firstName: 'John', lastName: 'Pork', email: 'example@example.com' }
+    { key: '1', firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
+    { key: '2', firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
+    { key: '3', firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
+    { key: '5', firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
+    { key: '6', firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
+    { key: '7', firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
+    { key: '8', firstName: 'John', lastName: 'Pork', email: 'example@example.com' },
+    { key: '9', firstName: 'John', lastName: 'Pork', email: 'example@example.com' }
 ];
 
 export function CoachClients() {

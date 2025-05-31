@@ -60,7 +60,7 @@ export function LastSession(props: LastSessionProps) {
             <Title level={5} className='text-font-secondary pb-small'>
                 {timestamp?.format('DD.MM.YYYY - HH:mm')}
             </Title>
-            <Flex vertical className='gap-large'>
+            <Flex vertical className={coach && 'gap-large'}>
                 <Flex>
                     {tags?.map(tag => (
                         <Tag key={tag} color='blue'>
