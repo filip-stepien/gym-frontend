@@ -17,7 +17,7 @@ const exercises = [
 
 const coach = 'John Pork';
 
-const actions = [<Button>Show Details</Button>];
+const actions = [<Button href='/client/workout/xd'>Show Details</Button>];
 
 export function LastSession() {
     return (
@@ -28,6 +28,7 @@ export function LastSession() {
                 exercises={exercises}
                 coach={coach}
                 actions={actions}
+                detailsHref='/client/workout/xd'
                 totalSets={30}
                 totalExercises={10}
                 totalVolume={1000}

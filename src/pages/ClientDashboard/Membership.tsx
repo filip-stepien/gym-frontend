@@ -31,7 +31,7 @@ export function Membership() {
                 <Button type='primary' className='bg-blue-500'>
                     Extend
                 </Button>
-                <Button>Show Details</Button>
+                <Button href='/client/membership'>Show Details</Button>
             </Space>
         </Card>
     );

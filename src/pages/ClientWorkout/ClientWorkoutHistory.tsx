@@ -10,13 +10,13 @@ const listElements: ScheduleDateListElement[] = [
         date: dayjs(),
         title: 'Workout 1',
         description: 'Legs, Core, Chest',
-        action: <Button>Details</Button>
+        action: <Button href='/client/workout/xd'>Details</Button>
     },
     {
         date: dayjs(),
         title: 'Workout 2',
         description: 'Legs, Core, Chest',
-        action: <Button>Details</Button>
+        action: <Button href='/client/workout/xd'>Details</Button>
     }
 ];
 
