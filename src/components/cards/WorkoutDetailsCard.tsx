@@ -9,13 +9,15 @@ import { SessionPlan } from '../common/SessionPlan';
 
 type WorkoutDetailsCardProps = {
     title?: string;
-    coach?: string;
+    coach?: {
+        firstName: string;
+        lastName: string;
+    };
     description?: string;
     timestamp?: Dayjs;
     targetMuscles?: string[];
     exercises?: string[];
     clients?: {
-        id: string;
         firstName: string;
         lastName: string;
     }[];
@@ -64,8 +66,8 @@ export function WorkoutDetailsCard(props: WorkoutDetailsCardProps) {
         clients = []
     } = props;
 
-    const dataSource: DataType[] | undefined = clients.map(client => ({
-        key: client.id,
+    const dataSource: DataType[] | undefined = clients.map((client, i) => ({
+        key: i,
         firstName: client.firstName,
         lastName: client.lastName
     }));
@@ -99,7 +101,7 @@ export function WorkoutDetailsCard(props: WorkoutDetailsCardProps) {
                                 <Flex vertical className='p-middle'>
                                     <Flex vertical justify='center' align='center' gap='small'>
                                         <Avatar />
-                                        <Text>{coach}</Text>
+                                        <Text>{coach.firstName + ' ' + coach.lastName}</Text>
                                     </Flex>
                                 </Flex>
                             </>

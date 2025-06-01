@@ -6,13 +6,6 @@ import { ClientProgressPage } from '@/pages/client/ClientProgressPage';
 import { ClientMembershipPage } from '@/pages/client/ClientMembershipPage';
 import { ClientWorkoutPage } from '@/pages/client/ClientWorkoutPage';
 import { ClientDashboardPage } from '@/pages/client/ClientDashboardPage';
-import { ClientSessionsPage } from '@/pages/client/ClientSessionsPage';
-// import { CoachDashboard } from '../pages/CoachDashboard';
-// import { CoachClients } from '../pages/CoachClients';
-// import { CoachSessions } from '../pages/CoachSessions';
-// import { CoachWorkoutDetails } from '../pages/CoachWorkoutDetails';
-// import { CoachClientDetails } from '../pages/CoachClientDetails';
-// import { CoachNewSession } from '../pages/CoachNewSession';
 // import { ManagerEmployees } from '@/pages/ManagerEmployees';
 // import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
 // import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
@@ -27,9 +20,13 @@ import { EmployeeDashboardPage } from '@/pages/employee/EmployeeDashboardPage';
 import { MembershipCreationPage } from '@/pages/common/MembershipCreationPage';
 import { ClientDetailsPage } from '@/pages/common/ClientDetailsPage';
 import { HallDetailsPage } from '@/pages/common/HallDetailsPage';
-import { ClientWorkoutDetailsPage } from '@/pages/client/ClientWorkoutDetailsPage';
 import { ClientsPage } from '@/pages/common/ClientsPage';
 import { HallsPage } from '@/pages/common/HallsPage';
+import { CoachClientDetailsPage } from '@/pages/coach/CoachClientDetailsPage';
+import { CoachDashboardPage } from '@/pages/coach/CoachDashboardPage';
+import { SessionsPage } from '@/pages/common/SessionsPage';
+import { WorkoutDetailsPage } from '@/pages/common/WorkoutDetailsPage';
+import { CoachNewSessionPage } from '@/pages/coach/CoachNewSessionPage';
 
 export function Router() {
     return (
@@ -42,10 +39,10 @@ export function Router() {
                     >
                         <Route path='dashboard' element={<ClientDashboardPage />} />
                         <Route path='progress' element={<ClientProgressPage />} />
-                        <Route path='sessions' element={<ClientSessionsPage />} />
+                        <Route path='sessions' element={<SessionsPage />} />
                         <Route path='membership' element={<ClientMembershipPage />} />
                         <Route path='workout' element={<ClientWorkoutPage />} />
-                        <Route path='workout/:id' element={<ClientWorkoutDetailsPage />} />
+                        <Route path='workout/:id' element={<WorkoutDetailsPage />} />
                     </Route>
 
                     <Route
@@ -60,19 +57,19 @@ export function Router() {
                         <Route path='training-halls/:id' element={<HallDetailsPage />} />
                     </Route>
 
-                    {/* 
                     <Route
                         path={rolesConfig['coach'].routePrefix}
                         element={<AuthenticatedLayout renderChat={false} role='coach' />}
                     >
-                        <Route path='dashboard' element={<CoachDashboard />} />
-                        <Route path='clients' element={<CoachClients />} />
-                        <Route path='sessions' element={<CoachSessions />} />
-                        <Route path='workout/:id' element={<CoachWorkoutDetails />} />
-                        <Route path='client/:id' element={<CoachClientDetails />} />
-                        <Route path='new-session' element={<CoachNewSession />} />
+                        <Route path='dashboard' element={<CoachDashboardPage />} />
+                        <Route path='clients' element={<ClientsPage />} />
+                        <Route path='sessions' element={<SessionsPage />} />
+                        <Route path='workout/:id' element={<WorkoutDetailsPage />} />
+                        <Route path='clients/:id' element={<CoachClientDetailsPage />} />
+                        <Route path='new-session' element={<CoachNewSessionPage />} />
                     </Route>
 
+                    {/* 
                     <Route
                         path={rolesConfig['manager'].routePrefix}
                         element={<AuthenticatedLayout renderChat={false} role='manager' />}

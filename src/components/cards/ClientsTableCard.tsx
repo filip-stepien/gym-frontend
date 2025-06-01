@@ -12,8 +12,8 @@ type ClientsTableClient = {
 };
 
 type ClientsTableCardProps = {
-    clients: ClientsTableClient[];
-    newClientHref: string;
+    clients?: ClientsTableClient[];
+    newClientHref?: string;
 };
 
 type DataType = {

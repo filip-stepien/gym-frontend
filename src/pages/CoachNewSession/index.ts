@@ -1,1 +1,0 @@
-export { CoachNewSession } from './CoachNewSession';
