@@ -29,7 +29,8 @@ import { ManagerClientDetails } from '@/pages/ManagerClientDetails';
 import { ManagerTrainingHalls } from '@/pages/ManagerTrainingHalls';
 import { ManagerHallDetails } from '@/pages/ManagerHallDetails';
 import { ManagerNewHall } from '@/pages/ManagerNewHall';
-import { EmployeeHallDetails } from '@/pages/EmployeeHallsDetails';
+import { EmployeeHallDetails } from '@/pages/EmployeeHallDetails';
+
 export function Router() {
     return (
         <BrowserRouter>
