@@ -4,8 +4,7 @@ import { rolesConfig } from '../roles';
 import { AuthenticatedLayout } from '../layouts/AuthenticatedLayout';
 import { ClientDashboard } from '../pages/ClientDashboard';
 import { ClientProgress } from '../pages/ClientProgress';
-import { ClientSession } from '../pages/ClientSession';
-import { ClientMembership } from '../pages/ClientMembership/ClientMembership';
+import { ClientMembership } from '../pages/ClientMembership';
 import { ClientWorkout } from '../pages/ClientWorkout';
 import { EmployeeDashboard } from '../pages/EmployeeDashboard';
 import { EmployeeClients } from '../pages/EmployeeClients';
@@ -31,6 +30,7 @@ import { ManagerHallDetails } from '@/pages/ManagerHallDetails';
 import { ManagerNewHall } from '@/pages/ManagerNewHall';
 import { EmployeeHallDetails } from '@/pages/EmployeeHallDetails';
 import { EmployeeClientsDetails } from '@/pages/EmployeeClientsDetails';
+import { ClientSessions } from '@/pages/ClientSessions';
 
 export function Router() {
     return (
@@ -43,7 +43,7 @@ export function Router() {
                     >
                         <Route path='dashboard' element={<ClientDashboard />} />
                         <Route path='progress' element={<ClientProgress />} />
-                        <Route path='sessions' element={<ClientSession />} />
+                        <Route path='sessions' element={<ClientSessions />} />
                         <Route path='membership' element={<ClientMembership />} />
                         <Route path='workout' element={<ClientWorkout />} />
                         <Route path='workout/:id' element={<ClientWorkoutDetails />} />

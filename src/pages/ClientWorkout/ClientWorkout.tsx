@@ -1,12 +1,12 @@
-import { Flex } from 'antd';
-import { ClientWorkoutHistory } from './ClientWorkoutHistory';
-import { ClientNewWorkout } from './ClientNewWorkout';
+import { WorkoutHistory } from './components/WorkoutHistory';
+import { NewWorkout } from './components/NewWorkout';
+import { Page } from '@/components/Page';
 
 export function ClientWorkout() {
     return (
-        <Flex vertical className='gap-small lg:gap-layout'>
-            <ClientWorkoutHistory />
-            <ClientNewWorkout />
-        </Flex>
+        <Page>
+            <WorkoutHistory />
+            <NewWorkout />
+        </Page>
     );
 }
