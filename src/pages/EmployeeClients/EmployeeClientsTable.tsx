@@ -57,7 +57,7 @@ const columns: TableColumnsType<DataType> = [
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: () => <a href='/employee/client-details'>Details</a>
+        render: () => <a href='/employee/clients/xd'>Details</a>
     }
 ];
 
