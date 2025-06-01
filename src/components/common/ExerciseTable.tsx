@@ -8,7 +8,7 @@ import { ExerciseRow } from '../cards/NewWorkoutCard';
 
 type ExerciseTableProps = {
     exerciseRows?: ExerciseRow[];
-    setExerciseRow?: Dispatch<SetStateAction<ExerciseRow[]>>;
+    setExerciseRows?: Dispatch<SetStateAction<ExerciseRow[]>>;
     exerciseSearchOptions?: string[];
     onSave?: () => void;
     saveButtonLabel?: string;
@@ -20,19 +20,19 @@ export function ExerciseTable(props: ExerciseTableProps) {
         exerciseRows = [],
         saveButtonLabel = 'Save',
         onSave = () => {},
-        setExerciseRow = () => {}
+        setExerciseRows = () => {}
     } = props;
 
     const menuItems = exerciseSearchOptions.map(e => ({ key: e, label: e }));
 
     const handleChange = (value: string, key: string, column: keyof ExerciseRow) => {
-        setExerciseRow(prev =>
+        setExerciseRows(prev =>
             prev.map(item => (item.key === key ? { ...item, [column]: value } : item))
         );
     };
 
     const handleDelete = (key: string) => {
-        setExerciseRow(prev => prev.filter(e => e.key !== key));
+        setExerciseRows(prev => prev.filter(e => e.key !== key));
     };
 
     const handleAddRow = () => {
@@ -43,7 +43,7 @@ export function ExerciseTable(props: ExerciseTableProps) {
             weight: 0,
             reps: 0
         };
-        setExerciseRow([...exerciseRows, newRow]);
+        setExerciseRows([...exerciseRows, newRow]);
     };
 
     const columns: ColumnsType<ExerciseRow> = [

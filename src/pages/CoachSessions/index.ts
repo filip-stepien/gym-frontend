@@ -1,1 +1,0 @@
-export { CoachSessions } from './CoachSessions';

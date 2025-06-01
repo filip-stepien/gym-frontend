@@ -35,6 +35,7 @@ export function SessionPlan(props: SessionPlanProps) {
     return exercises && exercises.length > 0 ? (
         <Flex
             gap='large'
+            className='mb-[-45px]'
             justify={maxInColumn === Number.MAX_SAFE_INTEGER ? 'start' : 'space-between'}
         >
             <Timeline items={leftTimeLineColumnItems} />

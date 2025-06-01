@@ -1,7 +1,6 @@
-import { BackButton } from '@/components/common/BackButton';
 import { Card } from '@/components/layout/Card';
 import { CardTitle } from '@/components/common/CardTitle';
-import { type ExerciseRow, ExerciseTable } from '@/components/common/ExerciseTable';
+import { ExerciseTable } from '@/components/common/ExerciseTable';
 import {
     Button,
     Col,
@@ -11,29 +10,41 @@ import {
     Modal,
     Row,
     Select,
-    Space,
     TimePicker,
     Typography
 } from 'antd';
 import { useState } from 'react';
 import type { Dayjs } from 'dayjs';
-
-const trainingHalls = [
-    { label: '1', value: '1' },
-    { label: '2', value: '2' },
-    { label: '3', value: '3' },
-    { label: '4', value: '4' }
-];
+import { ExerciseRow } from '@/components/cards/NewWorkoutCard';
+import { BackButton } from '@/components/layout/BackButton';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
-export function CoachNewSession() {
+export type NewSessionValues = {
+    title: string;
+    description: string;
+    hall: string;
+    date: Dayjs;
+    time: Dayjs;
+    exerciseRows: ExerciseRow[];
+};
+
+type NewSessionCardProps = {
+    exerciseSearchOptions?: string[];
+    trainingHallNumbers?: string[];
+    onCreate?: (values: NewSessionValues) => void;
+};
+
+export function NewSessionCard(props: NewSessionCardProps) {
+    const { exerciseSearchOptions, trainingHallNumbers = [], onCreate = () => {} } = props;
+
     const [title, setTitle] = useState('');
-    const [desription, setDescription] = useState('');
+    const [description, setDescription] = useState('');
     const [hall, setHall] = useState<string | null>(null);
     const [date, setDate] = useState<Dayjs | null>(null);
     const [time, setTime] = useState<Dayjs | null>(null);
+    const [exerciseRows, setExerciseRows] = useState<ExerciseRow[]>([]);
     const [modalOpened, setModalOpened] = useState(false);
 
     const [titleError, setTitleError] = useState(false);
@@ -41,17 +52,33 @@ export function CoachNewSession() {
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
 
-    const handleCreate = (data: ExerciseRow[]) => {
+    const trainingHallOptions = trainingHallNumbers.map(hall => ({
+        key: hall,
+        value: hall
+    }));
+
+    const handleCreate = () => {
         setTitleError(title === '');
         setHallError(hall === null);
         setDateError(date === null);
         setTimeError(time === null);
 
-        if (data.length === 0 || data.some(e => e.reps === 0 || e.weight === 0)) {
-            setModalOpened(true);
-        } else {
-            console.log(data);
+        if (title.length === 0 || !hall || !date || !time) {
+            return;
         }
+
+        if (exerciseRows.length === 0 || exerciseRows.some(e => e.reps === 0)) {
+            setModalOpened(true);
+            return;
+        }
+        onCreate({
+            title,
+            description,
+            hall,
+            date,
+            time,
+            exerciseRows
+        });
     };
 
     return (
@@ -87,7 +114,7 @@ export function CoachNewSession() {
                             <Flex vertical gap='small'>
                                 <Title level={5}>Training Hall</Title>
                                 <Select
-                                    options={trainingHalls}
+                                    options={trainingHallOptions}
                                     placeholder='Select hall...'
                                     value={hall}
                                     onChange={e => setHall(e)}
@@ -101,7 +128,7 @@ export function CoachNewSession() {
                                     maxLength={200}
                                     autoSize={{ minRows: 3 }}
                                     showCount
-                                    value={desription}
+                                    value={description}
                                     onChange={e => setDescription(e.target.value)}
                                 />
                             </Flex>
@@ -130,7 +157,13 @@ export function CoachNewSession() {
                     </Row>
                     <Flex vertical>
                         <Title level={5}>Exercises</Title>
-                        <ExerciseTable saveButtonLabel='Create' onSave={handleCreate} />
+                        <ExerciseTable
+                            saveButtonLabel='Create'
+                            exerciseSearchOptions={exerciseSearchOptions}
+                            exerciseRows={exerciseRows}
+                            setExerciseRows={setExerciseRows}
+                            onSave={handleCreate}
+                        />
                     </Flex>
                 </Card>
             </Flex>
