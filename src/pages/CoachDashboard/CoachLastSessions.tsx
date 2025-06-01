@@ -1,6 +1,6 @@
-import { Card } from '@/components/Card';
-import { CardTitle } from '@/components/CardTitle';
-import { LastSession } from '@/components/LastSession';
+import { Card } from '@/components/layout/Card';
+import { CardTitle } from '@/components/common/CardTitle';
+import { LastSession } from '@/components/cards/LastSessionCard';
 import { Button } from 'antd';
 import dayjs from 'dayjs';
 
@@ -18,13 +18,13 @@ export function CoachLastSessions() {
     return (
         <Card>
             <CardTitle title='Last Session' icon='sessions' />
-            <LastSession
+            {/* <LastSession
                 exercises={exercises}
                 tags={tags}
                 timestamp={timestamp}
                 actions={actions}
                 detailsHref='/coach/workout/xd'
-            />
+            /> */}
         </Card>
     );
 }

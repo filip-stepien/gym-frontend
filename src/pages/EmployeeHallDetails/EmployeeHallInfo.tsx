@@ -1,5 +1,5 @@
-import { CardTitle } from '@/components/CardTitle';
-import { Card } from '@/components/Card';
+import { CardTitle } from '@/components/common/CardTitle';
+import { Card } from '@/components/layout/Card';
 import { Flex, Button, Badge } from 'antd';
 
 const data = {

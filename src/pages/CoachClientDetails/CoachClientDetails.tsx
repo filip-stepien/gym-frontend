@@ -1,10 +1,10 @@
-import { ExerciseProgressCard } from '@/components/ExerciseProgressCard';
-import { MembershipOverview } from '@/components/MembershipOverview';
-import { TotalProgressCard } from '@/components/TotalProgressCard';
+import { ExerciseProgressCard } from '@/components/cards/ExerciseProgressCard';
+import { MembershipOverview } from '@/components/cards/PersonalDetailsCard';
+import { TotalProgressCard } from '@/components/cards/TotalProgressCard';
 import { Flex } from 'antd';
 import { CoachClientLastWorkouts } from './CoachClientLastWorkouts';
-import { BackButton } from '@/components/BackButton';
-import type { ChartData } from '@/components/Chart';
+import { BackButton } from '@/components/common/BackButton';
+import type { ChartData } from '@/components/common/Chart';
 
 const chartData: ChartData[] = [
     {

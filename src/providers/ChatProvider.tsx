@@ -1,4 +1,4 @@
-import { Icon } from '@/components/Icon';
+import { Icon } from '@/components/common/Icon';
 import { ChatContext } from '@/contexts/ChatContext';
 import { fuzzySearch } from '@/utils/fuzzySearch';
 import { useReducer } from 'react';

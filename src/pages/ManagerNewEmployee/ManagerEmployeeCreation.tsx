@@ -1,5 +1,5 @@
-import { Card } from '@/components/Card';
-import { CardTitle } from '@/components/CardTitle';
+import { Card } from '@/components/layout/Card';
+import { CardTitle } from '@/components/common/CardTitle';
 import { Button, DatePicker, Form, Input, Row, Col, Flex, Space, Select } from 'antd';
 import { Dayjs } from 'dayjs';
 

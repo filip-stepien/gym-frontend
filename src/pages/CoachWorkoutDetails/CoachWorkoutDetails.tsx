@@ -1,4 +1,4 @@
-import { WorkoutDetailsCard } from '@/components/WorkoutDetailsCard';
+import { WorkoutDetailsCard } from '@/components/cards/WorkoutDetailsCard';
 import dayjs from 'dayjs';
 
 const workoutDetails = {

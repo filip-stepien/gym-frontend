@@ -1,5 +1,5 @@
 import { Card, Input, Select, Button, Flex, Form, Space } from 'antd';
-import { CardTitle } from '@/components/CardTitle';
+import { CardTitle } from '@/components/common/CardTitle';
 
 const { TextArea } = Input;
 

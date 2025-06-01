@@ -1,7 +1,7 @@
-import { Card } from '@/components/Card';
-import { CardTitle } from '@/components/CardTitle';
+import { Card } from '@/components/layout/Card';
+import { CardTitle } from '@/components/common/CardTitle';
 import { Flex, Form, Input, DatePicker, Select, Button } from 'antd';
-import { BackButton } from '@/components/BackButton';
+import { BackButton } from '@/components/common/BackButton';
 
 export function EmployeeClientsDetails() {
     return (

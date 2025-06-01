@@ -1,4 +1,4 @@
-import { CardTitle } from '@/components/CardTitle';
+import { CardTitle } from '@/components/common/CardTitle';
 import { Card, Flex, Button, Badge } from 'antd';
 
 interface HallInformationProps {
