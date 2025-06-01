@@ -25,6 +25,6 @@ const sessionsCalendarCardData = {
     ]
 };
 
-export function ClientSessions() {
+export function ClientSessionsPage() {
     return <SessionsCalendarCard title='Your Sessions' fullscreen {...sessionsCalendarCardData} />;
 }

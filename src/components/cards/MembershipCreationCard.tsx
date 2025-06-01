@@ -6,6 +6,19 @@ import { Dayjs } from 'dayjs';
 
 const { Option } = Select;
 
+export type MembershipValues = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    dob: Dayjs;
+    cardNumber: string;
+    expiry: string;
+    cvv: string;
+    cardName: string;
+    country: string;
+    zip: string;
+};
+
 type FormField = {
     name: string;
     label: string;
@@ -14,18 +27,9 @@ type FormField = {
     type?: string;
 };
 
-interface MembershipValues {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    dob?: Dayjs;
-    cardNumber?: string;
-    expiry?: string;
-    cvv?: string;
-    cardName?: string;
-    country?: string;
-    zip?: string;
-}
+type MembershipCreationCardProps = {
+    onCreate?: (values: MembershipValues) => void;
+};
 
 const fields: FormField[] = [
     { name: 'firstName', label: 'First Name', placeholder: 'John', span: 12 },
@@ -43,7 +47,7 @@ const renderField = (fieldInfo: FormField & { lg: boolean }) => {
     const { name, label, placeholder, type, span, lg } = fieldInfo;
     return lg ? (
         <Col span={span} key={name}>
-            <Form.Item name={name} label={label}>
+            <Form.Item name={name} label={label} rules={[{ required: true, message: '' }]}>
                 {type === 'date' ? (
                     <DatePicker className='w-full' format='DD.MM.YYYY' />
                 ) : (
@@ -52,7 +56,12 @@ const renderField = (fieldInfo: FormField & { lg: boolean }) => {
             </Form.Item>
         </Col>
     ) : (
-        <Form.Item name={name} label={label} className='mb-small'>
+        <Form.Item
+            name={name}
+            label={label}
+            className='mb-small'
+            rules={[{ required: true, message: '' }]}
+        >
             {type === 'date' ? (
                 <DatePicker className='w-full' format='DD.MM.YYYY' />
             ) : (
@@ -62,18 +71,25 @@ const renderField = (fieldInfo: FormField & { lg: boolean }) => {
     );
 };
 
-export function EmployeeDashboardMembershipCreation() {
+export function MembershipCreationCard({ onCreate = () => {} }: MembershipCreationCardProps) {
     const [form] = Form.useForm();
     const { lg } = useTailwindBreakpoints();
 
-    const onFinish = (values: MembershipValues) => {
-        console.log('Form values:', values);
+    const handleSubmit = (values: MembershipValues) => {
+        onCreate(values);
+        form.resetFields();
     };
 
     return (
         <Card className='gap-layout'>
             <CardTitle title='Membership Creation' icon='addavatar' />
-            <Form form={form} layout='vertical' onFinish={onFinish} className='w-full'>
+            <Form
+                form={form}
+                layout='vertical'
+                onFinish={handleSubmit}
+                className='w-full'
+                requiredMark={label => <span>{label}</span>}
+            >
                 {lg ? (
                     <Col span={18}>
                         <Row gutter={16}>
@@ -81,7 +97,11 @@ export function EmployeeDashboardMembershipCreation() {
                                 renderField({ name, label, placeholder, type, span, lg })
                             )}
                             <Col span={12}>
-                                <Form.Item name='country' label='Country Or Region'>
+                                <Form.Item
+                                    name='country'
+                                    label='Country Or Region'
+                                    rules={[{ required: true, message: '' }]}
+                                >
                                     <Select defaultValue='United States'>
                                         <Option value='United States'>United States</Option>
                                         <Option value='Poland'>Poland</Option>

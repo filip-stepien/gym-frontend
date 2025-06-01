@@ -2,20 +2,19 @@ import { CardTitle } from '@/components/common/CardTitle';
 import { Card } from '@/components/layout/Card';
 import { Flex, Button, Badge } from 'antd';
 
-const data = {
-    id: 1,
-    halltype: 'yoga',
-    status: 'Busy',
-    description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore iste optio sapiente omnis rem nulla quis nostrum corporis sunt pariatur neque rerum, dolores tenetur dolorem laboriosam culpa sit debitis, repellendus excepturi natus expedita possimus quibusdam modi et. Ullam vero quo iusto tempore vitae facere asperiores repudiandae exercitationem! Culpa, dolor sunt.'
+type HallInfoCardProps = {
+    hallNumber?: string | number;
+    halltype?: string;
+    hallStatus?: string;
+    hallDescription?: string;
 };
 
-export function EmployeeHallInfo() {
-    const { id, halltype, status, description } = data;
+export function HallInfoCard(props: HallInfoCardProps) {
+    const { hallNumber, halltype, hallStatus, hallDescription } = props;
 
     let badgeStatus: 'success' | 'warning' | 'error' | 'default';
 
-    switch (status) {
+    switch (hallStatus) {
         case 'Available':
             badgeStatus = 'success';
             break;
@@ -36,7 +35,7 @@ export function EmployeeHallInfo() {
                 <Flex vertical className='gap-layout flex-1'>
                     <div>
                         <div className='text-font-primary text-sm font-semibold'>Number</div>
-                        <div>{id}</div>
+                        <div>{hallNumber}</div>
                     </div>
 
                     <div>
@@ -46,13 +45,13 @@ export function EmployeeHallInfo() {
 
                     <div>
                         <div className='text-font-prima text-sm font-semibold'>Status</div>
-                        <Badge status={badgeStatus} text={status} />
+                        <Badge status={badgeStatus} text={hallStatus} />
                     </div>
                 </Flex>
-                <Flex className='flex-3'>
+                <Flex className='pb-small flex-3'>
                     <div>
                         <div className='text-font-prima text-sm font-semibold'>Description</div>
-                        <div className='mt-1 max-w-2xl text-justify'>{description}</div>
+                        <div className='mt-1 max-w-2xl text-justify'>{hallDescription}</div>
                     </div>
                 </Flex>
             </Flex>

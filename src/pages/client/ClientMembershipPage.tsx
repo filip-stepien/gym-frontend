@@ -15,7 +15,7 @@ const membershipStatusData = {
     validUntil: dayjs().add(30, 'day')
 };
 
-export function ClientMembership() {
+export function ClientMembershipPage() {
     return (
         <Page>
             <MembershipStatusCard {...membershipStatusData} />

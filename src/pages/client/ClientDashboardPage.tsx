@@ -68,7 +68,7 @@ const sessionsCalendarCardData = {
     actions: [<ActionButton href='/client/sessions'>Show My Sessions</ActionButton>]
 };
 
-export function ClientDashboard() {
+export function ClientDashboardPage() {
     return (
         <Page>
             <div className='bg-layout gap-small lg:gap-layout md:flex'>
