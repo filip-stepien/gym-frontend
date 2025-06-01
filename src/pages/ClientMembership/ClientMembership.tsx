@@ -1,7 +1,7 @@
 import { Page } from '@/components/Page';
 import { MembershipOverview } from '@/components/MembershipOverview';
-import { MembershipStatus } from './MembershipStatus';
-import { MembershipDetails } from './MembershipDetails';
+import { MembershipStatus } from '@/components/MembershipStatus';
+import { MembershipDetails } from '@/components/MembershipDetails';
 import dayjs from 'dayjs';
 
 export function ClientMembership() {

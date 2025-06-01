@@ -1,6 +1,6 @@
 import { Card } from '@/components/Card';
 import { CardTitle } from '@/components/CardTitle';
-import { StatusBar } from './StatusBar';
+import { StatusBar } from '@/components/StatusBar';
 
 export type MembershipStatusProps = {
     nextPaymentValue: string;

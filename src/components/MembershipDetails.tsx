@@ -87,7 +87,7 @@ export function MembershipDetails(props: MembershipDetailsProps) {
                 <span>This operation cannot be undone.</span>
             </Modal>
             <Card>
-                <CardTitle title='Details' icon='details' />
+                <CardTitle title='Membership Details' icon='details' />
                 <Descriptions bordered items={items} className='py-small' />
                 <Space className='flex justify-end'>
                     <Button danger onClick={handleMembershipCancelButtonClick}>

@@ -7,7 +7,7 @@ import { Card } from '@/components/Card';
 
 const { Title } = Typography;
 
-export function ClientNewWorkout() {
+export function NewWorkout() {
     const [titleError, setTitleError] = useState(false);
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);

@@ -1,12 +1,13 @@
 import { Flex } from 'antd';
-import { Membership } from './Membership';
-import { ProgressOverview } from './ProgressOverview';
-import { UpcomingSession } from './UpcomingSession';
-import { LastSession } from './LastSession';
+import { Membership } from './components/Membership';
+import { ProgressOverview } from './components/ProgressOverview';
+import { UpcomingSession } from './components/UpcomingSession';
+import { LastSession } from './components/LastSession';
+import { Page } from '@/components/Page';
 
 export function ClientDashboard() {
     return (
-        <Flex vertical className='gap-small lg:gap-layout'>
+        <Page>
             <div className='bg-layout gap-small lg:gap-layout md:flex'>
                 <Flex className='flex-1'>
                     <Membership />
@@ -17,6 +18,6 @@ export function ClientDashboard() {
                 </Flex>
             </div>
             <UpcomingSession />
-        </Flex>
+        </Page>
     );
 }
