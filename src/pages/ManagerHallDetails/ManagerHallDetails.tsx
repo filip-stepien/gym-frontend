@@ -1,4 +1,4 @@
-import { BackButton } from '@/components/BackButton';
+import { BackButton } from '@/components/common/BackButton';
 import { Flex } from 'antd';
 import { ManagerHallsInformation } from './ManagerHallsInformation';
 import { ManagerScheduledSessions } from './ManagerScheduledSessions';

@@ -1,7 +1,7 @@
-import { BackButton } from '@/components/BackButton';
-import { Card } from '@/components/Card';
-import { CardTitle } from '@/components/CardTitle';
-import { type ExerciseRow, ExerciseTable } from '@/components/ExerciseTable';
+import { BackButton } from '@/components/common/BackButton';
+import { Card } from '@/components/layout/Card';
+import { CardTitle } from '@/components/common/CardTitle';
+import { type ExerciseRow, ExerciseTable } from '@/components/common/ExerciseTable';
 import {
     Button,
     Col,

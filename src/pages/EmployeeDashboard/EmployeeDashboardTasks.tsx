@@ -1,7 +1,7 @@
 import { Card, Flex } from 'antd';
-import { CardTitle } from '@/components/CardTitle';
+import { CardTitle } from '@/components/common/CardTitle';
 import { Table, Typography } from 'antd';
-import { Icon } from '@/components/Icon';
+import { Icon } from '@/components/common/Icon';
 import { ColumnsType } from 'antd/es/table';
 
 const { Text, Link } = Typography;

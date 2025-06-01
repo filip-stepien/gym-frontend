@@ -1,4 +1,4 @@
-import { CardTitle } from '@/components/CardTitle';
+import { CardTitle } from '@/components/common/CardTitle';
 import { Button, Card, Flex, Table, TableColumnsType, Badge } from 'antd';
 
 interface DataType {

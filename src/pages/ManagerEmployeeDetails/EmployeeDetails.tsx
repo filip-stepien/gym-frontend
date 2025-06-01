@@ -1,6 +1,6 @@
-import { Card } from '@/components/Card';
-import { CardTitle } from '@/components/CardTitle';
-import { SmallStatistic } from '@/components/SmallStatistic';
+import { Card } from '@/components/layout/Card';
+import { CardTitle } from '@/components/common/CardTitle';
+import { SmallStatistic } from '@/components/common/SmallStatistic';
 import { Button, Flex, Space } from 'antd';
 
 type EmployeeValuesProps = {

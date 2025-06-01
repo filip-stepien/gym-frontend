@@ -1,36 +1,36 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { rolesConfig } from '../roles';
+import { rolesConfig } from '@/roles';
 
-import { AuthenticatedLayout } from '../layouts/AuthenticatedLayout';
-import { ClientDashboard } from '../pages/ClientDashboard';
-import { ClientProgress } from '../pages/ClientProgress';
-import { ClientMembership } from '../pages/ClientMembership';
-import { ClientWorkout } from '../pages/ClientWorkout';
-import { EmployeeDashboard } from '../pages/EmployeeDashboard';
-import { EmployeeClients } from '../pages/EmployeeClients';
-import { EmployeeTrainingHalls } from '../pages/EmployeeTrainingHalls';
-import { EmployeeNotifications } from '../pages/EmployeeNotifications';
-import { ClientWorkoutDetails } from '../pages/ClientWorkoutDetails';
-import { CoachDashboard } from '../pages/CoachDashboard';
-import { CoachClients } from '../pages/CoachClients';
-import { CoachSessions } from '../pages/CoachSessions';
-import { CoachWorkoutDetails } from '../pages/CoachWorkoutDetails';
-import { CoachClientDetails } from '../pages/CoachClientDetails';
-import { EmployeeClientsCreation } from '../pages/EmployeeClientCreation';
-import { CoachNewSession } from '../pages/CoachNewSession';
+import { AuthenticatedLayout } from '@/layouts/AuthenticatedLayout';
+import { ClientProgress } from '@/pages/client/ClientProgress';
+import { ClientMembership } from '@/pages/client/ClientMembership';
+import { ClientWorkout } from '@/pages/client/ClientWorkout';
+import { ClientWorkoutDetails } from '@/pages/client/ClientWorkoutDetails';
+import { ClientDashboard } from '@/pages/client/ClientDashboard';
+import { ClientSessions } from '@/pages/client/ClientSessions';
+// import { CoachDashboard } from '../pages/CoachDashboard';
+// import { CoachClients } from '../pages/CoachClients';
+// import { CoachSessions } from '../pages/CoachSessions';
+// import { CoachWorkoutDetails } from '../pages/CoachWorkoutDetails';
+// import { CoachClientDetails } from '../pages/CoachClientDetails';
+// import { CoachNewSession } from '../pages/CoachNewSession';
+// import { EmployeeClientsCreation } from '../pages/EmployeeClientCreation';
+// import { EmployeeDashboard } from '../pages/EmployeeDashboard';
+// import { EmployeeClients } from '../pages/EmployeeClients';
+// import { EmployeeTrainingHalls } from '../pages/EmployeeTrainingHalls';
+// import { EmployeeNotifications } from '../pages/EmployeeNotifications';
+// import { EmployeeHallDetails } from '@/pages/EmployeeHallDetails';
+// import { EmployeeClientsDetails } from '@/pages/EmployeeClientsDetails';
+// import { ManagerEmployees } from '@/pages/ManagerEmployees';
+// import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
+// import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
+// import { ManagerDashboard } from '@/pages/ManagerDashboard/ManagerDashboard';
+// import { ManagerClients } from '@/pages/ManagerClients';
+// import { ManagerClientDetails } from '@/pages/ManagerClientDetails';
+// import { ManagerTrainingHalls } from '@/pages/ManagerTrainingHalls';
+// import { ManagerHallDetails } from '@/pages/ManagerHallDetails';
+// import { ManagerNewHall } from '@/pages/ManagerNewHall';
 import { AuthGuard } from './AuthGuard';
-import { ManagerEmployees } from '@/pages/ManagerEmployees';
-import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
-import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
-import { ManagerDashboard } from '@/pages/ManagerDashboard/ManagerDashboard';
-import { ManagerClients } from '@/pages/ManagerClients';
-import { ManagerClientDetails } from '@/pages/ManagerClientDetails';
-import { ManagerTrainingHalls } from '@/pages/ManagerTrainingHalls';
-import { ManagerHallDetails } from '@/pages/ManagerHallDetails';
-import { ManagerNewHall } from '@/pages/ManagerNewHall';
-import { EmployeeHallDetails } from '@/pages/EmployeeHallDetails';
-import { EmployeeClientsDetails } from '@/pages/EmployeeClientsDetails';
-import { ClientSessions } from '@/pages/ClientSessions';
 
 export function Router() {
     return (
@@ -49,7 +49,7 @@ export function Router() {
                         <Route path='workout/:id' element={<ClientWorkoutDetails />} />
                     </Route>
 
-                    <Route
+                    {/* <Route
                         path={rolesConfig['employee'].routePrefix}
                         element={<AuthenticatedLayout renderChat={false} role='employee' />}
                     >
@@ -88,7 +88,7 @@ export function Router() {
                         <Route path='training-halls' element={<ManagerTrainingHalls />} />
                         <Route path='training-halls/:id' element={<ManagerHallDetails />} />
                         <Route path='new-hall' element={<ManagerNewHall />} />
-                    </Route>
+                    </Route> */}
                 </Routes>
             </AuthGuard>
         </BrowserRouter>

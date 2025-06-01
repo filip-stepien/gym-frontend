@@ -1,5 +1,5 @@
-import { Card } from '@/components/Card';
-import { CardTitle } from '@/components/CardTitle';
+import { Card } from '@/components/layout/Card';
+import { CardTitle } from '@/components/common/CardTitle';
 import { useTailwindBreakpoints } from '@/hooks/useTailwindBreakpoints';
 import { Button, DatePicker, Form, Input, Select, Row, Col, Flex, Space } from 'antd';
 import { Dayjs } from 'dayjs';

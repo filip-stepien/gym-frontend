@@ -1,12 +1,12 @@
 import { Flex, Layout } from 'antd';
 import { Outlet } from 'react-router';
 
-import { Menu } from '@/components/Menu';
-import { Nav } from '@/components/Nav';
-import { Chat } from '@/components/Chat/Chat';
+import { Menu } from '@/components/layout/Menu';
+import { Nav } from '@/components/layout/Nav';
+import { Chat } from '@/components/layout/Chat/Chat';
 import { getCSSVariable } from '@/utils/getCSSVariable';
 import { UserRole } from '@/roles';
-import { HamburgerMenu } from '@/components/HamburgerMenu';
+import { HamburgerMenu } from '@/components/layout/HamburgerMenu';
 
 type AuthenticatedLayoutProps = {
     role: UserRole;
