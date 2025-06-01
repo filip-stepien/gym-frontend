@@ -77,7 +77,7 @@ const exerciseProgressChartData: ChartData[] = [
     }
 ];
 
-export function ClientProgress() {
+export function ClientProgressPage() {
     return (
         <Page>
             <TotalProgressCard chartData={totalProgressChartData} />

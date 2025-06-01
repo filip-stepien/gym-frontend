@@ -35,7 +35,7 @@ const newWorkoutData = {
     }
 };
 
-export function ClientWorkout() {
+export function ClientWorkoutPage() {
     return (
         <Page>
             <SessionsCalendarCard title='Workout History' {...sessionsCalendarCardData} />

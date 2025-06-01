@@ -19,6 +19,6 @@ const workoutDetailsData = {
     description: 'description'
 };
 
-export function ClientWorkoutDetails() {
+export function ClientWorkoutDetailsPage() {
     return <WorkoutDetailsCard {...workoutDetailsData} />;
 }
