@@ -30,6 +30,7 @@ import { ManagerTrainingHalls } from '@/pages/ManagerTrainingHalls';
 import { ManagerHallDetails } from '@/pages/ManagerHallDetails';
 import { ManagerNewHall } from '@/pages/ManagerNewHall';
 import { EmployeeHallDetails } from '@/pages/EmployeeHallDetails';
+import { EmployeeClientsDetails } from '@/pages/EmployeeClientsDetails';
 
 export function Router() {
     return (
@@ -57,7 +58,7 @@ export function Router() {
                         <Route path='training-halls' element={<EmployeeTrainingHalls />} />
                         <Route path='notifications' element={<EmployeeNotifications />} />
                         <Route path='create-membership' element={<EmployeeClientsCreation />} />
-                        <Route path='client-details' element={<EmployeeHallDetails />} />
+                        <Route path='clients/:id' element={<EmployeeClientsDetails />} />
                         <Route path='training-halls/:id' element={<EmployeeHallDetails />} />
                     </Route>
 
