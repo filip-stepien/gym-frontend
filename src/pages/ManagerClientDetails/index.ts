@@ -1,1 +1,0 @@
-export { ManagerClientDetails } from './ManagerClientDetails';

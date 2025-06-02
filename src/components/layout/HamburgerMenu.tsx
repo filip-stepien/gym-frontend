@@ -1,9 +1,8 @@
 import { Drawer, Flex } from 'antd';
 import { Icon } from '../common/Icon';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Menu } from './Menu';
 import { UserRole } from '@/roles';
-import { useTailwindBreakpoints } from '@/hooks/useTailwindBreakpoints';
 
 type HamburgerMenuProps = {
     className?: string;
@@ -12,13 +11,6 @@ type HamburgerMenuProps = {
 
 export function HamburgerMenu({ className, role }: HamburgerMenuProps) {
     const [opened, setOpened] = useState(false);
-    const { md } = useTailwindBreakpoints();
-
-    useEffect(() => {
-        if (md) {
-            setOpened(false);
-        }
-    }, [md]);
 
     const openDrawer = () => {
         setOpened(true);

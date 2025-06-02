@@ -1,6 +1,5 @@
 import { Card } from '@/components/layout/Card';
 import { CardTitle } from '@/components/common/CardTitle';
-import { useTailwindBreakpoints } from '@/hooks/useTailwindBreakpoints';
 import { Button, DatePicker, Form, Input, Select, Row, Col, Flex, Space } from 'antd';
 import { Dayjs } from 'dayjs';
 
@@ -43,10 +42,10 @@ const fields: FormField[] = [
     { name: 'zip', label: 'ZIP Code', placeholder: 'ZIP Code', span: 12 }
 ];
 
-const renderField = (fieldInfo: FormField & { lg: boolean }) => {
-    const { name, label, placeholder, type, span, lg } = fieldInfo;
-    return lg ? (
-        <Col span={span} key={name}>
+const renderField = (fieldInfo: FormField) => {
+    const { name, label, placeholder, type, span } = fieldInfo;
+    return (
+        <Col span={span} key={name} className='!max-w-full lg:!max-w-3/4'>
             <Form.Item name={name} label={label} rules={[{ required: true, message: '' }]}>
                 {type === 'date' ? (
                     <DatePicker className='w-full' format='DD.MM.YYYY' />
@@ -55,25 +54,11 @@ const renderField = (fieldInfo: FormField & { lg: boolean }) => {
                 )}
             </Form.Item>
         </Col>
-    ) : (
-        <Form.Item
-            name={name}
-            label={label}
-            className='mb-small'
-            rules={[{ required: true, message: '' }]}
-        >
-            {type === 'date' ? (
-                <DatePicker className='w-full' format='DD.MM.YYYY' />
-            ) : (
-                <Input placeholder={placeholder} />
-            )}
-        </Form.Item>
     );
 };
 
 export function MembershipCreationCard({ onCreate = () => {} }: MembershipCreationCardProps) {
     const [form] = Form.useForm();
-    const { lg } = useTailwindBreakpoints();
 
     const handleSubmit = (values: MembershipValues) => {
         onCreate(values);
@@ -90,41 +75,24 @@ export function MembershipCreationCard({ onCreate = () => {} }: MembershipCreati
                 className='w-full'
                 requiredMark={label => <span>{label}</span>}
             >
-                {lg ? (
-                    <Col span={18}>
-                        <Row gutter={16}>
-                            {fields.map(({ name, label, placeholder, type, span }) =>
-                                renderField({ name, label, placeholder, type, span, lg })
-                            )}
-                            <Col span={12}>
-                                <Form.Item
-                                    name='country'
-                                    label='Country Or Region'
-                                    rules={[{ required: true, message: '' }]}
-                                >
-                                    <Select defaultValue='United States'>
-                                        <Option value='United States'>United States</Option>
-                                        <Option value='Poland'>Poland</Option>
-                                        <Option value='Germany'>Germany</Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                    </Col>
-                ) : (
-                    <>
-                        {fields.map(({ name, label, placeholder, type, span }) =>
-                            renderField({ name, label, placeholder, type, span, lg })
-                        )}
-                        <Form.Item name='country' label='Country Or Region'>
-                            <Select defaultValue='United States'>
-                                <Option value='United States'>United States</Option>
-                                <Option value='Poland'>Poland</Option>
-                                <Option value='Germany'>Germany</Option>
-                            </Select>
-                        </Form.Item>
-                    </>
-                )}
+                <Col span={18} className='!max-w-full lg:!max-w-3/4'>
+                    <Row gutter={16} className='block md:flex'>
+                        {fields.map(renderField)}
+                        <Col span={12} className='!max-w-full lg:!max-w-3/4'>
+                            <Form.Item
+                                name='country'
+                                label='Country Or Region'
+                                rules={[{ required: true, message: '' }]}
+                            >
+                                <Select placeholder='Select country'>
+                                    <Option value='United States'>United States</Option>
+                                    <Option value='Poland'>Poland</Option>
+                                    <Option value='Germany'>Germany</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                </Col>
 
                 <Flex className='justify-end'>
                     <Space>

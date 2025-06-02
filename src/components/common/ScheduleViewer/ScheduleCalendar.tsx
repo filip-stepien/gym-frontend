@@ -102,7 +102,11 @@ export function ScheduleCalendar(props: EventCalendarProps) {
                             e.date.month() === date.month() &&
                             e.date.year() === date.year()
                     )
-                    .map(e => <Tag color='geekblue'>{e.title}</Tag>)}
+                    .map((e, i) => (
+                        <Tag color='geekblue' className='truncate' key={i}>
+                            {e.title}
+                        </Tag>
+                    ))}
             </Flex>
         );
     };
