@@ -2,6 +2,7 @@ import { UserContext, UserDetails } from '@/contexts/UserContext';
 import { useEffect, useState, type JSX } from 'react';
 import { rolesPriority, UserRole } from '@/roles';
 import keycloak from '@/keycloak';
+import { initializeAxios } from '@/axios';
 
 export function UserProvider({ children }: { children: JSX.Element }) {
     const [userDetails, setUserDetails] = useState<UserDetails>();
@@ -14,6 +15,8 @@ export function UserProvider({ children }: { children: JSX.Element }) {
         async function initUser() {
             const initialized = await keycloak.init({ onLoad: 'login-required' });
             if (!initialized) return;
+
+            initializeAxios(keycloak);
 
             const userProfile = await keycloak.loadUserProfile();
             const userRoles = keycloak.tokenParsed?.['roles'] as UserRole[];
