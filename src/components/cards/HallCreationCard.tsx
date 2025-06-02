@@ -1,32 +1,46 @@
-import { Card, Input, Select, Button, Flex, Form, Space } from 'antd';
+import { Card, Input, Select, Button, Flex, Form } from 'antd';
 import { CardTitle } from '@/components/common/CardTitle';
 
 const { TextArea } = Input;
 
-const hallTypes = ['Yoga', 'Cardio', 'Weight lifting', 'CrossFit'];
+export type HallValues = {
+    hallNumber: string;
+    hallType: string;
+    hallDescription: string;
+};
 
-export function ManagerNewHallCreation() {
+type HallCreationCardProps = {
+    hallTypes?: string[];
+    onCreate?: (values: HallValues) => void;
+};
+
+export function HallCreationCard({ hallTypes = [], onCreate = () => {} }: HallCreationCardProps) {
     const [form] = Form.useForm();
 
     return (
         <Card>
             <CardTitle title='Create Hall' icon='training-halls' />
-
-            <Form form={form} layout='vertical'>
+            <Form
+                form={form}
+                layout='vertical'
+                onFinish={onCreate}
+                requiredMark={label => <span>{label}</span>}
+                className='pt-small'
+            >
                 <Flex className='gap-layout'>
                     <Flex vertical className='w-full'>
                         <Form.Item
-                            label='Number'
-                            name='number'
-                            rules={[{ required: true, message: 'Please enter the hall number' }]}
+                            label='Hall Number'
+                            name='hallNumber'
+                            rules={[{ required: true, message: '' }]}
                         >
                             <Input placeholder='Enter hall number' />
                         </Form.Item>
 
                         <Form.Item
                             label='Type'
-                            name='type'
-                            rules={[{ required: true, message: 'Please select hall type' }]}
+                            name='hallType'
+                            rules={[{ required: true, message: '' }]}
                         >
                             <Select placeholder='Select hall type'>
                                 {hallTypes.map(type => (
@@ -39,19 +53,20 @@ export function ManagerNewHallCreation() {
                     </Flex>
 
                     <Flex className='w-full' vertical>
-                        <Form.Item label='Description' name='description'>
+                        <Form.Item
+                            label='Description'
+                            name='hallDescription'
+                            rules={[{ required: true, message: '' }]}
+                        >
                             <TextArea rows={5} placeholder='Enter description' allowClear />
                         </Form.Item>
                     </Flex>
                 </Flex>
 
                 <Flex justify='end'>
-                    <Space>
-                        <Button type='primary' htmlType='submit'>
-                            Create
-                        </Button>
-                        <Button htmlType='reset'>Clear</Button>
-                    </Space>
+                    <Button type='primary' htmlType='submit'>
+                        Create
+                    </Button>
                 </Flex>
             </Form>
         </Card>

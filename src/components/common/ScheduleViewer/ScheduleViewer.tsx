@@ -3,7 +3,8 @@ import { ScheduleCalendar } from './ScheduleCalendar';
 import { ScheduleList, type ScheduleListElement } from './ScheduleList';
 import dayjs, { type Dayjs } from 'dayjs';
 import { JSX, useCallback, useEffect, useState } from 'react';
-import { useTailwindBreakpoints } from '@/hooks/useTailwindBreakpoints';
+import { useHTMLElementResizeObserver } from '@/hooks/useHTMLElementResizeObserver';
+import { breakpoints } from '@/tailwind';
 
 export type ScheduleDateListElement = { date: Dayjs } & ScheduleListElement;
 
@@ -17,15 +18,15 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
     const { listElements, actions, fullscreen } = props;
     const [currentListElements, setCurrentListElements] = useState<ScheduleDateListElement[]>([]);
     const [calendarFullscreen, setCalendarFullscreen] = useState(fullscreen);
-    const { md } = useTailwindBreakpoints();
+    const [widthObserverRef, width] = useHTMLElementResizeObserver();
 
     useEffect(() => {
-        if (fullscreen && md) {
+        if (fullscreen && width >= breakpoints.md) {
             setCalendarFullscreen(true);
-        } else if (fullscreen && !md) {
+        } else if (fullscreen && width < breakpoints.sm) {
             setCalendarFullscreen(false);
         }
-    }, [fullscreen, md]);
+    }, [fullscreen, width]);
 
     const onDateSelect = useCallback(
         (date: dayjs.Dayjs) => {
@@ -47,6 +48,7 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
 
     return (
         <div
+            ref={widthObserverRef}
             className={
                 calendarFullscreen ? 'flex flex-col' : 'lg:gap-large flex flex-col lg:flex-row'
             }

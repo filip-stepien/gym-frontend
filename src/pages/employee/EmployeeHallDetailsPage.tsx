@@ -23,7 +23,7 @@ const hallMaintenanceCardData = {
     }
 };
 
-export function HallDetailsPage() {
+export function EmployeeHallDetailsPage() {
     return (
         <div>
             <BackButton />

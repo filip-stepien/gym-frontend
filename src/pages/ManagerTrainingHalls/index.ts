@@ -1,1 +1,0 @@
-export { ManagerTrainingHalls } from './ManagerTrainingHalls';

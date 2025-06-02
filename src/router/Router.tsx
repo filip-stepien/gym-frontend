@@ -1,32 +1,27 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { rolesConfig } from '@/roles';
-
 import { AuthenticatedLayout } from '@/layouts/AuthenticatedLayout';
+import { AuthGuard } from './AuthGuard';
 import { ClientProgressPage } from '@/pages/client/ClientProgressPage';
 import { ClientMembershipPage } from '@/pages/client/ClientMembershipPage';
 import { ClientWorkoutPage } from '@/pages/client/ClientWorkoutPage';
 import { ClientDashboardPage } from '@/pages/client/ClientDashboardPage';
-// import { ManagerEmployees } from '@/pages/ManagerEmployees';
-// import { ManagerNewEmployee } from '@/pages/ManagerNewEmployee';
-// import { ManagerEmployeeDetails } from '@/pages/ManagerEmployeeDetails';
-// import { ManagerDashboard } from '@/pages/ManagerDashboard/ManagerDashboard';
-// import { ManagerClients } from '@/pages/ManagerClients';
-// import { ManagerClientDetails } from '@/pages/ManagerClientDetails';
-// import { ManagerTrainingHalls } from '@/pages/ManagerTrainingHalls';
-// import { ManagerHallDetails } from '@/pages/ManagerHallDetails';
-// import { ManagerNewHall } from '@/pages/ManagerNewHall';
-import { AuthGuard } from './AuthGuard';
-import { EmployeeDashboardPage } from '@/pages/employee/EmployeeDashboardPage';
-import { MembershipCreationPage } from '@/pages/common/MembershipCreationPage';
 import { ClientDetailsPage } from '@/pages/common/ClientDetailsPage';
-import { HallDetailsPage } from '@/pages/common/HallDetailsPage';
 import { ClientsPage } from '@/pages/common/ClientsPage';
-import { HallsPage } from '@/pages/common/HallsPage';
+import { EmployeeDashboardPage } from '@/pages/employee/EmployeeDashboardPage';
+import { EmployeeHallDetailsPage } from '@/pages/employee/EmployeeHallDetailsPage';
 import { CoachClientDetailsPage } from '@/pages/coach/CoachClientDetailsPage';
 import { CoachDashboardPage } from '@/pages/coach/CoachDashboardPage';
+import { CoachNewSessionPage } from '@/pages/coach/CoachNewSessionPage';
+import { ManagerDashboardPage } from '@/pages/manager/ManagerDashboardPage';
+import { ManagerEmployeeDetailsPage } from '@/pages/manager/ManagerEmployeeDetailsPage';
+import { ManagerEmployeesPage } from '@/pages/manager/ManagerEmployeesPage';
+import { ManagerEmployeeCreationPage } from '@/pages/manager/ManagerEmployeeCreationPage';
+import { ManagerHallCreationPage } from '@/pages/manager/ManagerHallCreationPage';
+import { MembershipCreationPage } from '@/pages/common/MembershipCreationPage';
+import { HallsPage } from '@/pages/common/HallsPage';
 import { SessionsPage } from '@/pages/common/SessionsPage';
 import { WorkoutDetailsPage } from '@/pages/common/WorkoutDetailsPage';
-import { CoachNewSessionPage } from '@/pages/coach/CoachNewSessionPage';
 
 export function Router() {
     return (
@@ -54,7 +49,7 @@ export function Router() {
                         <Route path='training-halls' element={<HallsPage />} />
                         <Route path='create-membership' element={<MembershipCreationPage />} />
                         <Route path='clients/:id' element={<ClientDetailsPage />} />
-                        <Route path='training-halls/:id' element={<HallDetailsPage />} />
+                        <Route path='training-halls/:id' element={<EmployeeHallDetailsPage />} />
                     </Route>
 
                     <Route
@@ -69,22 +64,22 @@ export function Router() {
                         <Route path='new-session' element={<CoachNewSessionPage />} />
                     </Route>
 
-                    {/* 
                     <Route
                         path={rolesConfig['manager'].routePrefix}
                         element={<AuthenticatedLayout renderChat={false} role='manager' />}
                     >
-                        <Route path='dashboard' element={<ManagerDashboard />} />
-                        <Route path='clients' element={<ManagerClients />} />
-                        <Route path='clients/:id' element={<EmployeeClientsCreation />} />
-                        <Route path='employees' element={<ManagerEmployees />} />
-                        <Route path='new-employee' element={<ManagerNewEmployee />} />
-                        <Route path='employees/:id' element={<ManagerEmployeeDetails />} />
-                        <Route path='client-details' element={<ManagerClientDetails />} />
-                        <Route path='training-halls' element={<ManagerTrainingHalls />} />
-                        <Route path='training-halls/:id' element={<ManagerHallDetails />} />
-                        <Route path='new-hall' element={<ManagerNewHall />} />
-                    </Route> */}
+                        <Route path='dashboard' element={<ManagerDashboardPage />} />
+                        <Route path='create-membership' element={<MembershipCreationPage />} />
+                        <Route path='clients' element={<ClientsPage />} />
+                        <Route path='clients/:id' element={<ClientDetailsPage />} />
+                        <Route path='employees' element={<ManagerEmployeesPage />} />
+                        <Route path='create-employee' element={<ManagerEmployeeCreationPage />} />
+                        <Route path='employees/:id' element={<ManagerEmployeeDetailsPage />} />
+                        <Route path='client-details' element={<ClientDetailsPage />} />
+                        <Route path='training-halls' element={<HallsPage />} />
+                        <Route path='training-halls/:id' element={<div></div>} />
+                        <Route path='create-hall' element={<ManagerHallCreationPage />} />
+                    </Route>
                 </Routes>
             </AuthGuard>
         </BrowserRouter>

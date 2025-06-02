@@ -12,7 +12,7 @@ type EmployeeValuesProps = {
     phone: string;
 };
 
-export function EmployeeDetails(props: EmployeeValuesProps) {
+export function EmployeeDetailsCard(props: EmployeeValuesProps) {
     const { firstName, lastName, dateOfBirth, email, position, phone } = props;
     return (
         <Card>
