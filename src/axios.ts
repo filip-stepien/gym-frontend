@@ -3,7 +3,7 @@ import Keycloak from 'keycloak-js';
 
 export function initializeAxios(
     keycloak: Keycloak,
-    baseUrl: string = import.meta.env.VITE_BASE_URL
+    baseUrl: string = import.meta.env.VITE_PROXY_URL
 ) {
     axios.defaults.baseURL = baseUrl;
     axios.interceptors.request.use(async config => {
