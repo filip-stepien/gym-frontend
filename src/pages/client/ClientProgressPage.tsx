@@ -3,79 +3,45 @@ import { TotalProgressCard } from '../../components/cards/TotalProgressCard';
 import { ExerciseProgressCard } from '../../components/cards/ExerciseProgressCard';
 import type { ChartData } from '@/components/common/Chart';
 
-const totalProgressChartData: ChartData[] = [
-    {
-        category: 'Volume',
-        timeSeries: {
-            lastWeek: {
+const totalProgressChartData: ChartData = {
+    description: 'Total workout effort - last 3 months',
+    data: [
+        {
+            title: 'Volume',
+            timeSeries: {
                 labels: ['1', '2', '3'],
                 values: [1, 2, 3]
-            },
-            lastThreeWeeks: {
+            }
+        },
+        {
+            title: 'Sets',
+            timeSeries: {
                 labels: ['1', '2', '3'],
                 values: [3, 4, 5]
-            },
-            lastYear: {
-                labels: ['1', '2', '3'],
-                values: [6, 7, 8]
             }
         }
-    },
-    {
-        category: 'Reps',
-        timeSeries: {
-            lastWeek: {
-                labels: ['1', '2', '3'],
-                values: [9, 10, 11]
-            },
-            lastThreeWeeks: {
-                labels: ['1', '2', '3'],
-                values: [12, 13, 14]
-            },
-            lastYear: {
-                labels: ['1', '2', '3'],
-                values: [15, 16, 17]
-            }
-        }
-    }
-];
+    ]
+};
 
-const exerciseProgressChartData: ChartData[] = [
-    {
-        category: 'Volume',
-        timeSeries: {
-            lastWeek: {
+const exerciseProgressChartData: ChartData = {
+    description: 'Heaviest exercise weight - last 3 months',
+    data: [
+        {
+            title: 'Bench press',
+            timeSeries: {
                 labels: ['1', '2', '3'],
-                values: [1, 2, 3]
-            },
-            lastThreeWeeks: {
+                values: [6, 7, 4]
+            }
+        },
+        {
+            title: 'Deadlift',
+            timeSeries: {
                 labels: ['1', '2', '3'],
-                values: [3, 4, 5]
-            },
-            lastYear: {
-                labels: ['1', '2', '3'],
-                values: [6, 7, 8]
+                values: [2, 8, 3]
             }
         }
-    },
-    {
-        category: 'Reps',
-        timeSeries: {
-            lastWeek: {
-                labels: ['1', '2', '3'],
-                values: [9, 10, 11]
-            },
-            lastThreeWeeks: {
-                labels: ['1', '2', '3'],
-                values: [12, 13, 14]
-            },
-            lastYear: {
-                labels: ['1', '2', '3'],
-                values: [15, 16, 17]
-            }
-        }
-    }
-];
+    ]
+};
 
 export function ClientProgressPage() {
     return (

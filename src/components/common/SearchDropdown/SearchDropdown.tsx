@@ -1,25 +1,26 @@
-import { Dropdown } from 'antd';
+import { Button, Dropdown, Space } from 'antd';
 import { Icon } from '../Icon';
 import { SearchDropdownMenu } from './SearchDropdownMenu';
 import { ChangeEvent, useState } from 'react';
 
 type SearchDropdownProps = {
-    placeholder: string;
-    menuItems: { label: string; key: string }[];
+    placeholder?: string;
+    menuItems?: { label: string; key: string }[];
     searchPlaceholder?: string;
     onSelect?: (item: { label: string; key: string }) => void;
 };
 
 export function SearchDropdown(props: SearchDropdownProps) {
     const { placeholder, menuItems, searchPlaceholder, onSelect } = props;
-    const [selectedLabel, setSelectedLabel] = useState<string | null>(placeholder);
+    const initialMenuItems = menuItems?.slice(0, 3).map(({ label, key }) => ({ label, key })) ?? [];
+
+    const [selectedLabel, setSelectedLabel] = useState<string | null>(placeholder ?? null);
     const [search, setSearch] = useState('');
-    const [displayedMenuItems, setDisplayedMenuItems] = useState<{ label: string; key: string }[]>(
-        []
-    );
+    const [displayedMenuItems, setDisplayedMenuItems] =
+        useState<{ label: string; key: string }[]>(initialMenuItems);
 
     const handleMenuItemClick = ({ key }: { key: string }) => {
-        const label = menuItems.find(item => item.key == key)?.label as string;
+        const label = menuItems?.find(item => item.key == key)?.label as string;
         setSelectedLabel(label);
 
         if (onSelect) {
@@ -29,9 +30,8 @@ export function SearchDropdown(props: SearchDropdownProps) {
 
     const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
         const searchInput = event.target.value;
-        const filteredItems = menuItems.filter(item =>
-            item.label.toLowerCase().startsWith(searchInput)
-        );
+        const filteredItems =
+            menuItems?.filter(item => item.label.toLowerCase().startsWith(searchInput)) ?? [];
 
         setDisplayedMenuItems(searchInput ? filteredItems : []);
         setSearch(searchInput);
@@ -39,12 +39,11 @@ export function SearchDropdown(props: SearchDropdownProps) {
 
     const handleMenuOpenChange = () => {
         setSearch('');
-        setDisplayedMenuItems([]);
+        setDisplayedMenuItems(initialMenuItems);
     };
 
     return (
-        <Dropdown.Button
-            icon={<Icon icon='down' />}
+        <Dropdown
             menu={{
                 items: displayedMenuItems.map(item => ({ ...item, onClick: handleMenuItemClick }))
             }}
@@ -58,8 +57,14 @@ export function SearchDropdown(props: SearchDropdownProps) {
                 />
             )}
             onOpenChange={handleMenuOpenChange}
+            className='w-fit'
         >
-            {selectedLabel}
-        </Dropdown.Button>
+            <Button>
+                <Space>
+                    <span>{selectedLabel}</span>
+                    <Icon icon='down' />
+                </Space>
+            </Button>
+        </Dropdown>
     );
 }

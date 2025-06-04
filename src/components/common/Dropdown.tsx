@@ -1,4 +1,4 @@
-import { Dropdown as AntDropdown, Space } from 'antd';
+import { Dropdown as AntDropdown, Button, Space } from 'antd';
 import { Icon } from '@/components/common/Icon';
 import { useState } from 'react';
 
@@ -23,7 +23,7 @@ export function Dropdown(props: DropdownProps) {
 
     return (
         <AntDropdown
-            className='select-none'
+            className='w-fit select-none'
             menu={{
                 items: menuItems.map(item => ({
                     ...item,
@@ -31,12 +31,12 @@ export function Dropdown(props: DropdownProps) {
                 }))
             }}
         >
-            <a onClick={e => e.preventDefault()}>
+            <Button>
                 <Space>
                     <span>{selectedLabel}</span>
-                    <Icon icon='dropdown' />
+                    <Icon icon='down' />
                 </Space>
-            </a>
+            </Button>
         </AntDropdown>
     );
 }

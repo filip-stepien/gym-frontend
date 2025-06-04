@@ -21,7 +21,7 @@ const icons: IconMap = {
     emoji: <Icons.SmileOutlined />,
     send: <Icons.RightCircleFilled />,
     up: <Icons.CaretUpOutlined />,
-    down: <Icons.CaretDownOutlined />,
+    down: <Icons.DownOutlined />,
     flat: <Icons.MinusSquareOutlined />,
     dropdown: <Icons.DownOutlined />,
     status: <Icons.DashboardOutlined />,

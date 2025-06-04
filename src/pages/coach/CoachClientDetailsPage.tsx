@@ -3,6 +3,7 @@ import { PersonalDetailsCard } from '@/components/cards/PersonalDetailsCard';
 import { TotalProgressCard } from '@/components/cards/TotalProgressCard';
 import { Flex } from 'antd';
 import { BackButton } from '@/components/layout/BackButton';
+import { ChartData } from '@/components/common/Chart';
 
 const personalDetailsCardData = {
     firstName: 'John',
@@ -11,79 +12,41 @@ const personalDetailsCardData = {
     email: 'example@example.com'
 };
 
-const totalProgressCardData = {
-    chartData: [
+const totalProgressChartData: ChartData = {
+    description: 'Total workout effort - last 3 months',
+    data: [
         {
-            category: 'Volume',
+            title: 'Volume',
             timeSeries: {
-                lastWeek: {
-                    labels: ['1', '2', '3'],
-                    values: [1, 2, 3]
-                },
-                lastThreeWeeks: {
-                    labels: ['1', '2', '3'],
-                    values: [3, 4, 5]
-                },
-                lastYear: {
-                    labels: ['1', '2', '3'],
-                    values: [6, 7, 8]
-                }
+                labels: ['1', '2', '3'],
+                values: [1, 2, 3]
             }
         },
         {
-            category: 'Reps',
+            title: 'Sets',
             timeSeries: {
-                lastWeek: {
-                    labels: ['1', '2', '3'],
-                    values: [9, 10, 11]
-                },
-                lastThreeWeeks: {
-                    labels: ['1', '2', '3'],
-                    values: [12, 13, 14]
-                },
-                lastYear: {
-                    labels: ['1', '2', '3'],
-                    values: [15, 16, 17]
-                }
+                labels: ['1', '2', '3'],
+                values: [3, 4, 5]
             }
         }
     ]
 };
 
-const exerciseProgressCardData = {
-    chartData: [
+const exerciseProgressChartData: ChartData = {
+    description: 'Heaviest exercise weight - last 3 months',
+    data: [
         {
-            category: 'Bench Press',
+            title: 'Bench press',
             timeSeries: {
-                lastWeek: {
-                    labels: ['1', '2', '3'],
-                    values: [1, 2, 3]
-                },
-                lastThreeWeeks: {
-                    labels: ['1', '2', '3'],
-                    values: [3, 4, 5]
-                },
-                lastYear: {
-                    labels: ['1', '2', '3'],
-                    values: [6, 7, 8]
-                }
+                labels: ['1', '2', '3'],
+                values: [6, 7, 4]
             }
         },
         {
-            category: 'Pull up',
+            title: 'Deadlift',
             timeSeries: {
-                lastWeek: {
-                    labels: ['1', '2', '3'],
-                    values: [9, 10, 11]
-                },
-                lastThreeWeeks: {
-                    labels: ['1', '2', '3'],
-                    values: [12, 13, 14]
-                },
-                lastYear: {
-                    labels: ['1', '2', '3'],
-                    values: [15, 16, 17]
-                }
+                labels: ['1', '2', '3'],
+                values: [2, 8, 3]
             }
         }
     ]
@@ -96,8 +59,8 @@ export function CoachClientDetailsPage() {
                 <BackButton />
                 <PersonalDetailsCard {...personalDetailsCardData} />
             </div>
-            <TotalProgressCard {...totalProgressCardData} />
-            <ExerciseProgressCard {...exerciseProgressCardData} />
+            <TotalProgressCard chartData={totalProgressChartData} />
+            <ExerciseProgressCard chartData={exerciseProgressChartData} />
         </Flex>
     );
 }

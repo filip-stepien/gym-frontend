@@ -18,8 +18,8 @@ const membershipStatusData = {
 export function ClientMembershipPage() {
     return (
         <Page>
-            <MembershipStatusCard {...membershipStatusData} />
             <PersonalDetailsCard {...membershipOverviewCardData} />
+            <MembershipStatusCard {...membershipStatusData} />
         </Page>
     );
 }

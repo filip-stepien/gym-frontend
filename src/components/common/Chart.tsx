@@ -6,7 +6,7 @@ import {
     LineElement,
     PointElement
 } from 'chart.js';
-import { Empty, Flex, Space } from 'antd';
+import { Empty, Flex, Typography } from 'antd';
 import { Bar, Line } from 'react-chartjs-2';
 import { getCSSVariable } from '@/utils/getCSSVariable';
 import { useState } from 'react';
@@ -15,38 +15,26 @@ import { Dropdown } from './Dropdown';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement);
 
-export type TimePeriod = 'lastWeek' | 'lastThreeWeeks' | 'lastYear';
-
 export type TimeSeriesData = {
     labels: string[];
     values: number[];
 };
 
 export type ChartData = {
-    category: string;
-    timeSeries: Record<TimePeriod, TimeSeriesData>;
+    description: string;
+    data: ChartEntry[];
 };
 
-export type CategorySearchOptions = {
-    enabled?: boolean;
-    placeholder?: string;
-    limit?: number;
+export type ChartEntry = {
+    title: string;
+    timeSeries: TimeSeriesData;
 };
 
 type ChartProps = {
-    data: ChartData[];
+    chartData?: ChartData;
     dropdownType?: 'menu' | 'search';
     type?: 'bar' | 'line';
     className?: string;
-    categorySearch?: CategorySearchOptions;
-};
-
-type TimeSpanLabels = Record<TimePeriod, string>;
-
-const timeSpanLabels: TimeSpanLabels = {
-    lastWeek: 'Last week',
-    lastThreeWeeks: 'Last 3 weeks',
-    lastYear: 'Last year'
 };
 
 const chartComponentOptions = {
@@ -57,49 +45,50 @@ const chartComponentOptions = {
     }
 };
 
+const { Text } = Typography;
+
 export function Chart(props: ChartProps) {
-    const { data, type, className, dropdownType } = props;
+    const { chartData, type, className, dropdownType } = props;
+    const [chartDataEntry, setChartDataEntry] = useState<ChartEntry | null>(
+        chartData?.data.at(0) ?? null
+    );
 
-    const initialTimePeriod: TimePeriod = 'lastWeek';
-    const [chartDataset, setChartDataset] = useState<ChartData | null>(data[0]);
-    const [timePeriod, setTimePeriod] = useState<TimePeriod>(initialTimePeriod);
+    if (!chartData) {
+        return <Empty />;
+    }
 
-    const dataExists = data[0]?.category.length > 0;
-    const menuItems = data.map(e => ({ key: e.category, label: e.category }));
-    const timeSeriesItems = Object.entries(timeSpanLabels).map(([key, value]) => ({
-        key,
-        label: value
-    }));
+    const menuItems = chartData.data.map(({ title }) => ({ key: title, label: title }));
+
+    const dataExists =
+        chartDataEntry &&
+        chartDataEntry.timeSeries.labels.length > 0 &&
+        chartDataEntry.timeSeries.values.length > 0;
 
     const chartComponentData = {
-        labels: chartDataset?.timeSeries[timePeriod].labels,
+        labels: chartDataEntry?.timeSeries.labels,
         datasets: [
             {
-                data: chartDataset?.timeSeries[timePeriod].values,
+                data: chartDataEntry?.timeSeries.values,
                 backgroundColor: getCSSVariable('--color-primary')
             }
         ]
     };
 
     const handleMenuItemSelect = (item: { key: string; label: string }) => {
-        const dataset = data.find(e => e.category === item.key) ?? null;
-        setChartDataset(dataset);
-    };
-
-    const handleTimePeriodSelect = (item: { key: string; label: string }) => {
-        setTimePeriod(item.key as TimePeriod);
+        const dataEntry = chartData.data.find(({ title }) => title === item.key) ?? null;
+        setChartDataEntry(dataEntry);
     };
 
     const menu =
         dropdownType === 'search' ? (
             <SearchDropdown
-                placeholder={data[0]?.category ?? 'Select exercise'}
+                placeholder={chartData.data[0]?.title ?? 'Select exercise'}
                 menuItems={menuItems}
                 onSelect={handleMenuItemSelect}
             />
         ) : (
             <Dropdown
-                placeholder={data[0]?.category ?? 'Select exercise'}
+                placeholder={chartData.data[0]?.title ?? 'Select exercise'}
                 menuItems={menuItems}
                 onSelect={handleMenuItemSelect}
             />
@@ -113,20 +102,12 @@ export function Chart(props: ChartProps) {
         );
 
     return (
-        <Space direction='vertical' size='middle' className='pt-small'>
-            <Flex align='end' justify='space-between'>
-                {dataExists && (
-                    <>
-                        {menu}
-                        <Dropdown
-                            menuItems={timeSeriesItems}
-                            placeholder={timeSpanLabels[initialTimePeriod]}
-                            onSelect={handleTimePeriodSelect}
-                        />
-                    </>
-                )}
-            </Flex>
-            <div className={`min-h-50 ${className}`}>{dataExists ? chart : <Empty />}</div>
-        </Space>
+        <Flex vertical>
+            <Text className='text-font-secondary mb-middle'>{chartData.description}</Text>
+            {menu}
+            <div className={`pt-middle min-h-50 ${className}`}>
+                {dataExists ? chart : <Empty />}
+            </div>
+        </Flex>
     );
 }

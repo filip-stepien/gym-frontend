@@ -114,7 +114,7 @@ export function NewWorkoutCard(props: NewWorkoutCardProps) {
                 <ExerciseTable
                     exerciseSearchOptions={exerciseSearchOptions}
                     exerciseRows={exerciseRows}
-                    setExerciseRow={setExerciseRows}
+                    setExerciseRows={setExerciseRows}
                     onSave={handleSave}
                 />
             </Card>
