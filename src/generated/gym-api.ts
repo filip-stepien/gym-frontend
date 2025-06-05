@@ -50,14 +50,24 @@ export interface HallType {
 
 export interface Membership {
     uuid?: string;
-    purchaseDate?: string;
+    validFrom?: string;
     validUntil?: string;
     membershipType?: MembershipType;
 }
 
+export type MembershipTypeCurrency = {
+    currencyCode?: string;
+    numericCode?: number;
+    numericCodeAsString?: string;
+    displayName?: string;
+    symbol?: string;
+    defaultFractionDigits?: number;
+};
+
 export interface MembershipType {
     uuid?: string;
     type?: string;
+    currency?: MembershipTypeCurrency;
     price?: number;
 }
 
@@ -100,12 +110,14 @@ export interface WorkoutSessionExerciseDto {
     uuid?: string;
     exercise?: Exercise;
     reps?: number;
+    weight?: number;
     exerciseOrder?: number;
 }
 
 export interface WorkoutSessionExerciseRequest {
     exerciseUuid: string;
     reps: number;
+    weight: number;
     exerciseOrder: number;
 }
 
@@ -123,27 +135,7 @@ export interface TargetMuscleDto {
     name?: string;
 }
 
-export interface PaymentRequest {
-    cardUuid: string;
-    statusUuid: string;
-    membershipUuid: string;
-}
-
-export interface PaymentDto {
-    uuid?: string;
-    card?: Card;
-    status?: PaymentStatus;
-    membership?: Membership;
-}
-
-export interface PaymentStatus {
-    uuid?: string;
-    status?: string;
-}
-
 export interface MembershipRequest {
-    purchaseDate: string;
-    validUntil: string;
     membershipTypeUuid: string;
 }
 
@@ -157,12 +149,14 @@ export interface MembershipDto {
 export interface MembershipTypeRequest {
     type: string;
     price: number;
+    currencyCode: string;
 }
 
 export interface MembershipTypeDto {
     uuid?: string;
     type?: string;
     price?: number;
+    currency?: string;
 }
 
 export interface MaintenanceTaskRequest {
@@ -259,14 +253,38 @@ export interface UserDto {
     imageUrl?: string;
 }
 
+export interface ProgressOverviewDto {
+    weeklyTotalSets?: ProgressOverviewStatisticDto;
+    weeklySessionVolume?: ProgressOverviewStatisticDto;
+}
+
+export interface ProgressOverviewStatisticDto {
+    value?: number;
+    trend?: number;
+}
+
+export interface ChartDataDto {
+    title?: string;
+    timeSeries?: TimeSeriesDto;
+}
+
+export interface ChartDto {
+    description?: string;
+    data?: ChartDataDto[];
+}
+
+export interface TimeSeriesDto {
+    labels?: string[];
+    values?: number[];
+}
+
 export interface UserRoleDto {
     uuid?: string;
     role?: string;
 }
 
-export interface PaymentStatusDto {
-    uuid?: string;
-    status?: string;
+export interface PaymentDto {
+    [key: string]: unknown;
 }
 
 export interface HallTypeDto {
@@ -278,6 +296,14 @@ export interface CountryDto {
     uuid?: string;
     countryName?: string;
 }
+
+export type GetUserTotalChartDataParams = {
+    numberOfWeeks?: number;
+};
+
+export type GetUserExerciseChartDataParams = {
+    numberOfWeeks?: number;
+};
 
 export const listWorkoutSessions = <TData = AxiosResponse<WorkoutSessionDto[]>>(
     options?: AxiosRequestConfig
@@ -329,19 +355,6 @@ export const createTargetMuscle = <TData = AxiosResponse<TargetMuscleDto>>(
     return axios.default.post(`/target-muscles`, createTargetMuscleRequest, options);
 };
 
-export const listPayments = <TData = AxiosResponse<PaymentDto[]>>(
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.get(`/payments`, options);
-};
-
-export const createPayment = <TData = AxiosResponse<PaymentDto>>(
-    paymentRequest: PaymentRequest,
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.post(`/payments`, paymentRequest, options);
-};
-
 export const listMemberships = <TData = AxiosResponse<MembershipDto[]>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
@@ -353,6 +366,20 @@ export const createMembership = <TData = AxiosResponse<MembershipDto>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
     return axios.default.post(`/memberships`, membershipRequest, options);
+};
+
+export const getMembershipPayments = <TData = AxiosResponse<PaymentDto[]>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/memberships/${id}/payments`, options);
+};
+
+export const getPaymentURI = <TData = AxiosResponse<string>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(`/memberships/${id}/payments`, undefined, options);
 };
 
 export const listMembershipTypes = <TData = AxiosResponse<MembershipTypeDto[]>>(
@@ -447,21 +474,6 @@ export const updateCard = <TData = AxiosResponse<WorkoutSessionDto>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
     return axios.default.patch(`/workout-sessions/${id}`, workoutSessionRequest, options);
-};
-
-export const getPayment = <TData = AxiosResponse<PaymentDto>>(
-    id: string,
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.get(`/payments/${id}`, options);
-};
-
-export const updatePayment = <TData = AxiosResponse<PaymentDto>>(
-    id: string,
-    paymentRequest: PaymentRequest,
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.patch(`/payments/${id}`, paymentRequest, options);
 };
 
 export const getMembership = <TData = AxiosResponse<MembershipDto>>(
@@ -572,6 +584,49 @@ export const getUser = <TData = AxiosResponse<UserDto>>(
     return axios.default.get(`/users/${id}`, options);
 };
 
+export const listUserWorkoutSessions = <TData = AxiosResponse<WorkoutSessionDto[]>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users/${id}/workout-sessions`, options);
+};
+
+export const getUserProgressOverview = <TData = AxiosResponse<ProgressOverviewDto>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users/${id}/progress/overview`, options);
+};
+
+export const getUserTotalChartData = <TData = AxiosResponse<ChartDto>>(
+    id: string,
+    params?: GetUserTotalChartDataParams,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users/${id}/progress/charts/total-effort`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
+};
+
+export const getUserExerciseChartData = <TData = AxiosResponse<ChartDto>>(
+    id: string,
+    params?: GetUserExerciseChartDataParams,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users/${id}/progress/charts/exercise-heaviest-weight`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
+};
+
+export const getUserLastWorkoutSession = <TData = AxiosResponse<WorkoutSessionDto>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users/${id}/last-workout-session`, options);
+};
+
 export const listChats = <TData = AxiosResponse<ChatDto[]>>(
     id: string,
     options?: AxiosRequestConfig
@@ -583,12 +638,6 @@ export const listUserRoles = <TData = AxiosResponse<UserRoleDto[]>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
     return axios.default.get(`/user-roles`, options);
-};
-
-export const listPaymentStatuses = <TData = AxiosResponse<PaymentStatusDto[]>>(
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.get(`/payment-statuses`, options);
 };
 
 export const listHallTypes = <TData = AxiosResponse<HallTypeDto[]>>(
@@ -646,10 +695,10 @@ export type AddWorkoutSessionExerciseResult = AxiosResponse<WorkoutSessionDto>;
 export type AddWorkoutSessionAttendantResult = AxiosResponse<WorkoutSessionDto>;
 export type ListTargetMusclesResult = AxiosResponse<TargetMuscleDto[]>;
 export type CreateTargetMuscleResult = AxiosResponse<TargetMuscleDto>;
-export type ListPaymentsResult = AxiosResponse<PaymentDto[]>;
-export type CreatePaymentResult = AxiosResponse<PaymentDto>;
 export type ListMembershipsResult = AxiosResponse<MembershipDto[]>;
 export type CreateMembershipResult = AxiosResponse<MembershipDto>;
+export type GetMembershipPaymentsResult = AxiosResponse<PaymentDto[]>;
+export type GetPaymentURIResult = AxiosResponse<string>;
 export type ListMembershipTypesResult = AxiosResponse<MembershipTypeDto[]>;
 export type CreateMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
 export type ListMaintenanceTasksResult = AxiosResponse<MaintenanceTaskDto[]>;
@@ -664,8 +713,6 @@ export type ListCardsResult = AxiosResponse<CardDto[]>;
 export type CreateCardResult = AxiosResponse<CardDto>;
 export type GetWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
 export type UpdateCardResult = AxiosResponse<WorkoutSessionDto>;
-export type GetPaymentResult = AxiosResponse<PaymentDto>;
-export type UpdatePaymentResult = AxiosResponse<PaymentDto>;
 export type GetMembershipResult = AxiosResponse<MembershipDto>;
 export type PatchMembershipResult = AxiosResponse<MembershipDto>;
 export type GetMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
@@ -680,9 +727,13 @@ export type GetCardResult = AxiosResponse<CardDto>;
 export type UpdateCard2Result = AxiosResponse<CardDto>;
 export type ListUsersResult = AxiosResponse<UserDto[]>;
 export type GetUserResult = AxiosResponse<UserDto>;
+export type ListUserWorkoutSessionsResult = AxiosResponse<WorkoutSessionDto[]>;
+export type GetUserProgressOverviewResult = AxiosResponse<ProgressOverviewDto>;
+export type GetUserTotalChartDataResult = AxiosResponse<ChartDto>;
+export type GetUserExerciseChartDataResult = AxiosResponse<ChartDto>;
+export type GetUserLastWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
 export type ListChatsResult = AxiosResponse<ChatDto[]>;
 export type ListUserRolesResult = AxiosResponse<UserRoleDto[]>;
-export type ListPaymentStatusesResult = AxiosResponse<PaymentStatusDto[]>;
 export type ListHallTypesResult = AxiosResponse<HallTypeDto[]>;
 export type GetCountryResult = AxiosResponse<CountryDto[]>;
 export type GetChatResult = AxiosResponse<ChatDto>;
