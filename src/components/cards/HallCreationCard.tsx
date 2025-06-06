@@ -1,5 +1,6 @@
 import { Card, Input, Select, Button, Flex, Form } from 'antd';
 import { CardTitle } from '@/components/common/CardTitle';
+import { HallTypeDto } from '@/generated/gym-api';
 
 const { TextArea } = Input;
 
@@ -10,7 +11,7 @@ export type HallValues = {
 };
 
 type HallCreationCardProps = {
-    hallTypes?: string[];
+    hallTypes?: HallTypeDto[];
     onCreate?: (values: HallValues) => void;
 };
 
@@ -43,9 +44,9 @@ export function HallCreationCard({ hallTypes = [], onCreate = () => {} }: HallCr
                             rules={[{ required: true, message: '' }]}
                         >
                             <Select placeholder='Select hall type'>
-                                {hallTypes.map(type => (
-                                    <Select.Option key={type} value={type}>
-                                        {type}
+                                {hallTypes.filter(Boolean).map(type => (
+                                    <Select.Option key={type.name} value={type.uuid}>
+                                        {type.name}
                                     </Select.Option>
                                 ))}
                             </Select>

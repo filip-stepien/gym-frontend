@@ -1,27 +1,29 @@
 import { BackButton } from '@/components/layout/BackButton';
 import { HallCreationCard, HallValues } from '@/components/cards/HallCreationCard';
-import { listHallTypes } from '@/generated/gym-api';
+import { createHall, HallRequest, HallTypeDto, listHallTypes } from '@/generated/gym-api';
 import { useEffect, useState } from 'react';
 
 export function ManagerHallCreationPage() {
-    const [hallTypes, setHallTypes] = useState<string[]>([]);
+    const [hallTypes, setHallTypes] = useState<HallTypeDto[]>([]);
 
     const hallCreationCardData = {
         hallTypes,
         onCreate: (values: HallValues) => {
+            const hallReq: HallRequest = {
+                hallName: values.hallNumber,
+                hallDescription: values.hallDescription,
+                hallTypeUuid: values.hallType
+            };
+
             // POST...
-            console.log(values);
+            console.log(hallReq);
+            createHall(hallReq);
         }
     };
 
     useEffect(() => {
         async function getData() {
-            const hallTypesData = (await listHallTypes()).data
-                .filter(hall => hall !== undefined)
-                .map(hall => hall.name)
-                .filter(name => name !== undefined);
-
-            setHallTypes(hallTypesData);
+            setHallTypes((await listHallTypes()).data);
         }
 
         getData();
