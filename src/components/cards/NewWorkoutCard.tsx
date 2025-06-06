@@ -20,7 +20,7 @@ export type NewWorkoutData = {
 };
 
 type NewWorkoutCardProps = {
-    exerciseSearchOptions?: string[];
+    exerciseSearchOptions: string[];
     onWorkoutSave?: (workout: NewWorkoutData) => void;
 };
 

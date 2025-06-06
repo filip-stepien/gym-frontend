@@ -2,12 +2,14 @@ import { SessionsCalendarCard } from '@/components/cards/SessionsCalendarCard';
 import { NewWorkoutCard, NewWorkoutData } from '../../components/cards/NewWorkoutCard';
 import { Page } from '@/components/layout/Page';
 import { ActionButton } from '@/components/common/ActionButton';
-import { listExercises } from '@/generated/gym-api';
+import { listExercises, listWorkoutSessions } from '@/generated/gym-api';
+import type { ScheduleDateListElement } from '@/components/common/ScheduleViewer/ScheduleViewer';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
 export function ClientWorkoutPage() {
     const [exerciseOptions, setExerciseOptions] = useState<string[]>([]);
+    const [workoutSessions, setWorkoutSessions] = useState<ScheduleDateListElement[]>([]);
 
     useEffect(() => {
         async function getExercises() {
@@ -19,31 +21,22 @@ export function ClientWorkoutPage() {
             setExerciseOptions(exercisesData);
         }
 
-        getExercises();
-    }, []);
+        async function getWorkoutSessions() {
+            const sessions = (await listWorkoutSessions()).data;
+            const mapped = sessions
+                .filter(session => session.date)
+                .map(session => ({
+                    date: dayjs(session.date!),
+                    title: session.title || 'Workout',
+                    description: session.description || '',
+                    action: session.uuid ? <ActionButton href={`/client/workout/${session.uuid}`}>Details</ActionButton> : undefined
+                }));
+            setWorkoutSessions(mapped);
+        }
 
-    const sessionsCalendarCardData = {
-        listElements: [
-            {
-                date: dayjs(),
-                title: 'Workout 1',
-                description: 'description',
-                action: <ActionButton href='/client/workout/1'>Details</ActionButton>
-            },
-            {
-                date: dayjs(),
-                title: 'Workout 1',
-                description: 'description',
-                action: <ActionButton href='/client/workout/1'>Details</ActionButton>
-            },
-            {
-                date: dayjs(),
-                title: 'Workout 1',
-                description: 'description',
-                action: <ActionButton href='/client/workout/1'>Details</ActionButton>
-            }
-        ]
-    };
+        getExercises();
+        getWorkoutSessions();
+    }, []);
 
     const newWorkoutData = {
         exerciseSearchOptions: exerciseOptions,
@@ -54,7 +47,7 @@ export function ClientWorkoutPage() {
 
     return (
         <Page>
-            <SessionsCalendarCard title='Workout History' {...sessionsCalendarCardData} />
+            <SessionsCalendarCard title='Workout History' listElements={workoutSessions} />
             <NewWorkoutCard {...newWorkoutData} />
         </Page>
     );
