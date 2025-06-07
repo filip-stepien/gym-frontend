@@ -227,6 +227,43 @@ export interface UserRoleDto {
     role?: string;
 }
 
+export interface Pageable {
+    /** @minimum 0 */
+    page?: number;
+    /** @minimum 1 */
+    size?: number;
+    sort?: string[];
+}
+
+export interface PageMembershipDto {
+    totalElements?: number;
+    totalPages?: number;
+    pageable?: PageableObject;
+    first?: boolean;
+    last?: boolean;
+    size?: number;
+    content?: MembershipDto[];
+    number?: number;
+    sort?: SortObject;
+    numberOfElements?: number;
+    empty?: boolean;
+}
+
+export interface PageableObject {
+    paged?: boolean;
+    pageNumber?: number;
+    pageSize?: number;
+    offset?: number;
+    sort?: SortObject;
+    unpaged?: boolean;
+}
+
+export interface SortObject {
+    sorted?: boolean;
+    empty?: boolean;
+    unsorted?: boolean;
+}
+
 export type PaymentDtoCurrency = {
     currencyCode?: string;
     displayName?: string;
@@ -253,6 +290,34 @@ export interface PaymentDto {
     status?: PaymentDtoStatus;
 }
 
+export interface PageMembershipTypeDto {
+    totalElements?: number;
+    totalPages?: number;
+    pageable?: PageableObject;
+    first?: boolean;
+    last?: boolean;
+    size?: number;
+    content?: MembershipTypeDto[];
+    number?: number;
+    sort?: SortObject;
+    numberOfElements?: number;
+    empty?: boolean;
+}
+
+export interface PageMaintenanceTaskDto {
+    totalElements?: number;
+    totalPages?: number;
+    pageable?: PageableObject;
+    first?: boolean;
+    last?: boolean;
+    size?: number;
+    content?: MaintenanceTaskDto[];
+    number?: number;
+    sort?: SortObject;
+    numberOfElements?: number;
+    empty?: boolean;
+}
+
 export interface PageHallDto {
     totalElements?: number;
     totalPages?: number;
@@ -267,27 +332,75 @@ export interface PageHallDto {
     empty?: boolean;
 }
 
-export interface PageableObject {
-    paged?: boolean;
-    pageNumber?: number;
-    pageSize?: number;
-    offset?: number;
-    sort?: SortObject;
-    unpaged?: boolean;
-}
-
-export interface SortObject {
-    sorted?: boolean;
-    empty?: boolean;
-    unsorted?: boolean;
-}
-
 export interface HallTypeDto {
     uuid?: string;
     name?: string;
 }
 
+export interface PageExerciseDto {
+    totalElements?: number;
+    totalPages?: number;
+    pageable?: PageableObject;
+    first?: boolean;
+    last?: boolean;
+    size?: number;
+    content?: ExerciseDto[];
+    number?: number;
+    sort?: SortObject;
+    numberOfElements?: number;
+    empty?: boolean;
+}
+
+export type ListMembershipsParams = {
+    pageable: Pageable;
+};
+
+export type ListMembershipTypesParams = {
+    /**
+     * Zero-based page index (0..N)
+     */
+    page?: number;
+    /**
+     * The size of the page to be returned
+     */
+    size?: number;
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: string[];
+};
+
+export type ListMaintenanceTasksParams = {
+    /**
+     * Zero-based page index (0..N)
+     */
+    page?: number;
+    /**
+     * The size of the page to be returned
+     */
+    size?: number;
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: string[];
+};
+
 export type ListHallsParams = {
+    /**
+     * Zero-based page index (0..N)
+     */
+    page?: number;
+    /**
+     * The size of the page to be returned
+     */
+    size?: number;
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: string[];
+};
+
+export type ListExercisesParams = {
     /**
      * Zero-based page index (0..N)
      */
@@ -367,10 +480,14 @@ export const handleStripeWebhook = <TData = AxiosResponse<void>>(
     return axios.default.post(`/stripe/webhook`, handleStripeWebhookBody, options);
 };
 
-export const listMemberships = <TData = AxiosResponse<MembershipDto[]>>(
+export const listMemberships = <TData = AxiosResponse<PageMembershipDto>>(
+    params: ListMembershipsParams,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.get(`/memberships`, options);
+    return axios.default.get(`/memberships`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
 };
 
 export const createMembership = <TData = AxiosResponse<MembershipDto>>(
@@ -394,10 +511,14 @@ export const getPaymentURI = <TData = AxiosResponse<string>>(
     return axios.default.post(`/memberships/${id}/payments`, undefined, options);
 };
 
-export const listMembershipTypes = <TData = AxiosResponse<MembershipTypeDto[]>>(
+export const listMembershipTypes = <TData = AxiosResponse<PageMembershipTypeDto>>(
+    params?: ListMembershipTypesParams,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.get(`/membership-types`, options);
+    return axios.default.get(`/membership-types`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
 };
 
 export const createMembershipType = <TData = AxiosResponse<MembershipTypeDto>>(
@@ -407,10 +528,14 @@ export const createMembershipType = <TData = AxiosResponse<MembershipTypeDto>>(
     return axios.default.post(`/membership-types`, membershipTypeRequest, options);
 };
 
-export const listMaintenanceTasks = <TData = AxiosResponse<MaintenanceTaskDto[]>>(
+export const listMaintenanceTasks = <TData = AxiosResponse<PageMaintenanceTaskDto>>(
+    params?: ListMaintenanceTasksParams,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.get(`/maintenance-tasks`, options);
+    return axios.default.get(`/maintenance-tasks`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
 };
 
 export const createMaintenanceTask = <TData = AxiosResponse<MaintenanceTaskDto>>(
@@ -437,10 +562,14 @@ export const createHall = <TData = AxiosResponse<HallDto>>(
     return axios.default.post(`/halls`, hallRequest, options);
 };
 
-export const listExercises = <TData = AxiosResponse<ExerciseDto[]>>(
+export const listExercises = <TData = AxiosResponse<PageExerciseDto>>(
+    params?: ListExercisesParams,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.get(`/exercises`, options);
+    return axios.default.get(`/exercises`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
 };
 
 export const createExercise = <TData = AxiosResponse<ExerciseDto>>(
@@ -643,17 +772,17 @@ export type AddWorkoutSessionAttendantResult = AxiosResponse<WorkoutSessionDto>;
 export type ListTargetMusclesResult = AxiosResponse<TargetMuscleDto[]>;
 export type CreateTargetMuscleResult = AxiosResponse<TargetMuscleDto>;
 export type HandleStripeWebhookResult = AxiosResponse<void>;
-export type ListMembershipsResult = AxiosResponse<MembershipDto[]>;
+export type ListMembershipsResult = AxiosResponse<PageMembershipDto>;
 export type CreateMembershipResult = AxiosResponse<MembershipDto>;
 export type GetMembershipPaymentsResult = AxiosResponse<PaymentDto[]>;
 export type GetPaymentURIResult = AxiosResponse<string>;
-export type ListMembershipTypesResult = AxiosResponse<MembershipTypeDto[]>;
+export type ListMembershipTypesResult = AxiosResponse<PageMembershipTypeDto>;
 export type CreateMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
-export type ListMaintenanceTasksResult = AxiosResponse<MaintenanceTaskDto[]>;
+export type ListMaintenanceTasksResult = AxiosResponse<PageMaintenanceTaskDto>;
 export type CreateMaintenanceTaskResult = AxiosResponse<MaintenanceTaskDto>;
 export type ListHallsResult = AxiosResponse<PageHallDto>;
 export type CreateHallResult = AxiosResponse<HallDto>;
-export type ListExercisesResult = AxiosResponse<ExerciseDto[]>;
+export type ListExercisesResult = AxiosResponse<PageExerciseDto>;
 export type CreateExerciseResult = AxiosResponse<ExerciseDto>;
 export type GetWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
 export type UpdateCardResult = AxiosResponse<WorkoutSessionDto>;
