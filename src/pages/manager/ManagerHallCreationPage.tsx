@@ -16,7 +16,7 @@ export function ManagerHallCreationPage() {
             };
 
             // POST...
-            console.log(hallReq);
+            // console.log(hallReq);
             createHall(hallReq);
         }
     };
