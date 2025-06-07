@@ -3,6 +3,7 @@ import { useEffect, useState, type JSX } from 'react';
 import { rolesPriority, UserRole } from '@/roles';
 import keycloak from '@/keycloak';
 import { initializeAxios } from '@/axios';
+import { whoAmI } from '@/generated/gym-api';
 
 export function UserProvider({ children }: { children: JSX.Element }) {
     const [userDetails, setUserDetails] = useState<UserDetails>();
@@ -23,11 +24,13 @@ export function UserProvider({ children }: { children: JSX.Element }) {
             const significantRole = userRoles
                 .sort((a: UserRole, b: UserRole) => rolesPriority[b] - rolesPriority[a])
                 .at(0);
+            const id = (await whoAmI()).data.uuid;
 
             const userDetails: UserDetails = {
                 firstName: userProfile.firstName as string,
                 lastName: userProfile.lastName as string,
-                role: significantRole ?? 'client'
+                role: significantRole ?? 'client',
+                id: id ?? ''
             };
 
             setUserDetails(userDetails);

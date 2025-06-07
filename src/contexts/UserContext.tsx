@@ -5,6 +5,7 @@ export type UserDetails = {
     firstName: string;
     lastName: string;
     role: UserRole;
+    id: string;
 };
 
 export type UserContextContent = {
