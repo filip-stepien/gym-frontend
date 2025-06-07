@@ -1,14 +1,16 @@
-import { Button, Progress, Statistic, Space, Col, Row, Flex } from 'antd';
+import { Button, Progress, Statistic, Space, Col, Row, Flex, Empty, Spin } from 'antd';
 import { Card } from '@/components/layout/Card';
 import { CardTitle } from '@/components/common/CardTitle';
-import type { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { getCSSVariable } from '@/utils/getCSSVariable';
 import { useNavigate } from 'react-router';
 import dayjs from 'dayjs';
+import { getUser } from '@/generated/gym-api';
+import { useEffect, useState } from 'react';
+import { useUser } from '@/hooks/useUser';
 
-type MembershipStatusCardProps = {
-    lastPayment?: Dayjs;
-    validUntil?: Dayjs;
+export type MembershipStatusCardProps = {
+    userId?: string;
     detailsHref?: string;
 };
 
@@ -50,40 +52,80 @@ function getCirclePercentage(lastPayment?: Dayjs, validUntil?: Dayjs): number {
 }
 
 export function MembershipStatusCard(props: MembershipStatusCardProps) {
-    const { lastPayment, validUntil, detailsHref } = props;
     const navigate = useNavigate();
+
+    const [validUntil, setValidUntil] = useState<Dayjs>();
+    const [validSince, setValidSince] = useState<Dayjs>();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const { detailsHref, userId } = props;
+
+    useEffect(() => {
+        const fetchMembershipData = async () => {
+            if (!userId) return;
+
+            try {
+                setIsLoading(true);
+
+                const userData = (await getUser(userId)).data;
+
+                // console.log(userData);
+                if (userData.membership) {
+                    setValidUntil(dayjs(userData?.membership?.validUntil));
+                    setValidSince(dayjs(userData?.membership?.validFrom));
+                }
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchMembershipData();
+    }, [userId]);
+
+    const showEmpty = !userId;
 
     return (
         <Card className='h-full flex-1'>
             <CardTitle title='Membership Status' icon='membership' />
             <Flex vertical justify='center' align='center' className='h-full'>
-                <Row justify='center' className='p-small md:p-large'>
-                    <Progress
-                        type='circle'
-                        percent={getCirclePercentage(lastPayment, validUntil)}
-                        format={() => (
-                            <div className='text-font-secondary text-sm'>
-                                {getValidityLabel(lastPayment, validUntil)}
-                            </div>
+                {showEmpty ? (
+                    <Empty description='No user'> </Empty>
+                ) : (
+                    <>
+                        {isLoading ? (
+                            <Spin></Spin>
+                        ) : (
+                            <>
+                                <Row justify='center' className='p-small md:p-large'>
+                                    <Progress
+                                        type='circle'
+                                        percent={getCirclePercentage(validSince, validUntil)}
+                                        format={() => (
+                                            <div className='text-font-secondary text-sm'>
+                                                {getValidityLabel(validSince, validUntil)}
+                                            </div>
+                                        )}
+                                        strokeColor={getCSSVariable('--color-primary')}
+                                        size={125}
+                                    />
+                                </Row>
+                                <Row justify='center' className='gap-x-large p-small'>
+                                    <Col>
+                                        <Statistic
+                                            title='Last Payment'
+                                            value={validSince?.format('DD.MM.YYYY') ?? '-'}
+                                        />
+                                    </Col>
+                                    <Col>
+                                        <Statistic
+                                            title='Valid Until'
+                                            value={validUntil?.format('DD.MM.YYYY') ?? '-'}
+                                        />
+                                    </Col>
+                                </Row>
+                            </>
                         )}
-                        strokeColor={getCSSVariable('--color-primary')}
-                        size={125}
-                    />
-                </Row>
-                <Row justify='center' className='gap-x-large p-small'>
-                    <Col>
-                        <Statistic
-                            title='Last Payment'
-                            value={lastPayment?.format('DD.MM.YYYY') ?? '-'}
-                        />
-                    </Col>
-                    <Col>
-                        <Statistic
-                            title='Valid Until'
-                            value={validUntil?.format('DD.MM.YYYY') ?? '-'}
-                        />
-                    </Col>
-                </Row>
+                    </>
+                )}
             </Flex>
             <Space className='self-end'>
                 {detailsHref && <Button onClick={() => navigate(detailsHref)}>Show Details</Button>}

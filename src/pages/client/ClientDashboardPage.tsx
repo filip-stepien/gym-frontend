@@ -1,15 +1,18 @@
 import { Flex } from 'antd';
 import { Page } from '@/components/layout/Page';
-import { MembershipStatusCard } from '@/components/cards/MembershipStatusCard';
+import {
+    MembershipStatusCard,
+    MembershipStatusCardProps
+} from '@/components/cards/MembershipStatusCard';
 import { ProgressOverviewCard } from '@/components/cards/ProgressOverviewCard';
 import { SessionsCalendarCard } from '@/components/cards/SessionsCalendarCard';
 import { LastSessionCard } from '@/components/cards/LastSessionCard';
 import { ActionButton } from '@/components/common/ActionButton';
 import dayjs from 'dayjs';
+import { MembershipStatusProps } from '@/components/common/MembershipStatus';
+import { useUser } from '@/hooks/useUser';
 
-const membershipStatusData = {
-    lastPayment: dayjs(),
-    validUntil: dayjs().add(30, 'day'),
+const membershipStatusData: MembershipStatusCardProps = {
     detailsHref: '/client/membership'
 };
 
@@ -69,11 +72,13 @@ const sessionsCalendarCardData = {
 };
 
 export function ClientDashboardPage() {
+    const user = useUser();
+
     return (
         <Page>
             <div className='bg-layout gap-small lg:gap-layout md:flex'>
                 <Flex flex={1}>
-                    <MembershipStatusCard {...membershipStatusData} />
+                    <MembershipStatusCard {...membershipStatusData} userId={user.user?.id} />
                 </Flex>
                 <Flex vertical className='gap-small lg:gap-layout pt-small w-full flex-2 md:pt-0'>
                     <ProgressOverviewCard {...progressOverviewData} />
