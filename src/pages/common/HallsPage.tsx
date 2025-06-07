@@ -1,5 +1,7 @@
 import { HallsTableCard } from '@/components/cards/HallsTableCard';
+import { listHalls } from '@/generated/gym-api';
 import { getRoleFromUrl } from '@/utils/getRoleFromUrl';
+import { useEffect, useState } from 'react';
 
 // debug: get role from url
 // get role from useUser hook in prod instead
@@ -31,5 +33,17 @@ const hallsTableCardData = {
 };
 
 export function HallsPage() {
+    const [halls, setHalls] = useState(hallsTableCardData);
+
+    // TODO make pagination work
+    useEffect(() => {
+        const doStuff = async () => {
+            console.log((await listHalls()).data.content);
+        };
+
+        doStuff();
+    });
+
+    listHalls();
     return <HallsTableCard {...hallsTableCardData} />;
 }
