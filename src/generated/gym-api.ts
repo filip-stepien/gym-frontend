@@ -283,8 +283,59 @@ export interface UserRoleDto {
     role?: string;
 }
 
+export type PaymentDtoCurrency = {
+    currencyCode?: string;
+    numericCode?: number;
+    numericCodeAsString?: string;
+    displayName?: string;
+    symbol?: string;
+    defaultFractionDigits?: number;
+};
+
+export type PaymentDtoStatus = (typeof PaymentDtoStatus)[keyof typeof PaymentDtoStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PaymentDtoStatus = {
+    PENDING: 'PENDING',
+    SUCCEEDED: 'SUCCEEDED',
+    EXPIRED: 'EXPIRED',
+    FAILED: 'FAILED'
+} as const;
+
 export interface PaymentDto {
-    [key: string]: unknown;
+    paymentId?: string;
+    currency?: PaymentDtoCurrency;
+    price?: number;
+    status?: PaymentDtoStatus;
+}
+
+export interface PageHallDto {
+    totalElements?: number;
+    totalPages?: number;
+    pageable?: PageableObject;
+    first?: boolean;
+    last?: boolean;
+    size?: number;
+    content?: HallDto[];
+    number?: number;
+    sort?: SortObject;
+    numberOfElements?: number;
+    empty?: boolean;
+}
+
+export interface PageableObject {
+    paged?: boolean;
+    pageNumber?: number;
+    pageSize?: number;
+    offset?: number;
+    sort?: SortObject;
+    unpaged?: boolean;
+}
+
+export interface SortObject {
+    sorted?: boolean;
+    empty?: boolean;
+    unsorted?: boolean;
 }
 
 export interface HallTypeDto {
@@ -296,6 +347,21 @@ export interface CountryDto {
     uuid?: string;
     countryName?: string;
 }
+
+export type ListHallsParams = {
+    /**
+     * Zero-based page index (0..N)
+     */
+    page?: number;
+    /**
+     * The size of the page to be returned
+     */
+    size?: number;
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: string[];
+};
 
 export type GetUserTotalChartDataParams = {
     numberOfWeeks?: number;
@@ -355,6 +421,13 @@ export const createTargetMuscle = <TData = AxiosResponse<TargetMuscleDto>>(
     return axios.default.post(`/target-muscles`, createTargetMuscleRequest, options);
 };
 
+export const handleStripeWebhook = <TData = AxiosResponse<void>>(
+    handleStripeWebhookBody: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.post(`/stripe/webhook`, handleStripeWebhookBody, options);
+};
+
 export const listMemberships = <TData = AxiosResponse<MembershipDto[]>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
@@ -408,10 +481,14 @@ export const createMaintenanceTask = <TData = AxiosResponse<MaintenanceTaskDto>>
     return axios.default.post(`/maintenance-tasks`, maintenanceTaskRequest, options);
 };
 
-export const listHalls = <TData = AxiosResponse<HallDto[]>>(
+export const listHalls = <TData = AxiosResponse<PageHallDto>>(
+    params?: ListHallsParams,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.get(`/halls`, options);
+    return axios.default.get(`/halls`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
 };
 
 export const createHall = <TData = AxiosResponse<HallDto>>(
@@ -695,6 +772,7 @@ export type AddWorkoutSessionExerciseResult = AxiosResponse<WorkoutSessionDto>;
 export type AddWorkoutSessionAttendantResult = AxiosResponse<WorkoutSessionDto>;
 export type ListTargetMusclesResult = AxiosResponse<TargetMuscleDto[]>;
 export type CreateTargetMuscleResult = AxiosResponse<TargetMuscleDto>;
+export type HandleStripeWebhookResult = AxiosResponse<void>;
 export type ListMembershipsResult = AxiosResponse<MembershipDto[]>;
 export type CreateMembershipResult = AxiosResponse<MembershipDto>;
 export type GetMembershipPaymentsResult = AxiosResponse<PaymentDto[]>;
@@ -703,7 +781,7 @@ export type ListMembershipTypesResult = AxiosResponse<MembershipTypeDto[]>;
 export type CreateMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
 export type ListMaintenanceTasksResult = AxiosResponse<MaintenanceTaskDto[]>;
 export type CreateMaintenanceTaskResult = AxiosResponse<MaintenanceTaskDto>;
-export type ListHallsResult = AxiosResponse<HallDto[]>;
+export type ListHallsResult = AxiosResponse<PageHallDto>;
 export type CreateHallResult = AxiosResponse<HallDto>;
 export type ListExercisesResult = AxiosResponse<ExerciseDto[]>;
 export type CreateExerciseResult = AxiosResponse<ExerciseDto>;
