@@ -42,11 +42,11 @@ export interface Membership {
 
 export type MembershipTypeCurrency = {
     currencyCode?: string;
-    numericCode?: number;
-    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
+    numericCode?: number;
+    numericCodeAsString?: string;
 };
 
 export interface MembershipType {
@@ -229,11 +229,11 @@ export interface UserRoleDto {
 
 export type PaymentDtoCurrency = {
     currencyCode?: string;
-    numericCode?: number;
-    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
+    numericCode?: number;
+    numericCodeAsString?: string;
 };
 
 export type PaymentDtoStatus = (typeof PaymentDtoStatus)[keyof typeof PaymentDtoStatus];
@@ -532,6 +532,12 @@ export const updateHall = <TData = AxiosResponse<HallDto>>(
     return axios.default.patch(`/halls/${id}`, hallRequest, options);
 };
 
+export const whoAmI = <TData = AxiosResponse<UserDto>>(
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/whoami`, options);
+};
+
 export const listUsers = <TData = AxiosResponse<UserDto[]>>(
     options?: AxiosRequestConfig
 ): Promise<TData> => {
@@ -600,12 +606,6 @@ export const listHallTypes = <TData = AxiosResponse<HallTypeDto[]>>(
     return axios.default.get(`/hall-types`, options);
 };
 
-export const whoAmI = <TData = AxiosResponse<UserDto>>(
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.get(`/`, options);
-};
-
 export const deleteWorkoutSessionExercise = <TData = AxiosResponse<void>>(
     id: string,
     exerciseId: string,
@@ -666,6 +666,7 @@ export type DeleteMaintenanceTaskResult = AxiosResponse<void>;
 export type UpdateMaintenanceTaskResult = AxiosResponse<MaintenanceTaskDto>;
 export type GetHallResult = AxiosResponse<HallDto>;
 export type UpdateHallResult = AxiosResponse<HallDto>;
+export type WhoAmIResult = AxiosResponse<UserDto>;
 export type ListUsersResult = AxiosResponse<UserDto[]>;
 export type GetUserResult = AxiosResponse<UserDto>;
 export type ListUserWorkoutSessionsResult = AxiosResponse<WorkoutSessionDto[]>;
@@ -675,7 +676,6 @@ export type GetUserExerciseChartDataResult = AxiosResponse<ChartDto>;
 export type GetUserLastWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
 export type ListUserRolesResult = AxiosResponse<UserRoleDto[]>;
 export type ListHallTypesResult = AxiosResponse<HallTypeDto[]>;
-export type WhoAmIResult = AxiosResponse<UserDto>;
 export type DeleteWorkoutSessionExerciseResult = AxiosResponse<void>;
 export type DeleteWorkoutSessionAttendantResult = AxiosResponse<void>;
 export type DeleteTargetMuscleResult = AxiosResponse<void>;
