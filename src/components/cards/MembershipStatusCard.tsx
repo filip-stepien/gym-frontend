@@ -1,4 +1,4 @@
-import { Button, Progress, Statistic, Space, Col, Row, Flex, Empty, Spin } from 'antd';
+import { Button, Progress, Statistic, Space, Col, Row, Flex } from 'antd';
 import { Card } from '@/components/layout/Card';
 import { CardTitle } from '@/components/common/CardTitle';
 import { Dayjs } from 'dayjs';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import dayjs from 'dayjs';
 import { getUser } from '@/generated/gym-api';
 import { useEffect, useState } from 'react';
-import { useUser } from '@/hooks/useUser';
+import { DataStateWrapper } from '../common/DataStateWrapper';
 
 export type MembershipStatusCardProps = {
     userId?: string;
@@ -87,45 +87,35 @@ export function MembershipStatusCard(props: MembershipStatusCardProps) {
         <Card className='h-full flex-1'>
             <CardTitle title='Membership Status' icon='membership' />
             <Flex vertical justify='center' align='center' className='h-full'>
-                {showEmpty ? (
-                    <Empty description='No user'> </Empty>
-                ) : (
-                    <>
-                        {isLoading ? (
-                            <Spin></Spin>
-                        ) : (
-                            <>
-                                <Row justify='center' className='p-small md:p-large'>
-                                    <Progress
-                                        type='circle'
-                                        percent={getCirclePercentage(validSince, validUntil)}
-                                        format={() => (
-                                            <div className='text-font-secondary text-sm'>
-                                                {getValidityLabel(validSince, validUntil)}
-                                            </div>
-                                        )}
-                                        strokeColor={getCSSVariable('--color-primary')}
-                                        size={125}
-                                    />
-                                </Row>
-                                <Row justify='center' className='gap-x-large p-small'>
-                                    <Col>
-                                        <Statistic
-                                            title='Last Payment'
-                                            value={validSince?.format('DD.MM.YYYY') ?? '-'}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <Statistic
-                                            title='Valid Until'
-                                            value={validUntil?.format('DD.MM.YYYY') ?? '-'}
-                                        />
-                                    </Col>
-                                </Row>
-                            </>
-                        )}
-                    </>
-                )}
+                <DataStateWrapper isEmpty={showEmpty} isLoading={isLoading}>
+                    <Row justify='center' className='p-small md:p-large'>
+                        <Progress
+                            type='circle'
+                            percent={getCirclePercentage(validSince, validUntil)}
+                            format={() => (
+                                <div className='text-font-secondary text-sm'>
+                                    {getValidityLabel(validSince, validUntil)}
+                                </div>
+                            )}
+                            strokeColor={getCSSVariable('--color-primary')}
+                            size={125}
+                        />
+                    </Row>
+                    <Row justify='center' className='gap-x-large p-small'>
+                        <Col>
+                            <Statistic
+                                title='Last Payment'
+                                value={validSince?.format('DD.MM.YYYY') ?? '-'}
+                            />
+                        </Col>
+                        <Col>
+                            <Statistic
+                                title='Valid Until'
+                                value={validUntil?.format('DD.MM.YYYY') ?? '-'}
+                            />
+                        </Col>
+                    </Row>
+                </DataStateWrapper>
             </Flex>
             <Space className='self-end'>
                 {detailsHref && <Button onClick={() => navigate(detailsHref)}>Show Details</Button>}
