@@ -8,8 +8,8 @@ import * as axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface WorkoutSessionRequest {
-    coachUuid: string;
-    hallUuid: string;
+    coachUuid?: string;
+    hallUuid?: string;
     date: string;
     title: string;
     description: string;
@@ -211,15 +211,15 @@ export interface UserDto {
 }
 
 export interface PageWorkoutSessionDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
-    first?: boolean;
-    last?: boolean;
     size?: number;
     content?: WorkoutSessionDto[];
     number?: number;
     sort?: SortObject;
+    first?: boolean;
+    last?: boolean;
     numberOfElements?: number;
     empty?: boolean;
 }
@@ -240,15 +240,15 @@ export interface SortObject {
 }
 
 export interface PageUserDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
-    first?: boolean;
-    last?: boolean;
     size?: number;
     content?: UserDto[];
     number?: number;
     sort?: SortObject;
+    first?: boolean;
+    last?: boolean;
     numberOfElements?: number;
     empty?: boolean;
 }
@@ -292,15 +292,15 @@ export interface Pageable {
 }
 
 export interface PageMembershipDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
-    first?: boolean;
-    last?: boolean;
     size?: number;
     content?: MembershipDto[];
     number?: number;
     sort?: SortObject;
+    first?: boolean;
+    last?: boolean;
     numberOfElements?: number;
     empty?: boolean;
 }
@@ -332,43 +332,43 @@ export interface PaymentDto {
 }
 
 export interface PageMembershipTypeDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
-    first?: boolean;
-    last?: boolean;
     size?: number;
     content?: MembershipTypeDto[];
     number?: number;
     sort?: SortObject;
+    first?: boolean;
+    last?: boolean;
     numberOfElements?: number;
     empty?: boolean;
 }
 
 export interface PageMaintenanceTaskDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
-    first?: boolean;
-    last?: boolean;
     size?: number;
     content?: MaintenanceTaskDto[];
     number?: number;
     sort?: SortObject;
+    first?: boolean;
+    last?: boolean;
     numberOfElements?: number;
     empty?: boolean;
 }
 
 export interface PageHallDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
-    first?: boolean;
-    last?: boolean;
     size?: number;
     content?: HallDto[];
     number?: number;
     sort?: SortObject;
+    first?: boolean;
+    last?: boolean;
     numberOfElements?: number;
     empty?: boolean;
 }
@@ -379,15 +379,15 @@ export interface HallTypeDto {
 }
 
 export interface PageExerciseDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
-    first?: boolean;
-    last?: boolean;
     size?: number;
     content?: ExerciseDto[];
     number?: number;
     sort?: SortObject;
+    first?: boolean;
+    last?: boolean;
     numberOfElements?: number;
     empty?: boolean;
 }
