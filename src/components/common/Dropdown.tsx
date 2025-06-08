@@ -1,6 +1,6 @@
 import { Dropdown as AntDropdown, Button, Space } from 'antd';
 import { Icon } from '@/components/common/Icon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type DropdownProps = {
     menuItems: { key: string; label: string }[];
@@ -10,7 +10,15 @@ type DropdownProps = {
 
 export function Dropdown(props: DropdownProps) {
     const { menuItems, placeholder, onSelect } = props;
-    const [selectedLabel, setSelectedLabel] = useState<string | null>(placeholder);
+
+    const initialLabel = menuItems?.at(0)?.label;
+    const [selectedLabel, setSelectedLabel] = useState<string | null>(
+        initialLabel ?? placeholder ?? null
+    );
+
+    useEffect(() => {
+        setSelectedLabel(initialLabel ?? placeholder ?? null);
+    }, [initialLabel, placeholder]);
 
     const handleMenuItemSelect = (key: string) => {
         const item = menuItems.find(item => item.key === key) ?? null;

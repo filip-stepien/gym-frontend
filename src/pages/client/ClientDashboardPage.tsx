@@ -25,10 +25,10 @@ import { AxiosError } from 'axios';
 
 export function ClientDashboardPage() {
     const { user } = useUser();
-    const [progressOverview, setProgressOverview] = useState<ProgressOverviewDto | null>(null);
-    const [lastSession, setLastSession] = useState<WorkoutSessionDto | null>(null);
-    const [membership, setMembership] = useState<Membership | null>(null);
-    const [sessions, setSessions] = useState<WorkoutSessionDto[] | null>();
+    const [progressOverview, setProgressOverview] = useState<ProgressOverviewDto>();
+    const [lastSession, setLastSession] = useState<WorkoutSessionDto>();
+    const [membership, setMembership] = useState<Membership>();
+    const [sessions, setSessions] = useState<WorkoutSessionDto[]>();
 
     const [progressLoading, setProgressLoading] = useState(false);
     const [renewalLoading, setRenewalLoading] = useState(false);
@@ -38,7 +38,7 @@ export function ClientDashboardPage() {
         async function getMembershipStatus() {
             if (!user?.id) return;
             const userMembership = (await getUser(user.id)).data.membership;
-            setMembership(userMembership ?? null);
+            setMembership(userMembership);
         }
 
         async function getProgressOverview() {

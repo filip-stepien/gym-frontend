@@ -1,53 +1,58 @@
 import { Page } from '@/components/layout/Page';
 import { TotalProgressCard } from '../../components/cards/TotalProgressCard';
 import { ExerciseProgressCard } from '../../components/cards/ExerciseProgressCard';
-import type { ChartData } from '@/components/common/Chart';
+import { useEffect, useState } from 'react';
+import { ChartDto, getUserExerciseChartData, getUserTotalChartData } from '@/generated/gym-api';
+import { useUser } from '@/hooks/useUser';
 
-const totalProgressChartData: ChartData = {
-    description: 'Total workout effort - last 3 months',
-    data: [
-        {
-            title: 'Volume',
+function getNullSafeChartData(chartData?: ChartDto) {
+    return (
+        chartData?.data?.map(e => ({
+            title: e.title ?? '',
             timeSeries: {
-                labels: ['1', '2', '3'],
-                values: [1, 2, 3]
+                labels: e.timeSeries?.labels ?? [],
+                values: e.timeSeries?.values ?? []
             }
-        },
-        {
-            title: 'Sets',
-            timeSeries: {
-                labels: ['1', '2', '3'],
-                values: [3, 4, 5]
-            }
-        }
-    ]
-};
-
-const exerciseProgressChartData: ChartData = {
-    description: 'Heaviest exercise weight - last 3 months',
-    data: [
-        {
-            title: 'Bench press',
-            timeSeries: {
-                labels: ['1', '2', '3'],
-                values: [6, 7, 4]
-            }
-        },
-        {
-            title: 'Deadlift',
-            timeSeries: {
-                labels: ['1', '2', '3'],
-                values: [2, 8, 3]
-            }
-        }
-    ]
-};
+        })) ?? []
+    );
+}
 
 export function ClientProgressPage() {
+    const { user } = useUser();
+    const [totalProgressChartData, setTotalProgressChartData] = useState<ChartDto>();
+    const [exerciseChartData, setExerciseChartData] = useState<ChartDto>();
+
+    useEffect(() => {
+        async function getTotalProgressChartData() {
+            if (!user?.id) return;
+            const chartData = (await getUserTotalChartData(user.id)).data;
+            setTotalProgressChartData(chartData);
+        }
+
+        async function getExerciseChartData() {
+            if (!user?.id) return;
+            const chartData = (await getUserExerciseChartData(user.id)).data;
+            setExerciseChartData(chartData);
+        }
+
+        getTotalProgressChartData();
+        getExerciseChartData();
+    }, [user?.id]);
+
     return (
         <Page>
-            <TotalProgressCard chartData={totalProgressChartData} />
-            <ExerciseProgressCard chartData={exerciseProgressChartData} />
+            <TotalProgressCard
+                chartData={{
+                    description: 'Total workout effort - last 3 months',
+                    data: getNullSafeChartData(totalProgressChartData)
+                }}
+            />
+            <ExerciseProgressCard
+                chartData={{
+                    description: 'Heaviest exercise weight - last 3 months',
+                    data: getNullSafeChartData(exerciseChartData)
+                }}
+            />
         </Page>
     );
 }

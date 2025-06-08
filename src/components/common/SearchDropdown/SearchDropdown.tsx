@@ -1,7 +1,7 @@
 import { Button, Dropdown, Space } from 'antd';
 import { Icon } from '../Icon';
 import { SearchDropdownMenu } from './SearchDropdownMenu';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 type SearchDropdownProps = {
     placeholder?: string;
@@ -14,10 +14,17 @@ export function SearchDropdown(props: SearchDropdownProps) {
     const { placeholder, menuItems, searchPlaceholder, onSelect } = props;
     const initialMenuItems = menuItems?.slice(0, 3).map(({ label, key }) => ({ label, key })) ?? [];
 
-    const [selectedLabel, setSelectedLabel] = useState<string | null>(placeholder ?? null);
+    const initialLabel = menuItems?.at(0)?.label;
+    const [selectedLabel, setSelectedLabel] = useState<string | null>(
+        initialLabel ?? placeholder ?? null
+    );
     const [search, setSearch] = useState('');
     const [displayedMenuItems, setDisplayedMenuItems] =
         useState<{ label: string; key: string }[]>(initialMenuItems);
+
+    useEffect(() => {
+        setSelectedLabel(initialLabel ?? placeholder ?? null);
+    }, [initialLabel, placeholder]);
 
     const handleMenuItemClick = ({ key }: { key: string }) => {
         const label = menuItems?.find(item => item.key == key)?.label as string;

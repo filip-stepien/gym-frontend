@@ -9,7 +9,7 @@ import {
 import { Empty, Flex, Typography } from 'antd';
 import { Bar, Line } from 'react-chartjs-2';
 import { getCSSVariable } from '@/utils/getCSSVariable';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchDropdown } from './SearchDropdown';
 import { Dropdown } from './Dropdown';
 
@@ -49,9 +49,16 @@ const { Text } = Typography;
 
 export function Chart(props: ChartProps) {
     const { chartData, type, className, dropdownType } = props;
-    const [chartDataEntry, setChartDataEntry] = useState<ChartEntry | null>(
-        chartData?.data.at(0) ?? null
+
+    const initialChartDataEntry = chartData?.data?.at(0);
+
+    const [chartDataEntry, setChartDataEntry] = useState<ChartEntry | undefined>(
+        initialChartDataEntry
     );
+
+    useEffect(() => {
+        setChartDataEntry(initialChartDataEntry);
+    }, [initialChartDataEntry]);
 
     if (!chartData) {
         return <Empty />;
@@ -75,20 +82,20 @@ export function Chart(props: ChartProps) {
     };
 
     const handleMenuItemSelect = (item: { key: string; label: string }) => {
-        const dataEntry = chartData.data.find(({ title }) => title === item.key) ?? null;
+        const dataEntry = chartData.data.find(({ title }) => title === item.key);
         setChartDataEntry(dataEntry);
     };
 
     const menu =
         dropdownType === 'search' ? (
             <SearchDropdown
-                placeholder={chartData.data[0]?.title ?? 'Select exercise'}
+                placeholder={initialChartDataEntry?.title ?? 'Select'}
                 menuItems={menuItems}
                 onSelect={handleMenuItemSelect}
             />
         ) : (
             <Dropdown
-                placeholder={chartData.data[0]?.title ?? 'Select exercise'}
+                placeholder={initialChartDataEntry?.title ?? 'Select'}
                 menuItems={menuItems}
                 onSelect={handleMenuItemSelect}
             />
