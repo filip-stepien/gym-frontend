@@ -27,13 +27,16 @@ export function UserProvider({ children }: { children: JSX.Element }) {
 
             const id = await whoAmI()
                 .then(data => data?.data.uuid)
-                .catch(() => console.error('failed to fetch user data'));
+                .catch(() => {
+                    console.error('failed to fetch user data');
+                    return undefined;
+                });
 
             const userDetails: UserDetails = {
                 firstName: userProfile.firstName as string,
                 lastName: userProfile.lastName as string,
                 role: significantRole ?? 'client',
-                id: id ?? ''
+                id: id
             };
 
             setUserDetails(userDetails);
