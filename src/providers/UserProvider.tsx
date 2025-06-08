@@ -24,7 +24,10 @@ export function UserProvider({ children }: { children: JSX.Element }) {
             const significantRole = userRoles
                 .sort((a: UserRole, b: UserRole) => rolesPriority[b] - rolesPriority[a])
                 .at(0);
-            const id = (await whoAmI()).data.uuid;
+
+            const id = await whoAmI()
+                .then(data => data?.data.uuid)
+                .catch(() => console.error('failed to fetch user data'));
 
             const userDetails: UserDetails = {
                 firstName: userProfile.firstName as string,
