@@ -14,17 +14,20 @@ export function ClientsPage() {
         async function getClients() {
             try {
                 const response = await listUsers();
-                console.log('Pełna odpowiedź API:', response.data);
-                console.log('Czy to tablica?', Array.isArray(response.data));
-                console.log('Liczba użytkowników:', response.data?.length);
-                console.log('Rola użytkownika:', role);
+                console.log('Odpowiedź API:', response.data); // Debug: sprawdź strukturę odpowiedzi
+                const rawClients = response.data?.content ?? [];
 
-                const rawClients = Array.isArray(response.data) ? response.data : [];
+                const transformedClients: UserDto[] = rawClients.map((user: UserDto) => ({
+                    firstName: user.firstName ?? 'Unknown',
+                    lastName: user.lastName ?? 'Unknown',
+                    membershipStatus: 'Active',
+                    email: user.email ?? 'No email',
+                    detailsHref: `/${role}/details/${user.uuid ?? ''}`
+                }));
 
-                setUsers(rawClients);
-                console.log('Użytkownicy zapisani w stanie:', rawClients);
+                setUsers(transformedClients);
             } catch (error) {
-                console.error('Error fetching clients:', error);
+                console.error('Błąd podczas pobierania użytkowników:', error);
                 setUsers([]);
             }
         }
@@ -33,7 +36,7 @@ export function ClientsPage() {
     }, [role]);
 
     const clientsTableCardData = {
-        users,
+        clients: users,
         newClientHref: ['employee', 'manager'].includes(role)
             ? `/${role}/create-membership`
             : undefined
