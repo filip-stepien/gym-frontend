@@ -42,11 +42,11 @@ export interface Membership {
 
 export type MembershipTypeCurrency = {
     currencyCode?: string;
+    numericCode?: number;
+    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
-    numericCode?: number;
-    numericCodeAsString?: string;
 };
 
 export interface MembershipType {
@@ -184,6 +184,19 @@ export interface ExerciseDto {
     targetMuscles?: TargetMuscleDto[];
 }
 
+export interface UserRequest {
+    roles?: string[];
+    cardUuid?: string;
+    membershipUuid?: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth?: string;
+    email: string;
+    username?: string;
+    phoneNumber?: string;
+    imageUrl?: string;
+}
+
 export interface UserDto {
     uuid?: string;
     roles?: string[];
@@ -195,6 +208,49 @@ export interface UserDto {
     username?: string;
     phoneNumber?: string;
     imageUrl?: string;
+}
+
+export interface PageWorkoutSessionDto {
+    totalElements?: number;
+    totalPages?: number;
+    pageable?: PageableObject;
+    first?: boolean;
+    last?: boolean;
+    size?: number;
+    content?: WorkoutSessionDto[];
+    number?: number;
+    sort?: SortObject;
+    numberOfElements?: number;
+    empty?: boolean;
+}
+
+export interface PageableObject {
+    paged?: boolean;
+    pageNumber?: number;
+    pageSize?: number;
+    offset?: number;
+    sort?: SortObject;
+    unpaged?: boolean;
+}
+
+export interface SortObject {
+    sorted?: boolean;
+    empty?: boolean;
+    unsorted?: boolean;
+}
+
+export interface PageUserDto {
+    totalElements?: number;
+    totalPages?: number;
+    pageable?: PageableObject;
+    first?: boolean;
+    last?: boolean;
+    size?: number;
+    content?: UserDto[];
+    number?: number;
+    sort?: SortObject;
+    numberOfElements?: number;
+    empty?: boolean;
 }
 
 export interface ProgressOverviewDto {
@@ -249,28 +305,13 @@ export interface PageMembershipDto {
     empty?: boolean;
 }
 
-export interface PageableObject {
-    paged?: boolean;
-    pageNumber?: number;
-    pageSize?: number;
-    offset?: number;
-    sort?: SortObject;
-    unpaged?: boolean;
-}
-
-export interface SortObject {
-    sorted?: boolean;
-    empty?: boolean;
-    unsorted?: boolean;
-}
-
 export type PaymentDtoCurrency = {
     currencyCode?: string;
+    numericCode?: number;
+    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
-    numericCode?: number;
-    numericCodeAsString?: string;
 };
 
 export type PaymentDtoStatus = (typeof PaymentDtoStatus)[keyof typeof PaymentDtoStatus];
@@ -351,6 +392,21 @@ export interface PageExerciseDto {
     empty?: boolean;
 }
 
+export type ListWorkoutSessionsParams = {
+    /**
+     * Zero-based page index (0..N)
+     */
+    page?: number;
+    /**
+     * The size of the page to be returned
+     */
+    size?: number;
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: string[];
+};
+
 export type ListMembershipsParams = {
     pageable: Pageable;
 };
@@ -415,6 +471,21 @@ export type ListExercisesParams = {
     sort?: string[];
 };
 
+export type ListUsersParams = {
+    /**
+     * Zero-based page index (0..N)
+     */
+    page?: number;
+    /**
+     * The size of the page to be returned
+     */
+    size?: number;
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: string[];
+};
+
 export type GetUserTotalChartDataParams = {
     numberOfWeeks?: number;
 };
@@ -423,10 +494,14 @@ export type GetUserExerciseChartDataParams = {
     numberOfWeeks?: number;
 };
 
-export const listWorkoutSessions = <TData = AxiosResponse<WorkoutSessionDto[]>>(
+export const listWorkoutSessions = <TData = AxiosResponse<PageWorkoutSessionDto>>(
+    params?: ListWorkoutSessionsParams,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.get(`/workout-sessions`, options);
+    return axios.default.get(`/workout-sessions`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
 };
 
 export const createWorkoutSession = <TData = AxiosResponse<WorkoutSessionDto>>(
@@ -594,6 +669,21 @@ export const updateCard = <TData = AxiosResponse<WorkoutSessionDto>>(
     return axios.default.patch(`/workout-sessions/${id}`, workoutSessionRequest, options);
 };
 
+export const getUser = <TData = AxiosResponse<UserDto>>(
+    id: string,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.get(`/users/${id}`, options);
+};
+
+export const updateUser = <TData = AxiosResponse<UserDto>>(
+    id: string,
+    userRequest: UserRequest,
+    options?: AxiosRequestConfig
+): Promise<TData> => {
+    return axios.default.patch(`/users/${id}`, userRequest, options);
+};
+
 export const getMembership = <TData = AxiosResponse<MembershipDto>>(
     id: string,
     options?: AxiosRequestConfig
@@ -667,17 +757,14 @@ export const whoAmI = <TData = AxiosResponse<UserDto>>(
     return axios.default.get(`/whoami`, options);
 };
 
-export const listUsers = <TData = AxiosResponse<UserDto[]>>(
+export const listUsers = <TData = AxiosResponse<PageUserDto>>(
+    params?: ListUsersParams,
     options?: AxiosRequestConfig
 ): Promise<TData> => {
-    return axios.default.get(`/users`, options);
-};
-
-export const getUser = <TData = AxiosResponse<UserDto>>(
-    id: string,
-    options?: AxiosRequestConfig
-): Promise<TData> => {
-    return axios.default.get(`/users/${id}`, options);
+    return axios.default.get(`/users`, {
+        ...options,
+        params: { ...params, ...options?.params }
+    });
 };
 
 export const listUserWorkoutSessions = <TData = AxiosResponse<WorkoutSessionDto[]>>(
@@ -765,7 +852,7 @@ export const deleteExercise = <TData = AxiosResponse<void>>(
     return axios.default.delete(`/exercises/${id}`, options);
 };
 
-export type ListWorkoutSessionsResult = AxiosResponse<WorkoutSessionDto[]>;
+export type ListWorkoutSessionsResult = AxiosResponse<PageWorkoutSessionDto>;
 export type CreateWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
 export type AddWorkoutSessionExerciseResult = AxiosResponse<WorkoutSessionDto>;
 export type AddWorkoutSessionAttendantResult = AxiosResponse<WorkoutSessionDto>;
@@ -786,6 +873,8 @@ export type ListExercisesResult = AxiosResponse<PageExerciseDto>;
 export type CreateExerciseResult = AxiosResponse<ExerciseDto>;
 export type GetWorkoutSessionResult = AxiosResponse<WorkoutSessionDto>;
 export type UpdateCardResult = AxiosResponse<WorkoutSessionDto>;
+export type GetUserResult = AxiosResponse<UserDto>;
+export type UpdateUserResult = AxiosResponse<UserDto>;
 export type GetMembershipResult = AxiosResponse<MembershipDto>;
 export type PatchMembershipResult = AxiosResponse<MembershipDto>;
 export type GetMembershipTypeResult = AxiosResponse<MembershipTypeDto>;
@@ -796,8 +885,7 @@ export type UpdateMaintenanceTaskResult = AxiosResponse<MaintenanceTaskDto>;
 export type GetHallResult = AxiosResponse<HallDto>;
 export type UpdateHallResult = AxiosResponse<HallDto>;
 export type WhoAmIResult = AxiosResponse<UserDto>;
-export type ListUsersResult = AxiosResponse<UserDto[]>;
-export type GetUserResult = AxiosResponse<UserDto>;
+export type ListUsersResult = AxiosResponse<PageUserDto>;
 export type ListUserWorkoutSessionsResult = AxiosResponse<WorkoutSessionDto[]>;
 export type GetUserProgressOverviewResult = AxiosResponse<ProgressOverviewDto>;
 export type GetUserTotalChartDataResult = AxiosResponse<ChartDto>;
