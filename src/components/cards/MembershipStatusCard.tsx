@@ -7,7 +7,6 @@ import dayjs from 'dayjs';
 import { ActionButton } from '../common/ActionButton';
 
 export type MembershipStatusCardProps = {
-    userId?: string;
     lastPayment?: string;
     validUntil?: string;
     detailsHref?: string;
@@ -16,6 +15,8 @@ export type MembershipStatusCardProps = {
     renewalLoading?: boolean;
     isEmpty?: boolean;
     isLoading?: boolean;
+    className?: string;
+    horizontal?: boolean;
 };
 
 function getValidityLabel(lastPayment?: Dayjs, validUntil?: Dayjs) {
@@ -56,17 +57,25 @@ function getCirclePercentage(lastPayment?: Dayjs, validUntil?: Dayjs): number {
 }
 
 export function MembershipStatusCard(props: MembershipStatusCardProps) {
-    const { detailsHref, onRenew, renewalLoading, renderRenewButton, lastPayment, validUntil } =
-        props;
+    const {
+        detailsHref,
+        onRenew,
+        renewalLoading,
+        renderRenewButton,
+        lastPayment,
+        validUntil,
+        className,
+        horizontal
+    } = props;
 
     const lastPaymentDate = dayjs(lastPayment);
     const validUntilDate = dayjs(validUntil);
 
     return (
-        <Card className='h-full flex-1'>
+        <Card className={`h-full flex-1 ${className}`}>
             <CardTitle title='Membership Status' icon='membership' />
-            <Flex vertical justify='center' align='center' className='h-full'>
-                <Row justify='center' className='p-small md:p-large'>
+            <Flex vertical={!horizontal} justify='center' align='center' className='h-full'>
+                <Row justify='center' className={horizontal ? 'p-large' : 'p-small md:p-large'}>
                     <Progress
                         type='circle'
                         percent={
@@ -83,7 +92,10 @@ export function MembershipStatusCard(props: MembershipStatusCardProps) {
                         size={125}
                     />
                 </Row>
-                <Row justify='center' className='gap-x-large p-small'>
+                <Row
+                    justify='center'
+                    className={'gap-x-large p-small' + (horizontal ? 'flex flex-col' : '')}
+                >
                     <Col>
                         <Statistic
                             title='Last Payment'

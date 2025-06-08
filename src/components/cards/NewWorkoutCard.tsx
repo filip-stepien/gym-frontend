@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CardTitle } from '@/components/common/CardTitle';
-import { DatePicker, Flex, Input, Typography, TimePicker, Modal } from 'antd';
+import { DatePicker, Flex, Input, Typography, Modal, Alert } from 'antd';
 import { ExerciseTable } from '@/components/common/ExerciseTable';
 import { Card } from '@/components/layout/Card';
 import dayjs, { type Dayjs } from 'dayjs';
@@ -15,35 +15,32 @@ export type ExerciseRow = {
 export type NewWorkoutData = {
     title: string;
     date: Dayjs;
-    time: Dayjs;
     exerciseRows: ExerciseRow[];
 };
 
 type NewWorkoutCardProps = {
     exerciseSearchOptions: string[];
     onWorkoutSave?: (workout: NewWorkoutData) => void;
+    errorMessage?: string;
 };
 
 const { Title } = Typography;
 
 export function NewWorkoutCard(props: NewWorkoutCardProps) {
-    const { exerciseSearchOptions, onWorkoutSave = () => {} } = props;
+    const { exerciseSearchOptions, errorMessage, onWorkoutSave = () => {} } = props;
 
     const [titleError, setTitleError] = useState(false);
     const [dateError, setDateError] = useState(false);
-    const [timeError, setTimeError] = useState(false);
     const [modalOpened, setModalOpened] = useState(false);
     const [date, setDate] = useState(dayjs());
-    const [time, setTime] = useState(dayjs());
     const [title, setTitle] = useState('New workout');
     const [exerciseRows, setExerciseRows] = useState<ExerciseRow[]>([]);
 
     const handleSave = () => {
         setDateError(date === null);
-        setTimeError(time === null);
         setTitleError(title === '');
 
-        if (date && time && title) {
+        if (date && title) {
             setModalOpened(true);
         }
     };
@@ -55,7 +52,6 @@ export function NewWorkoutCard(props: NewWorkoutCardProps) {
     const handleModalConfirm = () => {
         onWorkoutSave({
             date,
-            time,
             title,
             exerciseRows: exerciseRows.filter(row => row.exercise && row.reps > 0)
         });
@@ -90,17 +86,6 @@ export function NewWorkoutCard(props: NewWorkoutCardProps) {
                         />
                     </Flex>
                     <Flex vertical gap='small' className='w-full sm:w-fit'>
-                        <Title level={5}>Time</Title>
-                        <TimePicker
-                            format='HH:mm'
-                            className='w-full sm:w-[120px]'
-                            placeholder='Select time'
-                            value={time}
-                            onChange={time => setTime(time)}
-                            status={timeError ? 'error' : undefined}
-                        />
-                    </Flex>
-                    <Flex vertical gap='small' className='w-full sm:w-fit'>
                         <Title level={5}>Title</Title>
                         <Input
                             placeholder='Workout Title'
@@ -117,6 +102,7 @@ export function NewWorkoutCard(props: NewWorkoutCardProps) {
                     setExerciseRows={setExerciseRows}
                     onSave={handleSave}
                 />
+                {errorMessage ? <Alert message={errorMessage} type='error' /> : <div></div>}
             </Card>
         </>
     );

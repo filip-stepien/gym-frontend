@@ -16,14 +16,14 @@ export function SearchDropdown(props: SearchDropdownProps) {
 
     const initialLabel = menuItems?.at(0)?.label;
     const [selectedLabel, setSelectedLabel] = useState<string | null>(
-        initialLabel ?? placeholder ?? null
+        placeholder ?? initialLabel ?? null
     );
     const [search, setSearch] = useState('');
     const [displayedMenuItems, setDisplayedMenuItems] =
         useState<{ label: string; key: string }[]>(initialMenuItems);
 
     useEffect(() => {
-        setSelectedLabel(initialLabel ?? placeholder ?? null);
+        setSelectedLabel(placeholder ?? initialLabel ?? null);
     }, [initialLabel, placeholder]);
 
     const handleMenuItemClick = ({ key }: { key: string }) => {

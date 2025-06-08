@@ -21,10 +21,12 @@ export function ScheduleViewer(props: ScheduleViewerProps) {
     const [widthObserverRef, width] = useHTMLElementResizeObserver();
 
     useEffect(() => {
-        if (fullscreen && width >= breakpoints.md) {
-            setCalendarFullscreen(true);
-        } else if (fullscreen && width < breakpoints.sm) {
-            setCalendarFullscreen(false);
+        if (width !== 0) {
+            if (fullscreen && width >= breakpoints.md) {
+                setCalendarFullscreen(true);
+            } else if (fullscreen && width < breakpoints.sm) {
+                setCalendarFullscreen(false);
+            }
         }
     }, [fullscreen, width]);
 
