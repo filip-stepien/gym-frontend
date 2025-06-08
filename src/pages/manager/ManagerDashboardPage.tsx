@@ -1,30 +1,12 @@
-import { CurrentMaintenanceTasksCard } from '@/components/cards/CurrentMaintenanceTasksCard';
+import {
+    CurrentMaintenanceTaskHall,
+    CurrentMaintenanceTasksCard
+} from '@/components/cards/CurrentMaintenanceTasksCard';
 import { EmployeeCreationCard, EmployeeValues } from '@/components/cards/EmployeeCreationCard';
 import { Page } from '@/components/layout/Page';
+import { listMaintenanceTasks, MaintenanceTaskDto } from '@/generated/gym-api';
 import dayjs from 'dayjs';
-
-const currentMaintenanceTasksCardData = {
-    halls: [
-        {
-            hallNumber: 1,
-            description: 'Annual maintenance.',
-            detailsHref: '/manager/maintenance-task/1',
-            duration: {
-                startTime: dayjs(),
-                endTime: dayjs().add(1, 'hour')
-            }
-        },
-        {
-            hallNumber: '2',
-            description: 'Fortnight maintenance.',
-            detailsHref: '/manager/maintenance-task/1',
-            duration: {
-                startTime: dayjs(),
-                endTime: dayjs().add(1, 'hour')
-            }
-        }
-    ]
-};
+import { useState, useEffect } from 'react';
 
 const employeeCreationCardData = {
     onCreate: (values: EmployeeValues) => {
@@ -34,10 +16,40 @@ const employeeCreationCardData = {
 };
 
 export function ManagerDashboardPage() {
+    const [maintenanceTasks, setMaintenanceTasks] = useState<CurrentMaintenanceTaskHall[]>([]);
+
+    useEffect(() => {
+        async function getMaintenanceTasks() {
+            try {
+                const response = await listMaintenanceTasks();
+                const rawTasks = response.data.content ?? [];
+
+                const transformedTasks: CurrentMaintenanceTaskHall[] = rawTasks.map(
+                    (task: MaintenanceTaskDto) => ({
+                        hallNumber: 'Number', // need fix
+                        description: task.description ?? 'No description',
+                        detailsHref: `manager/details/${task.uuid ?? ''}`,
+                        duration: {
+                            startTime: dayjs(task.plannedStartDate),
+                            endTime: dayjs(task.plannedEndDate)
+                        }
+                    })
+                );
+
+                setMaintenanceTasks(transformedTasks);
+            } catch (error) {
+                console.error('Error fetching maintenance tasks:', error);
+                setMaintenanceTasks([]);
+            }
+        }
+
+        getMaintenanceTasks();
+    }, []);
+
     return (
         <Page>
             <EmployeeCreationCard {...employeeCreationCardData} />
-            <CurrentMaintenanceTasksCard {...currentMaintenanceTasksCardData} />
+            <CurrentMaintenanceTasksCard halls={maintenanceTasks} />
         </Page>
     );
 }
