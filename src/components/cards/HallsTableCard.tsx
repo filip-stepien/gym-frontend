@@ -104,7 +104,7 @@ export function HallsTableCard({ defaultPageSize, newHallHref }: HallsTableCardP
                 if (!rawHalls || !totalElements) {
                     return undefined;
                 }
-                console.log(rawHalls);
+                // console.log(rawHalls);
 
                 const transformedHalls: HallsTableHall[] = rawHalls.map((hall: HallDto) => ({
                     ...hall,
@@ -124,7 +124,7 @@ export function HallsTableCard({ defaultPageSize, newHallHref }: HallsTableCardP
             }
         };
 
-        console.log(sorter, pagination);
+        // console.log(sorter, pagination);
         setLoading(true);
 
         getData(
