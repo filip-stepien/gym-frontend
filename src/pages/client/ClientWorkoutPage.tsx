@@ -29,7 +29,11 @@ export function ClientWorkoutPage() {
                     date: dayjs(session.date!),
                     title: session.title || 'Workout',
                     description: session.description || '',
-                    action: session.uuid ? <ActionButton href={`/client/workout/${session.uuid}`}>Details</ActionButton> : undefined
+                    action: session.uuid ? (
+                        <ActionButton href={`/client/workout/${session.uuid}`}>
+                            Details
+                        </ActionButton>
+                    ) : undefined
                 }));
             setWorkoutSessions(mapped);
         }

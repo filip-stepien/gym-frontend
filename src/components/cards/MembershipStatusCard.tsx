@@ -3,15 +3,19 @@ import { Card } from '@/components/layout/Card';
 import { CardTitle } from '@/components/common/CardTitle';
 import { Dayjs } from 'dayjs';
 import { getCSSVariable } from '@/utils/getCSSVariable';
-import { useNavigate } from 'react-router';
 import dayjs from 'dayjs';
-import { getUser } from '@/generated/gym-api';
-import { useEffect, useState } from 'react';
-import { DataStateWrapper } from '../common/DataStateWrapper';
+import { ActionButton } from '../common/ActionButton';
 
 export type MembershipStatusCardProps = {
     userId?: string;
+    lastPayment?: string;
+    validUntil?: string;
     detailsHref?: string;
+    renderRenewButton?: boolean;
+    onRenew?: () => void;
+    renewalLoading?: boolean;
+    isEmpty?: boolean;
+    isLoading?: boolean;
 };
 
 function getValidityLabel(lastPayment?: Dayjs, validUntil?: Dayjs) {
@@ -52,73 +56,55 @@ function getCirclePercentage(lastPayment?: Dayjs, validUntil?: Dayjs): number {
 }
 
 export function MembershipStatusCard(props: MembershipStatusCardProps) {
-    const navigate = useNavigate();
+    const { detailsHref, onRenew, renewalLoading, renderRenewButton, lastPayment, validUntil } =
+        props;
 
-    const [validUntil, setValidUntil] = useState<Dayjs>();
-    const [validSince, setValidSince] = useState<Dayjs>();
-    const [isLoading, setIsLoading] = useState(false);
-
-    const { detailsHref, userId } = props;
-
-    useEffect(() => {
-        const fetchMembershipData = async () => {
-            if (!userId) return;
-
-            try {
-                setIsLoading(true);
-
-                const userData = (await getUser(userId)).data;
-
-                // console.log(userData);
-                if (userData.membership) {
-                    setValidUntil(dayjs(userData?.membership?.validUntil));
-                    setValidSince(dayjs(userData?.membership?.validFrom));
-                }
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchMembershipData();
-    }, [userId]);
-
-    const showEmpty = !userId;
+    const lastPaymentDate = dayjs(lastPayment);
+    const validUntilDate = dayjs(validUntil);
 
     return (
         <Card className='h-full flex-1'>
             <CardTitle title='Membership Status' icon='membership' />
             <Flex vertical justify='center' align='center' className='h-full'>
-                <DataStateWrapper isEmpty={showEmpty} isLoading={isLoading}>
-                    <Row justify='center' className='p-small md:p-large'>
-                        <Progress
-                            type='circle'
-                            percent={getCirclePercentage(validSince, validUntil)}
-                            format={() => (
-                                <div className='text-font-secondary text-sm'>
-                                    {getValidityLabel(validSince, validUntil)}
-                                </div>
-                            )}
-                            strokeColor={getCSSVariable('--color-primary')}
-                            size={125}
+                <Row justify='center' className='p-small md:p-large'>
+                    <Progress
+                        type='circle'
+                        percent={
+                            lastPayment && validUntilDate
+                                ? getCirclePercentage(lastPaymentDate, validUntilDate)
+                                : 0
+                        }
+                        format={() => (
+                            <div className='text-font-secondary text-sm'>
+                                {getValidityLabel(lastPaymentDate, validUntilDate)}
+                            </div>
+                        )}
+                        strokeColor={getCSSVariable('--color-primary')}
+                        size={125}
+                    />
+                </Row>
+                <Row justify='center' className='gap-x-large p-small'>
+                    <Col>
+                        <Statistic
+                            title='Last Payment'
+                            value={lastPayment ? lastPaymentDate?.format('DD.MM.YYYY') : '-'}
                         />
-                    </Row>
-                    <Row justify='center' className='gap-x-large p-small'>
-                        <Col>
-                            <Statistic
-                                title='Last Payment'
-                                value={validSince?.format('DD.MM.YYYY') ?? '-'}
-                            />
-                        </Col>
-                        <Col>
-                            <Statistic
-                                title='Valid Until'
-                                value={validUntil?.format('DD.MM.YYYY') ?? '-'}
-                            />
-                        </Col>
-                    </Row>
-                </DataStateWrapper>
+                    </Col>
+                    <Col>
+                        <Statistic
+                            title='Valid Until'
+                            value={validUntil ? validUntilDate?.format('DD.MM.YYYY') : '-'}
+                        />
+                    </Col>
+                </Row>
             </Flex>
             <Space className='self-end'>
-                {detailsHref && <Button onClick={() => navigate(detailsHref)}>Show Details</Button>}
+                {renderRenewButton && (
+                    <Button onClick={onRenew} type='primary' loading={renewalLoading}>
+                        Renew
+                    </Button>
+                )}
+                {detailsHref && <ActionButton href={detailsHref}>Show Details</ActionButton>}
             </Space>
         </Card>
     );

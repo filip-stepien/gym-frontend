@@ -4,6 +4,7 @@ import { createContext } from 'react';
 export type UserDetails = {
     firstName: string;
     lastName: string;
+    email: string;
     role: UserRole;
     id?: string;
 };

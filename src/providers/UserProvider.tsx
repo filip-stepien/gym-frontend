@@ -35,6 +35,7 @@ export function UserProvider({ children }: { children: JSX.Element }) {
             const userDetails: UserDetails = {
                 firstName: userProfile.firstName as string,
                 lastName: userProfile.lastName as string,
+                email: userProfile.email as string,
                 role: significantRole ?? 'client',
                 id: id
             };
