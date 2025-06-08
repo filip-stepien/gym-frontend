@@ -1,39 +1,43 @@
 import { ClientsTableCard } from '@/components/cards/ClientsTableCard';
+import { listUsers, UserDto } from '@/generated/gym-api';
 import { getRoleFromUrl } from '@/utils/getRoleFromUrl';
+import { useState, useEffect } from 'react';
 
 // debug: get role from url
 // get role from useUser hook in prod instead
 const role = getRoleFromUrl();
 
-const clientsTableCardData = {
-    // only employee and manager should be able to add the client
-    newClientHref: ['employee', 'manager'].includes(role)
-        ? `/${role}/create-membership`
-        : undefined,
-    clients: [
-        {
-            firstName: 'Bob',
-            lastName: 'Pork',
-            membershipStatus: 'Active',
-            email: 'john@pork.com',
-            detailsHref: `/${role}/clients/1`
-        },
-        {
-            firstName: 'Aron',
-            lastName: 'Pork',
-            membershipStatus: 'Expired',
-            email: 'john@pork.com',
-            detailsHref: `/${role}/clients/1`
-        },
-        {
-            firstName: 'John',
-            lastName: 'Pork',
-            membershipStatus: 'Active',
-            email: 'john@pork.com',
-            detailsHref: `/${role}/clients/1`
-        }
-    ]
-};
 export function ClientsPage() {
+    const [users, setUsers] = useState<UserDto[]>([]);
+
+    useEffect(() => {
+        async function getClients() {
+            try {
+                const response = await listUsers();
+                console.log('Pełna odpowiedź API:', response.data);
+                console.log('Czy to tablica?', Array.isArray(response.data));
+                console.log('Liczba użytkowników:', response.data?.length);
+                console.log('Rola użytkownika:', role);
+
+                const rawClients = Array.isArray(response.data) ? response.data : [];
+
+                setUsers(rawClients);
+                console.log('Użytkownicy zapisani w stanie:', rawClients);
+            } catch (error) {
+                console.error('Error fetching clients:', error);
+                setUsers([]);
+            }
+        }
+
+        getClients();
+    }, [role]);
+
+    const clientsTableCardData = {
+        users,
+        newClientHref: ['employee', 'manager'].includes(role)
+            ? `/${role}/create-membership`
+            : undefined
+    };
+
     return <ClientsTableCard {...clientsTableCardData} />;
 }
