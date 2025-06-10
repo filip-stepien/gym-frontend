@@ -23,7 +23,7 @@ jobs:
       - name: Generate API SDK
         run: task api-sdk
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: 'chore: generate client API SDK'
           file_pattern: |
