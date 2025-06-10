@@ -2,6 +2,7 @@ import { Card } from '@/components/layout/Card';
 import { CardTitle } from '@/components/common/CardTitle';
 import { ExerciseTable } from '@/components/common/ExerciseTable';
 import {
+    Alert,
     Button,
     Col,
     DatePicker,
@@ -34,10 +35,16 @@ type NewSessionCardProps = {
     exerciseSearchOptions?: string[];
     trainingHallNumbers?: string[];
     onCreate?: (values: NewSessionValues) => void;
+    errorMessage?: string;
 };
 
 export function NewSessionCard(props: NewSessionCardProps) {
-    const { exerciseSearchOptions, trainingHallNumbers = [], onCreate = () => {} } = props;
+    const { 
+        exerciseSearchOptions, 
+        trainingHallNumbers = [], 
+        onCreate = () => {},
+        errorMessage 
+    } = props;
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -165,6 +172,7 @@ export function NewSessionCard(props: NewSessionCardProps) {
                             onSave={handleCreate}
                         />
                     </Flex>
+                    {errorMessage ? <Alert message={errorMessage} type='error' /> : <div></div>}
                 </Card>
             </Flex>
         </>
