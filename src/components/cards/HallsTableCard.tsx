@@ -3,7 +3,6 @@ import { Card, Table, TableColumnsType, Tag, Badge, Flex } from 'antd';
 import { Link } from 'react-router';
 import { ActionButton } from '../common/ActionButton';
 import { useEffect, useState } from 'react';
-import { HallDto, listHalls } from '@/generated/gym-api';
 
 export type HallsTableHall = {
     hallNumber: string;
@@ -104,7 +103,7 @@ export function HallsTableCard({ defaultPageSize, newHallHref, dataFetcher }: Ha
                 setTotalElements(data?.total);
             })
             .finally(() => setLoading(false));
-    }, [sorter, pagination]);
+    }, [dataFetcher, sorter, pagination]);
 
     return (
         <Card className='w-full'>
