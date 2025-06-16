@@ -8,8 +8,8 @@ import * as axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface WorkoutSessionRequest {
-    coachUuid: string;
-    hallUuid: string;
+    coachUuid?: string;
+    hallUuid?: string;
     date: string;
     title: string;
     description: string;
@@ -42,11 +42,11 @@ export interface Membership {
 
 export type MembershipTypeCurrency = {
     currencyCode?: string;
-    numericCode?: number;
-    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
+    numericCode?: number;
+    numericCodeAsString?: string;
 };
 
 export interface MembershipType {
@@ -128,6 +128,7 @@ export interface MembershipDto {
     purchaseDate?: string;
     validUntil?: string;
     membershipType?: MembershipType;
+    valid?: boolean;
 }
 
 export interface MembershipTypeRequest {
@@ -200,7 +201,7 @@ export interface UserRequest {
 export interface UserDto {
     uuid?: string;
     roles?: string[];
-    membership?: Membership;
+    membership?: MembershipDto;
     firstName?: string;
     lastName?: string;
     dateOfBirth?: string;
@@ -211,8 +212,8 @@ export interface UserDto {
 }
 
 export interface PageWorkoutSessionDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -240,8 +241,8 @@ export interface SortObject {
 }
 
 export interface PageUserDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -292,8 +293,8 @@ export interface Pageable {
 }
 
 export interface PageMembershipDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -307,11 +308,11 @@ export interface PageMembershipDto {
 
 export type PaymentDtoCurrency = {
     currencyCode?: string;
-    numericCode?: number;
-    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
+    numericCode?: number;
+    numericCodeAsString?: string;
 };
 
 export type PaymentDtoStatus = (typeof PaymentDtoStatus)[keyof typeof PaymentDtoStatus];
@@ -332,8 +333,8 @@ export interface PaymentDto {
 }
 
 export interface PageMembershipTypeDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -346,8 +347,8 @@ export interface PageMembershipTypeDto {
 }
 
 export interface PageMaintenanceTaskDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -360,8 +361,8 @@ export interface PageMaintenanceTaskDto {
 }
 
 export interface PageHallDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -379,8 +380,8 @@ export interface HallTypeDto {
 }
 
 export interface PageExerciseDto {
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
