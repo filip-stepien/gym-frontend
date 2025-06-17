@@ -22,12 +22,14 @@ import { MembershipCreationPage } from '@/pages/common/MembershipCreationPage';
 import { HallsPage } from '@/pages/common/HallsPage';
 import { SessionsPage } from '@/pages/common/SessionsPage';
 import { WorkoutDetailsPage } from '@/pages/common/WorkoutDetailsPage';
+import { ClientRenewMembershipPage } from '@/pages/client/ClientRenewMembershipPage';
 
 export function Router() {
     return (
         <BrowserRouter>
             <AuthGuard>
                 <Routes>
+                    <Route path='renew-membership' element={<ClientRenewMembershipPage />} />
                     <Route
                         path={rolesConfig['client'].routePrefix}
                         element={<AuthenticatedLayout renderChat={false} role='client' />}

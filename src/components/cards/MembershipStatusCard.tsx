@@ -1,4 +1,4 @@
-import { Button, Progress, Statistic, Space, Col, Row, Flex } from 'antd';
+import { Progress, Statistic, Space, Col, Row, Flex } from 'antd';
 import { Card } from '@/components/layout/Card';
 import { CardTitle } from '@/components/common/CardTitle';
 import { Dayjs } from 'dayjs';
@@ -10,9 +10,6 @@ export type MembershipStatusCardProps = {
     lastPayment?: string;
     validUntil?: string;
     detailsHref?: string;
-    renderRenewButton?: boolean;
-    onRenew?: () => void;
-    renewalLoading?: boolean;
     isEmpty?: boolean;
     isLoading?: boolean;
     className?: string;
@@ -57,16 +54,7 @@ function getCirclePercentage(lastPayment?: Dayjs, validUntil?: Dayjs): number {
 }
 
 export function MembershipStatusCard(props: MembershipStatusCardProps) {
-    const {
-        detailsHref,
-        onRenew,
-        renewalLoading,
-        renderRenewButton,
-        lastPayment,
-        validUntil,
-        className,
-        horizontal
-    } = props;
+    const { detailsHref, lastPayment, validUntil, className, horizontal } = props;
 
     const lastPaymentDate = dayjs(lastPayment);
     const validUntilDate = dayjs(validUntil);
@@ -111,11 +99,6 @@ export function MembershipStatusCard(props: MembershipStatusCardProps) {
                 </Row>
             </Flex>
             <Space className='self-end'>
-                {renderRenewButton && (
-                    <Button onClick={onRenew} type='primary' loading={renewalLoading}>
-                        Renew
-                    </Button>
-                )}
                 {detailsHref && <ActionButton href={detailsHref}>Show Details</ActionButton>}
             </Space>
         </Card>

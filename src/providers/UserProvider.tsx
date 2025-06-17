@@ -4,6 +4,7 @@ import { rolesPriority, UserRole } from '@/roles';
 import keycloak from '@/keycloak';
 import { initializeAxios } from '@/axios';
 import { whoAmI } from '@/generated/gym-api';
+import dayjs from 'dayjs';
 
 export function UserProvider({ children }: { children: JSX.Element }) {
     const [userDetails, setUserDetails] = useState<UserDetails>();
@@ -38,7 +39,7 @@ export function UserProvider({ children }: { children: JSX.Element }) {
                 email: userProfile.email as string,
                 role: significantRole ?? 'client',
                 id: whoAmIData?.uuid,
-                hasValidMembership: whoAmIData?.membership?.valid
+                hasValidMembership: dayjs().isBefore(dayjs(whoAmIData?.membership?.validUntil))
             };
 
             setUserDetails(userDetails);

@@ -8,6 +8,8 @@ type AuthGuardProps = {
     children: JSX.Element;
 };
 
+const PUBLIC_PATHS = ['/renew-membership'];
+
 export function AuthGuard({ children }: AuthGuardProps) {
     const { user } = useUser();
     const location = useLocation();
@@ -17,7 +19,9 @@ export function AuthGuard({ children }: AuthGuardProps) {
         setLoading(user === undefined);
     }, [user]);
 
-    if (import.meta.env.VITE_AUTH_ENABLED === 'false') {
+    const isPublicPath = PUBLIC_PATHS.some(path => location.pathname.startsWith(path));
+
+    if (import.meta.env.VITE_AUTH_ENABLED === 'false' || isPublicPath) {
         return children;
     }
 
@@ -30,7 +34,9 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
     if (!isPathAllowed) {
         return <Navigate to={routePrefix + defaultRoute} replace />;
+    } else if (isPathAllowed && user.role === 'client' && !user.hasValidMembership) {
+        return <Navigate to='/renew-membership' />;
+    } else {
+        return children;
     }
-
-    return children;
 }
