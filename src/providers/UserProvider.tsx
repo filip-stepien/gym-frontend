@@ -25,10 +25,10 @@ export function UserProvider({ children }: { children: JSX.Element }) {
                 .sort((a: UserRole, b: UserRole) => rolesPriority[b] - rolesPriority[a])
                 .at(0);
 
-            const id = await whoAmI()
-                .then(data => data?.data.uuid)
+            const whoAmIData = await whoAmI()
+                .then(data => data?.data)
                 .catch(() => {
-                    console.error('failed to fetch user data');
+                    console.error('failed to fetch user data. Is backend API online ?');
                     return undefined;
                 });
 
@@ -37,7 +37,8 @@ export function UserProvider({ children }: { children: JSX.Element }) {
                 lastName: userProfile.lastName as string,
                 email: userProfile.email as string,
                 role: significantRole ?? 'client',
-                id: id
+                id: whoAmIData?.uuid,
+                hasValidMembership: whoAmIData?.membership?.valid
             };
 
             setUserDetails(userDetails);

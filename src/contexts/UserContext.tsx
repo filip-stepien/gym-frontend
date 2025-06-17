@@ -6,7 +6,16 @@ export type UserDetails = {
     lastName: string;
     email: string;
     role: UserRole;
+    /**
+     * id undefined is used as value indicating that there is no user logged in or
+     * failed to fetch it from backend api
+     */
     id?: string;
+    /**
+     * Does user (@see id) have active membership?
+     * undefined indicates that failure fetching data from backend api
+     */
+    hasValidMembership?: boolean;
 };
 
 export type UserContextContent = {
