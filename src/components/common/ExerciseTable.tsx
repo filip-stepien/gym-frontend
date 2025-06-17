@@ -1,4 +1,4 @@
-import { InputNumber, Button, Flex, Table } from 'antd';
+import { InputNumber, Button, Flex, Table, Tooltip } from 'antd';
 import { Icon } from './Icon';
 import { SearchDropdown } from './SearchDropdown';
 import { Dispatch, SetStateAction } from 'react';
@@ -101,6 +101,8 @@ export function ExerciseTable(props: ExerciseTableProps) {
         }
     ];
 
+    const saveDisabled = !exerciseRows.some(e => e.exercise && e.reps > 0);
+
     return (
         <Flex vertical>
             <Table
@@ -123,9 +125,17 @@ export function ExerciseTable(props: ExerciseTableProps) {
                 </Button>
             </Flex>
             <Flex justify='end'>
-                <Button type='primary' className='mt-middle' onClick={onSave} variant='outlined'>
-                    {saveButtonLabel ?? 'Save'}
-                </Button>
+                <Tooltip title='Select exerciseses and reps range.' popupVisible={saveDisabled}>
+                    <Button
+                        type='primary'
+                        className='mt-middle'
+                        onClick={onSave}
+                        variant='outlined'
+                        disabled={saveDisabled}
+                    >
+                        {saveButtonLabel ?? 'Save'}
+                    </Button>
+                </Tooltip>
             </Flex>
         </Flex>
     );
