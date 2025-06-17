@@ -24,3 +24,16 @@ dist-ssr
 *.sw?
 .direnv
 openapi.yaml
+
+_minted
+section.aux
+section.synctex.gz
+section.fdb_latexmk
+section.fls
+section.pdf
+dots/sections/spr.aux
+dots/sections/spr.fdb_latexmk
+dots/sections/spr.fls
+dots/sections/spr.pdf
+dots/sections/spr.synctex.gz
+

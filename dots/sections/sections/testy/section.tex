@@ -1,0 +1,39 @@
+\documentclass[../../spr.tex]{subfiles}
+
+\begin{document}
+
+\section{Testy}
+\subsection{Opis metod testowania (np. testy manualne i automatyczne)}
+W projekcie zastosowano kombinację testów manualnych i automatycznych w celu zapewnienia jakości oprogramowania. Testy automatyczne skupiają się na komponentach interfejsu użytkownika, sprawdzając ich zachowanie w różnych scenariuszach. Testy manualne wykorzystano do weryfikacji ogólnej funkcjonalności systemu oraz integracji między modułami.
+
+\subsection{Wyniki testów, napotkane błędy oraz zastosowane rozwiązania}
+Przeprowadzone testy obejmowały następujące komponenty:
+
+\begin{itemize}
+    \item \textbf{ClientDetailsCard}:
+    \begin{itemize}
+        \item Weryfikacja renderowania pól z początkowymi wartościami - \textbf{SUKCES}
+        \item Sprawdzenie wywołania funkcji \texttt{outfall} z poprawnymi wartościami po wysłaniu formularza - \textbf{SUKCES}
+        \item Test braku wywołania \texttt{outfall} gdy wymagane pola są puste - \textbf{SUKCES}
+    \end{itemize}
+    
+    \item \textbf{CurrentMaintenanceTasksCard}:
+    \begin{itemize}
+        \item Sprawdzenie renderowania wiersza tabeli z informacjami o hali - \textbf{SUKCES}
+    \end{itemize}
+    
+    \item \textbf{EmployeeDetailsCard}:
+    \begin{itemize}
+        \item Weryfikacja poprawnego renderowania szczegółów pracownika - \textbf{SUKCES}
+    \end{itemize}
+    
+    \item \textbf{EmployeeTableCard}:
+    \begin{itemize}
+        \item Test renderowania listy pracowników - \textbf{SUKCES}
+        \item Sprawdzenie warunkowego renderowania przycisku "+ New" - \textbf{SUKCES}
+    \end{itemize}
+\end{itemize}
+
+Podczas testów nie zidentyfikowano poważnych błędów. Wszystkie główne funkcjonalności działały zgodnie z oczekiwaniami. Jedyną napotkaną trudnością było warunkowe renderowanie przycisków, które zostało poprawione poprzez dodanie odpowiednich walidacji właściwości komponentów.
+
+\end{document}
