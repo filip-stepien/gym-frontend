@@ -86,8 +86,10 @@ export function WorkoutDetailsCard(props: WorkoutDetailsCardProps) {
                             </Space>
                         </Tag>
                     )}
-                    {targetMuscles.map(muscle => (
-                        <Tag color='blue-inverse'>{muscle}</Tag>
+                    {targetMuscles.map((muscle, i) => (
+                        <Tag color='blue-inverse' key={i}>
+                            {muscle}
+                        </Tag>
                     ))}
                 </Flex>
                 <Row className='gap-small flex-col md:flex-row md:gap-20'>
