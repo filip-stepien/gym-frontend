@@ -5,7 +5,7 @@ import { ActionButton } from '../common/ActionButton';
 import { useEffect, useState } from 'react';
 
 export type HallsTableHall = {
-    hallNumber: string;
+    hallName: string;
     hallType: string;
     hallStatus: string;
     detailsHref: string;

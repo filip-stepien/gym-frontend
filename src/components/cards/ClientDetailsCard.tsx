@@ -60,13 +60,13 @@ export function ClientDetailsCard(props: ClientDetailsCardProps) {
                     <Input placeholder='Email...' />
                 </Form.Item>
 
-                <Form.Item
+                {/* <Form.Item
                     label='Date Of Birth'
                     name='dateOfBirth'
                     rules={[{ required: true, message: '' }]}
                 >
                     <DatePicker format='DD.MM.YYYY' className='w-full' />
-                </Form.Item>
+                </Form.Item> */}
                 <Flex justify='end'>
                     <Button type='primary' htmlType='submit'>
                         Edit Information
