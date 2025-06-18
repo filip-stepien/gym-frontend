@@ -1,0 +1,62 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+\usepackage{subfiles}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{times}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\lstdefinelanguage{TypeScript}{
+  keywords={
+    break, case, catch, class, const, continue, debugger, default, delete, do,
+    else, enum, export, extends, false, finally, for, function, if, import, in,
+    instanceof, new, null, return, super, switch, this, throw, true, try, typeof,
+    var, void, while, with, as, implements, interface, let, package, private,
+    protected, public, static, yield, any, boolean, constructor, declare, get,
+    module, require, number, set, string, symbol, type, from, of, unknown, never, readonly, keyof
+  },
+  sensitive=true,
+  morecomment=[l]//,
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`,
+}
+
+\lstset{
+  language=TypeScript,
+  backgroundcolor=\color{gray!5},
+  basicstyle=\ttfamily\tiny,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{teal},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=10pt,
+  frame=single,
+  breaklines=true,
+  captionpos=b
+}
+
+\begin{document}
+
+\subfile{sections/title/section.tex}
+
+\subfile{sections/wprowadzenie/section.tex}
+\subfile{sections/implementacja/section.tex}
+\subfile{sections/testy/section.tex}
+\subfile{sections/podsumowanie/section.tex}
+\subfile{sections/podzial/section.tex}
+
+\newpage
+
+\subfile{sections/literatura/section.tex}
+
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass[../../spr.tex]{subfiles}
+
+\begin{document}
+
+\section{Podsumowanie}
+
+\subsection{Wnioski z realizacji projektu}
+
+Realizacja aplikacji do zarządzania siłownią pozwoliła zdobyć praktyczne doświadczenie w projektowaniu i implementacji złożonego interfejsu użytkownika z wykorzystaniem nowoczesnych rozwiązań frontendowych. W trakcie prac możliwe było zastosowanie w praktyce wiedzy dotyczącej architektury aplikacji typu SPA (\textit{Single Page Application}), obsługi routingu, stanu aplikacji oraz integracji z zewnętrznymi usługami. Projekt umożliwił także lepsze zrozumienie zasad projektowania komponentów, tworzenia struktury kodu możliwej do wykorzystania w różnych częściach aplikacji oraz skutecznego testowania aplikacji — wcześniej wydawało się, że pisanie testów w aplikacjach \textit{frontendowych} jest mało przydatne lub trudne do zrealizowania. Okazało się, że każdy z tych aspektów jest kluczowy dla prawidłowego działania aplikacji.
+
+\subsection{Ocena osiągniętych rezultatów i refleksje na temat procesu implementacji}
+
+Zrealizowana aplikacja spełnia założone wymagania funkcjonalne i techniczne. Interfejs użytkownika został zaprojektowany w sposób intuicyjny, a podział na role użytkowników (klient, pracownik, trener, menadżer) pozwala na klarowną separację uprawnień i dostępnych funkcji. Największym wyzwaniem okazała się integracja z backendem (spodziewaliśmy się, że pójdzie sprawniej), szczególnie podczas tworzenia i walidacji formularzy.
+
+Pomimo relatywnie niewielkiej liczby funkcjonalności, projekt okazał się trudny i wyjątkowo czasochłonny. Każdy etap — od zaprojektowania interfejsu, przez jego wdrożenie i przetestowanie, aż po integrację z API — wymagał dużo zaangażowania i dokładności. Cały proces jest złożony i wymaga starannego planowania, co pokazuje, jak czasochłonne jest tworzenie nawet pozornie prostych aplikacji \textit{frontendowych}.
+
+\subsection{Propozycje usprawnień lub dalszego rozwoju aplikacji}
+
+Aplikacja ma duży potencjał dalszego rozwoju. Do możliwych usprawnień należą:
+
+\begin{itemize}
+  \item Wprowadzenie systemu powiadomień dla użytkowników (np. przypomnienia o wygasającym karnecie).
+  \item Umożliwienie komunikacji pomiędzy trenerem a klientem (chat, wiadomości).
+  \item Rozbudowa sekcji analitycznej dla menadżera, np. o raporty frekwencji czy obłożenia sal.
+  \item Obsługa różnych rodzajów karnetów.
+  \item Dodanie możliwości tworzenia i zarządzania kontami użytkowników bezpośrednio w aplikacji, zamiast manipulowania nimi w systemie \textit{Keycloak}.
+  \item Implementacja systemu ocen i opinii na temat trenerów i zajęć.
+\end{itemize}
+
+\end{document}
