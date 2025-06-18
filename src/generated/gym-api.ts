@@ -42,11 +42,11 @@ export interface Membership {
 
 export type MembershipTypeCurrency = {
     currencyCode?: string;
+    numericCode?: number;
+    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
-    numericCode?: number;
-    numericCodeAsString?: string;
 };
 
 export interface MembershipType {
@@ -125,7 +125,7 @@ export interface MembershipRequest {
 
 export interface MembershipDto {
     uuid?: string;
-    purchaseDate?: string;
+    validFrom?: string;
     validUntil?: string;
     membershipType?: MembershipType;
     valid?: boolean;
@@ -212,8 +212,8 @@ export interface UserDto {
 }
 
 export interface PageWorkoutSessionDto {
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -241,8 +241,8 @@ export interface SortObject {
 }
 
 export interface PageUserDto {
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -293,8 +293,8 @@ export interface Pageable {
 }
 
 export interface PageMembershipDto {
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -308,11 +308,11 @@ export interface PageMembershipDto {
 
 export type PaymentDtoCurrency = {
     currencyCode?: string;
+    numericCode?: number;
+    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
-    numericCode?: number;
-    numericCodeAsString?: string;
 };
 
 export type PaymentDtoStatus = (typeof PaymentDtoStatus)[keyof typeof PaymentDtoStatus];
@@ -333,8 +333,8 @@ export interface PaymentDto {
 }
 
 export interface PageMembershipTypeDto {
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -347,8 +347,8 @@ export interface PageMembershipTypeDto {
 }
 
 export interface PageMaintenanceTaskDto {
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -361,8 +361,8 @@ export interface PageMaintenanceTaskDto {
 }
 
 export interface PageHallDto {
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
@@ -380,8 +380,8 @@ export interface HallTypeDto {
 }
 
 export interface PageExerciseDto {
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
