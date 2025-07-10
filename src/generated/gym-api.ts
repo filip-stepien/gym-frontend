@@ -42,11 +42,11 @@ export interface Membership {
 
 export type MembershipTypeCurrency = {
     currencyCode?: string;
-    numericCode?: number;
-    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
+    numericCode?: number;
+    numericCodeAsString?: string;
 };
 
 export interface MembershipType {
@@ -308,11 +308,11 @@ export interface PageMembershipDto {
 
 export type PaymentDtoCurrency = {
     currencyCode?: string;
-    numericCode?: number;
-    numericCodeAsString?: string;
     displayName?: string;
     symbol?: string;
     defaultFractionDigits?: number;
+    numericCode?: number;
+    numericCodeAsString?: string;
 };
 
 export type PaymentDtoStatus = (typeof PaymentDtoStatus)[keyof typeof PaymentDtoStatus];
